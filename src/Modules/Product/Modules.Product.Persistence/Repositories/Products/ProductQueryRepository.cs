@@ -11,8 +11,8 @@ namespace Modules.Product.Persistence.Repositories.Users;
 public class ProductQueryRepository
     : QueryRepository<Modules.Product.Domain.Entities.Products.Product>, IProductQueryRepository
 {
-    private readonly ReadDbContext _dbContext;
-    public ProductQueryRepository(ReadDbContext context) : base(context)
+    private readonly ProductReadDbContext _dbContext;
+    public ProductQueryRepository(ProductReadDbContext context) : base(context)
     {
         _dbContext = context;
     }

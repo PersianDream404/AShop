@@ -3,11 +3,9 @@
 	<ItemGroup>
 		<PackageReference Include="Mapster" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design"/>
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools"/>
 		<!--<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />-->
 		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" />
@@ -17,8 +15,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\..\BuildingBlocks\Infrastructure\Infrastructure.csproj" />
-	  <ProjectReference Include="..\Modules.Product.Application\Modules.Product.Application.csproj" />
-	  <ProjectReference Include="..\Modules.Product.Domain\Modules.Product.Domain.csproj" />
+		<ProjectReference Include="..\..\..\BuildingBlocks\Infrastructure\Infrastructure.csproj" />
+		<ProjectReference Include="..\Modules.Product.Application\Modules.Product.Application.csproj" />
+		<ProjectReference Include="..\Modules.Product.Domain\Modules.Product.Domain.csproj" />
 	</ItemGroup>
 </Project>

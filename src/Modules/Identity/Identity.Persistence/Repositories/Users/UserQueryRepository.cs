@@ -9,7 +9,7 @@ namespace Identity.Persistence.Repositories.Users;
 public class UserQueryRepository
     : QueryRepository<User>, IUserQueryRepository
 {
-    public UserQueryRepository(ReadDbContext context) : base(context)
+    public UserQueryRepository(IdentityReadDbContext context) : base(context)
     {
     }
 }

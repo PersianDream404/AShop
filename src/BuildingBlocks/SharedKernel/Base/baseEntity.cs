@@ -8,21 +8,21 @@ namespace SharedKernel.Base;
 
 public class BaseEntityEmpty
 {
-    public int Id { get; set; }
+    public long Id { get; set; }
 
 
 }
 public class BaseEntitySoftEmpty
 {
     public bool Deleted { get; set; } = false;
-    public int Id { get; set; }
+    public long Id { get; set; }
 
     public bool Status { get; set; } = true;
 
 }
 public class BaseEntityIdentity : BaseEntity
 {
-    public int Id { get; set; }
+    public long Id { get; set; }
 
 
 }

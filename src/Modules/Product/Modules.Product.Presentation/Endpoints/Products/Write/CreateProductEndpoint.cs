@@ -14,7 +14,7 @@ namespace Modules.Product.Presentation.Endpoints.Products.Write;
 
 
 
-public static class CreateUserEndpoint
+public static class CreateProductEndpoint
 {
     public class EndPoint : BaseEndpoint, IEndpoint
     {

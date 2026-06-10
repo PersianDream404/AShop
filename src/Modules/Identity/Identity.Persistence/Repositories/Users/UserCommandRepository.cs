@@ -13,7 +13,7 @@ namespace Identity.Persistence.Repositories.Users;
 public class UserCommandRepository
     : CommandRepository<User>, IUserCommandRepository
 {
-    public UserCommandRepository(WriteDbContext context) : base(context)
+    public UserCommandRepository(IdentityWriteDbContext context) : base(context)
     {
     }
 

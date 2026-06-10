@@ -39,10 +39,10 @@ public static class DependencyInjection
         #endregion
 
 
-        services.AddDbContext<WriteDbContext>(opt =>
+        services.AddDbContext<IdentityWriteDbContext>(opt =>
             opt.UseSqlServer(configuration.GetConnectionString(AppSetting.ConnectionString)));
 
-        services.AddDbContext<ReadDbContext>(opt =>
+        services.AddDbContext<IdentityReadDbContext>(opt =>
             opt.UseSqlServer(configuration.GetConnectionString(AppSetting.ConnectionString)));
 
 

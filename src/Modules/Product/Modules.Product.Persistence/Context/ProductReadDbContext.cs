@@ -1,10 +1,12 @@
 ﻿using Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
+using SharedKernel.Base;
+using System.Linq.Expressions;
 
-namespace Modules.Product.Persistence.Context;
-public class WriteDbContext : BaseDbContext
+namespace Identity.Persistence.Context;
+public class ProductReadDbContext : BaseDbContext
 {
-    public WriteDbContext(DbContextOptions<BaseDbContext> options) : base(options)
+    public ProductReadDbContext(DbContextOptions<BaseDbContext> options) : base(options)
     {
     
     }
@@ -14,7 +16,11 @@ public class WriteDbContext : BaseDbContext
         modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
     }
     #region DbSet
+
+
     public DbSet<Modules.Product.Domain.Entities.Products.Product> Products { get; set; }
+
+
 
 
     #endregion

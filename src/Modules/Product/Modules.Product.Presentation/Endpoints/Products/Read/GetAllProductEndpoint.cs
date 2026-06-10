@@ -18,7 +18,7 @@ namespace Modules.Product.Presentation.Endpoints.Products.Write;
 
 
 
-public static class GetAllUserEndpoint
+public static class GetAllProductEndpoint
 {
     public class EndPoint : BaseEndpoint, IEndpoint
     {
@@ -27,7 +27,7 @@ public static class GetAllUserEndpoint
             app.MapGet($"{ApiInfo.Prefix}", handler: async (
 
 
-                    [FromBody] GetAllProductRequestDto request,
+                    [AsParameters] GetAllProductRequestDto request,
                   [FromServices] IQueryBus _queryBus
                 ) =>
             {

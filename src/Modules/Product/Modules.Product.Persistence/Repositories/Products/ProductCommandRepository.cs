@@ -14,7 +14,7 @@ namespace Modules.Product.Persistence.Repositories.Users;
 public class ProductCommandRepository
     : CommandRepository<Modules.Product.Domain.Entities.Products.Product>, IProductCommandRepository
 {
-    public ProductCommandRepository(WriteDbContext context) : base(context)
+    public ProductCommandRepository(ProductWriteDbContext context) : base(context)
     {
     }
 

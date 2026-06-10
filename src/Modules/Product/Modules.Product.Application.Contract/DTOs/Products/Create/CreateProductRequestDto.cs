@@ -1,6 +1,4 @@
-﻿using Modules.Product.Domain.Entities.Features;
-using Modules.Product.Domain.Entities.FeaturesCategories;
-using Modules.Product.Domain.Entities.Products;
+﻿
 using SharedKernel.Base;
 
 namespace Modules.Product.Application.Contract.DTOs.Products.Create;

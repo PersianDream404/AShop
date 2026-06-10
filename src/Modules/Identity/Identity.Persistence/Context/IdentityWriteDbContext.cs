@@ -5,9 +5,9 @@ using SharedKernel.Base;
 using System.Linq.Expressions;
 
 namespace Identity.Persistence.Context;
-public class WriteDbContext : BaseDbContext
+public class IdentityWriteDbContext : BaseDbContext
 {
-    public WriteDbContext(DbContextOptions<BaseDbContext> options) : base(options)
+    public IdentityWriteDbContext(DbContextOptions<BaseDbContext> options) : base(options)
     {
     
     }

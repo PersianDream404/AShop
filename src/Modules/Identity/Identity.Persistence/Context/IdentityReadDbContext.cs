@@ -5,9 +5,9 @@ using SharedKernel.Base;
 using System.Linq.Expressions;
 
 namespace Identity.Persistence.Context;
-public class ReadDbContext : BaseDbContext
+public class IdentityReadDbContext : BaseDbContext
 {
-    public ReadDbContext(DbContextOptions<BaseDbContext> options) : base(options)
+    public IdentityReadDbContext(DbContextOptions<BaseDbContext> options) : base(options)
     {
     
     }

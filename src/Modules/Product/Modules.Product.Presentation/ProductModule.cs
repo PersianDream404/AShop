@@ -20,7 +20,7 @@ public class ProductModule : IModule
 
         services.Scan(scan =>
         {
-            scan.FromAssemblyOf<CreateUserEndpoint.EndPoint>()
+            scan.FromAssemblyOf<CreateProductEndpoint.EndPoint>()
                 .AddClasses(x => x.AssignableTo<IEndpoint>())
                 .AsImplementedInterfaces()
                 .WithSingletonLifetime();
