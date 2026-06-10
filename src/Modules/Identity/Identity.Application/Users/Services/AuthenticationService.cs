@@ -4,7 +4,7 @@ using Identity.Application.Contract.DTOs.Authentications;
 using Identity.Application.Contract.Services;
 using Identity.Domain.Entities;
 using Mapster;
-using ParsizCRM.API.Shared.Constants;
+
 using SharedKernel.Helper;
 using SharedKernel.Interface;
 using System;

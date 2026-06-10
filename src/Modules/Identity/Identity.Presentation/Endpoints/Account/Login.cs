@@ -3,6 +3,7 @@ using Identity.Application.Contract.DTOs.Users;
 using Identity.Application.Contract.Users.Queries;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using ParsizCRM.API.Features.Account;
 using SharedKernel.Interface;
@@ -37,15 +38,18 @@ public static class CreateUserEndpoint
             app.MapPost($"{ApiInfo.Prefix}/Login", handler: async (
 
 
-                    CreateUserRequestDto request
+                  [FromBody] CreateUserRequestDto request,
+                  [FromServices] ICommandBus _commandBus
                 ) =>
             {
 
-                //var result = await authenticationService.LoginAsync(request);
+                var result = await _commandBus.Send<CreateUserCommand, bool>(
+                new CreateUserCommand(request));
+
                 //if (!result.IsSuccess)
-                //    return BadRequest("احراز هویت انجام نشد");
-
-
+                //{
+                //    var message = result.GetErrorMessage();
+                //}
 
                 return Ok("تست");
 

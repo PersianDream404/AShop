@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\Modules.Product.Application.Contract\Modules.Product.Application.Contract.csproj" />
+  </ItemGroup>
+
+
+
+  <ItemGroup>
+    <Folder Include="Enums\" />
+  </ItemGroup>
+
+</Project>

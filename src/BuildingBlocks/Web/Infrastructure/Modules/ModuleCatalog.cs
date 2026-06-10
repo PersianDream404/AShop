@@ -16,7 +16,7 @@ public class ModuleCatalog : IModuleCatalog
 
     public ModuleCatalog(IEnumerable<IModule> modules, IEnumerable<MenuItem> menuItems)
     {
-        Modules = modules.OrderBy(m => m.Order).ToArray();
+        //Modules = modules.OrderBy(m => m.Order).ToArray();
         MenuItems = menuItems.OrderBy(m => m.Order).ToArray();
     }
 }

@@ -8,20 +8,20 @@ namespace SharedKernel.Interface;
 // Contract that all modules implement so the Web host can wire them up
 public interface IModule
 {
-    /// <summary>
-    /// Name of the module, used for display and logging.
-    /// </summary>
-    string Name { get; }
+    ///// <summary>
+    ///// Name of the module, used for display and logging.
+    ///// </summary>
+    //string Name { get; }
 
-    /// <summary>
-    /// Order used for sorting modules in navigation / UI.
-    /// Lower values come first.
-    /// </summary>
-    int Order { get; }
+    ///// <summary>
+    ///// Order used for sorting modules in navigation / UI.
+    ///// Lower values come first.
+    ///// </summary>
+    //int Order { get; }
 
-    /// <summary>
-    /// Register module-specific services and DbContexts.
-    /// </summary>
+    ///// <summary>
+    ///// Register module-specific services and DbContexts.
+    ///// </summary>
     void RegisterServices(IServiceCollection services, IConfiguration configuration);
 
     ///// <summary>

@@ -1,4 +1,4 @@
-﻿namespace ParsizCRM.API.Shared.Constants;
+﻿namespace SharedKernel.Constants;
 
 public class AppMessages
 {

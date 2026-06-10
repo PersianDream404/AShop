@@ -7,12 +7,17 @@ namespace Web.Infrastructure.Modules;
 
 public static class ModuleLoader
 {
-    private const string ModulePrefix = "Identity.";
+    private static readonly List<string> ModulePrefixes =
+    [
+        "Identity.",
+        "Modules."
+    ];
 
     public static IReadOnlyCollection<IModule> DiscoverModules()
     {
         var runtimeLibs = DependencyContext.Default?.RuntimeLibraries
-            .Where(l => l.Name.StartsWith(ModulePrefix, StringComparison.OrdinalIgnoreCase))
+            .Where(l => ModulePrefixes.Any(p =>
+                l.Name.StartsWith(p, StringComparison.OrdinalIgnoreCase)))
             .ToList() ?? new List<RuntimeLibrary>();
 
         foreach (var lib in runtimeLibs)
@@ -27,14 +32,15 @@ public static class ModuleLoader
         }
 
         var moduleAssemblies = AppDomain.CurrentDomain.GetAssemblies()
-            .Where(a => a.GetName().Name?.StartsWith(ModulePrefix, StringComparison.OrdinalIgnoreCase) == true)
+            .Where(a => ModulePrefixes.Any(p =>
+                a.GetName().Name?.StartsWith(p, StringComparison.OrdinalIgnoreCase) == true))
             .ToList();
 
         var modules = moduleAssemblies
             .SelectMany(SafeGetTypes)
             .Where(t => t is not null && !t.IsAbstract && typeof(IModule).IsAssignableFrom(t))
             .Select(t => (IModule)Activator.CreateInstance(t!)!)
-            .OrderBy(m => m.Order)
+            //.OrderBy(m => m.Order)
             .ToArray();
 
         return modules;
@@ -48,8 +54,8 @@ public static class ModuleLoader
         }
         catch (ReflectionTypeLoadException ex)
         {
-            // Returns the types that could be loaded
             return ex.Types;
         }
     }
 }
+
