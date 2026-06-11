@@ -42,7 +42,7 @@ public sealed class ProductSelectedColorsConfiguration
 {
     public void Configure(EntityTypeBuilder<ProductSelectedColors> builder)
     {
-        builder.ToTable("ProductSelectedColorrs");
+        builder.ToTable("ProductSelectedColors");
 
         builder.HasKey(x => x.Id);
 
@@ -67,5 +67,43 @@ public sealed class ProductSelectedColorsConfiguration
         // جلوگیری از تکرار برند برای یک محصول
         builder.HasIndex(x => new { x.ProductId, x.ProductColorId })
             .IsUnique();
+    }
+}
+
+public sealed class ProductSelectedFeaturesConfiguration
+    : IEntityTypeConfiguration<ProductSelectedFeatures>
+{
+    public void Configure(EntityTypeBuilder<ProductSelectedFeatures> builder)
+    {
+        builder.ToTable("ProductSelectedFeatures");
+
+        builder.HasKey(x => x.Id);
+
+        //builder.Property(x => x.ProductId)
+        //    .IsRequired();
+
+        //builder.Property(x => x.ProductColorId)
+        //    .IsRequired();
+
+        // Product relation
+        builder.HasOne(x => x.Product)
+            .WithMany(x => x.ProductFeatures)
+            .HasForeignKey(x => x.ProductId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        // Color relation
+        builder.HasOne(x => x.ProductFeaturesCategory)
+            .WithMany(x => x.ProductFeatures)
+            .HasForeignKey(x => x.ProductFeaturesCategoryId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne(x => x.ProductFeatures)
+            .WithMany(x => x.ProductSelectedFeatures)
+            .HasForeignKey(x => x.ProductFeaturesId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        // جلوگیری از تکرار برند برای یک محصول
+        //builder.HasIndex(x => new { x.ProductId, x.ProductColorId })
+        //    .IsUnique();
     }
 }
