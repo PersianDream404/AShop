@@ -32,7 +32,7 @@ public class ProductSelectedFeatures : BaseEntityIdentity
     /// <summary>
     /// دسته‌بندی ویژگی
     /// </summary>
-    public ProductFeaturesCategory? ProductFeaturesCategory { get; set; }
+    public FeaturesCategory? ProductFeaturesCategory { get; set; }
     public ProductFeatures? ProductFeatures { get; set; }
 
     /// <summary>

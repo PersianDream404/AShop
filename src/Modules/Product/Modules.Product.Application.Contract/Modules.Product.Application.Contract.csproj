@@ -7,7 +7,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\BuildingBlocks\SharedKernel\SharedKernel.csproj" />
+    <ProjectReference Include="..\Modules.Product.Domain\Modules.Product.Domain.csproj" />
   </ItemGroup>
 
 </Project>

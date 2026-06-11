@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Modules.Product.Domain.Entities.Brands;
 
 public sealed class ProductBrandConfiguration
-    : IEntityTypeConfiguration<ProductBrand>
+    : IEntityTypeConfiguration<Brand>
 {
-    public void Configure(EntityTypeBuilder<ProductBrand> builder)
+    public void Configure(EntityTypeBuilder<Brand> builder)
     {
         builder.ToTable("ProductBrands");
 

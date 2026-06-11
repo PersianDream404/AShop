@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Modules.Product.Domain.Entities.Colors;
 
-public sealed class ProductColorConfiguration : IEntityTypeConfiguration<ProductColor>
+public sealed class ProductColorConfiguration : IEntityTypeConfiguration<Color>
 {
-    public void Configure(EntityTypeBuilder<ProductColor> builder)
+    public void Configure(EntityTypeBuilder<Color> builder)
     {
         builder.ToTable("ProductColors");
 

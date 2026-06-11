@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Modules.Product.Application.Contract.DTOs.Products.Create;
 using Modules.Product.Application.Contract.UseCase.Products.Commands;
-using ParsizCRM.API.Features.Account;
+using Modules.Product.Presentation.Endpoints.Brands;
 using SharedKernel.Constants;
 using SharedKernel.Interface;
 
@@ -23,7 +23,7 @@ public static class CreateProductEndpoint
             app.MapPost($"{ApiInfo.Prefix}", handler: async (
 
 
-                    [FromBody]CreateProductRequestDto request,
+                    [FromBody] CreateProductRequestDto request,
                   [FromServices] ICommandBus _commandBus
                 ) =>
             {

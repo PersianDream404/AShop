@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Modules.Product.Domain.Entities.FeaturesCategories;
 
 public sealed class ProductFeaturesCategoryConfiguration
-    : IEntityTypeConfiguration<ProductFeaturesCategory>
+    : IEntityTypeConfiguration<FeaturesCategory>
 {
-    public void Configure(EntityTypeBuilder<ProductFeaturesCategory> builder)
+    public void Configure(EntityTypeBuilder<FeaturesCategory> builder)
     {
         builder.ToTable("ProductFeaturesCategories");
 

@@ -26,6 +26,6 @@ public class ProductSelectedBrands : BaseEntityIdentity
     /// <summary>
     /// برند
     /// </summary>
-    public ProductBrand ProductBrand { get; set; } = null!;
+    public Brand ProductBrand { get; set; } = null!;
 }
 

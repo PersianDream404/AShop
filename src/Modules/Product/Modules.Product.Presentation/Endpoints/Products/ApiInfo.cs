@@ -1,4 +1,4 @@
-﻿namespace ParsizCRM.API.Features.Account;
+﻿namespace Modules.Product.Presentation.Endpoints.Products;
 
 public static class ApiInfo {
     public const string Tag = "Product";

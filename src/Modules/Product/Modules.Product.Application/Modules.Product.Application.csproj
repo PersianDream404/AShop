@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
         <ProjectReference Include="..\..\..\BuildingBlocks\Framwork\Framwork.csproj" />
-        <ProjectReference Include="..\Modules.Product.Domain\Modules.Product.Domain.csproj" />
+        <ProjectReference Include="..\Modules.Product.Application.Contract\Modules.Product.Application.Contract.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FluentValidation" />
@@ -11,7 +11,7 @@
     <PackageReference Include="Mapster.DependencyInjection" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Products\Services\" />
-    <Folder Include="Products\Validation\" />
+    <Folder Include="UseCase\Products\Services\" />
+    <Folder Include="UseCase\Products\Validation\" />
   </ItemGroup>
 </Project>

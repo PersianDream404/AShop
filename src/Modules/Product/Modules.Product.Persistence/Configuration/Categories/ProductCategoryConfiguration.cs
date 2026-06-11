@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Modules.Product.Domain.Entities.Categories;
 
 public sealed class ProductCategoryConfiguration
-    : IEntityTypeConfiguration<ProductCategory>
+    : IEntityTypeConfiguration<Category>
 {
-    public void Configure(EntityTypeBuilder<ProductCategory> builder)
+    public void Configure(EntityTypeBuilder<Category> builder)
     {
         builder.ToTable("ProductCategories");
 

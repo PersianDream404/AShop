@@ -3,13 +3,13 @@
 
 
   <ItemGroup>
-    <ProjectReference Include="..\Modules.Product.Application.Contract\Modules.Product.Application.Contract.csproj" />
+    <Folder Include="Enums\" />
   </ItemGroup>
 
 
 
   <ItemGroup>
-    <Folder Include="Enums\" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\SharedKernel\SharedKernel.csproj" />
   </ItemGroup>
 
 </Project>

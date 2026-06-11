@@ -26,6 +26,6 @@ public class ProductSelectedCategory : BaseEntityIdentity
     /// <summary>
     /// دسته‌بندی
     /// </summary>
-    public ProductCategory ProductCategory { get; set; } = null!;
+    public Category ProductCategory { get; set; } = null!;
 }
 

@@ -2,8 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Modules.Product.Application.Contract.Interface.Brands;
+using Modules.Product.Application.Contract.Interface.Products;
+using Modules.Product.Domain.Interface.Brands;
 using Modules.Product.Domain.Interface.Products;
 using Modules.Product.Persistence.Context;
+using Modules.Product.Persistence.Repositories.Brands;
 using Modules.Product.Persistence.Repositories.Users;
 using SharedKernel.Constants;
 
@@ -47,6 +51,10 @@ public static class DependencyInjection
         services.AddScoped<IProductCommandRepository, ProductCommandRepository>();
         services.AddScoped<IProductQueryRepository, ProductQueryRepository>();
 
+
+
+        services.AddScoped<IBrandCommandRepository, BrandCommandRepository>();
+        services.AddScoped<IBrandQueryRepository, BrandQueryRepository>();
 
 
         return services;

@@ -1,0 +1,50 @@
+﻿using Framwork.Bus.Command;
+using Framwork.Extensions;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
+using Modules.Product.Application.Contract.DTOs.Brands.Update;
+using Modules.Product.Application.Contract.UseCase.Brands.Commands;
+using SharedKernel.Constants;
+using SharedKernel.Helper;
+using SharedKernel.Interface;
+
+namespace Modules.Product.Presentation.Endpoints.Brands.Write;
+
+
+
+public static class UpdateBrandEndpoint
+{
+    public class EndPoint : BaseEndpoint, IEndpoint
+    {
+        public void MapEndpoint(IEndpointRouteBuilder app)
+        {
+            app.MapPut($"{ApiInfo.Prefix}/{{id}}", handler: async (
+
+                  int id,
+                    [FromBody]UpdateBrandRequestDto request,
+                  [FromServices] ICommandBus _commandBus
+                ) =>
+            {
+
+                if (id != request.Id)
+                    return BadRequest(AppMessages.BadRequest);
+
+                var result = await _commandBus.Send<UpdateBrandCommand, bool>
+                                 (new UpdateBrandCommand(request));
+
+                if (!result.IsSuccess)
+                {
+                    var message = result.GetErrorMessage();
+                    return BadRequest(message);
+                }
+
+                return Ok(MessageHelper.Format(AppMessages.Edit, AppEntity.Brand));
+
+
+            })
+                .WithTags(ApiInfo.Tag);
+        }
+    }
+}

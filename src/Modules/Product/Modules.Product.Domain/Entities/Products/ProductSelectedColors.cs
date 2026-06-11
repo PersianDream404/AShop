@@ -26,6 +26,6 @@ public class ProductSelectedColors : BaseEntityIdentity
     /// <summary>
     /// رنگ
     /// </summary>
-    public ProductColor ProductColor { get; set; } = null!;
+    public Color ProductColor { get; set; } = null!;
 }
 

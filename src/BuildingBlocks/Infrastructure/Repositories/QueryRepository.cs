@@ -1,10 +1,14 @@
 ﻿namespace Infrastructure.Repositories;
 
+using Ardalis.Result;
 using global::Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
+using SharedKernel.Constants;
+using SharedKernel.Helper;
 using SharedKernel.Interface.Repositories;
 using System;
 using System.Linq.Expressions;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 public class QueryRepository<T> : IQueryRepository<T> where T : class
 {
@@ -37,21 +41,58 @@ public class QueryRepository<T> : IQueryRepository<T> where T : class
     public async Task<bool> GetAnyAsync(Expression<Func<T, bool>> predicate, CancellationToken ct = default) =>
         await _context.Set<T>().AnyAsync(predicate, ct);
 
-    public async Task<T?> GetByIdAsync(int id, CancellationToken ct = default) =>
+    public async Task<T?> GetByIdAsync(long id, CancellationToken ct = default) =>
         await _context.Set<T>().FindAsync(new object[] { id }, ct);
 
-    public T? GetById(int id) =>
+    public T? GetById(long id) =>
         _context.Set<T>().AsNoTracking()
-            .FirstOrDefault(e => EF.Property<int>(e, "Id") == id);
+            .FirstOrDefault(e => EF.Property<long>(e, "Id") == id);
 
-    public async Task<T?> GetByIdAsync(int id, CancellationToken ct = default, params Expression<Func<T, object>>[] includes)
+    public async Task<T?> GetByIdAsync(long id, CancellationToken ct = default, params Expression<Func<T, object>>[] includes)
     {
         IQueryable<T> query = _context.Set<T>().AsNoTracking();
 
         foreach (var include in includes)
             query = query.Include(include);
 
-        return await query.FirstOrDefaultAsync(e => EF.Property<int>(e, "Id") == id, ct);
+        return await query.FirstOrDefaultAsync(e => EF.Property<long>(e, "Id") == id, ct);
+    }
+
+    public async Task<bool> IsUniqueAsync(
+                Expression<Func<T, bool>> predicate,
+                bool isCreate = true,
+                CancellationToken ct = default
+                )
+                    {
+                        if (isCreate)
+                        {
+                
+                            return !await _context.Set<T>().AnyAsync(predicate, ct);
+                        }
+                        else
+                        {
+                            return await _context.Set<T>().CountAsync(predicate, ct) <= 1;
+                        }
+                    }
+
+    public async Task<Result> IsAny(int id, string entityname, CancellationToken ct = default)
+    {
+        var exists = id != 0 && await GetAnyAsync(x => EF.Property<int>(x, "Id") == id, ct);
+
+        return exists
+            ? Result.Success()
+            : Result.Error(MessageHelper.Format(AppMessages.NotFound, entityname));
+    }
+    public async Task<Result> IsAny(int[] ids, string entityname, CancellationToken ct = default)
+    {
+        foreach (var id in ids)
+        {
+            var exists = id != 0 && await GetAnyAsync(x => EF.Property<int>(x, "Id") == id, ct);
+
+            if (!exists)
+                return Result.Error(MessageHelper.Format(AppMessages.NotFound, entityname));
+        }
+        return Result.Success();
     }
 }
 
