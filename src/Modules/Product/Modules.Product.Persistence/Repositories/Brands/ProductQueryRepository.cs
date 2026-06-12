@@ -5,6 +5,7 @@ using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Modules.Product.Application.Contract.DTOs.Brands.GetAll;
 using Modules.Product.Application.Contract.Interface.Brands;
+using Modules.Product.Domain.Entities.Brands;
 using Modules.Product.Persistence.Mapper.Brands;
 
 namespace Modules.Product.Persistence.Repositories.Brands;
@@ -17,7 +18,6 @@ public class BrandQueryRepository
     {
         _dbContext = context;
     }
-
     public async Task<PagedList<GetAllBrandResponseDto>> GetAllProjectedAsync(GetAllBrandRequestDto request, CancellationToken ct)
     {
         var query = _dbContext.Brands
@@ -26,6 +26,22 @@ public class BrandQueryRepository
 
         var result = await query.ToPagedListAsync(
             BrandMapper.ToGetAllDto(),
+            request.PageNumber,
+            request.PageSize,
+            ct);
+
+        return result;
+    }
+
+    public async Task<PagedList<GetSelectListBrandResponseDto>> GetSelectListProjectedAsync(GetSelectListBrandRequestDto request, CancellationToken ct)
+    {
+        var query = _dbContext.Brands
+            .AsNoTracking()
+            .Where(x=>x.Status)
+            .WhereIf(!string.IsNullOrWhiteSpace(request.Q), x => x.Title.Contains(request.Q!));
+
+        var result = await query.ToPagedListAsync(
+            BrandMapper.ToGetSelectListDto(),
             request.PageNumber,
             request.PageSize,
             ct);

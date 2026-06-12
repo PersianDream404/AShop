@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+using Modules.Product.Application.Contract.DTOs.Brands.Toggle;
 using Modules.Product.Application.Contract.UseCase.Brands.Commands;
 using SharedKernel.Constants;
 using SharedKernel.Helper;
@@ -13,23 +14,23 @@ namespace Modules.Product.Presentation.Endpoints.Brands.Write;
 
 
 
-public static class DeleteBrandEndpoint
+public static class ToggleBrandEndpoint
 {
     public class EndPoint : BaseEndpoint, IEndpoint
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
-            app.MapDelete($"{ApiInfo.Prefix}/{{id}}", handler: async (
+            app.MapPut($"{ApiInfo.Prefix}/{{id}}/Toggle", handler: async (
 
                   long id,
-                   
+                 
                   [FromServices] ICommandBus _commandBus
                 ) =>
             {
 
 
-                var result = await _commandBus.Send<DeleteBrandCommand, bool>
-                                 (new DeleteBrandCommand(id));
+                var result = await _commandBus.Send<ToggleBrandCommand, bool>
+                                 (new ToggleBrandCommand(id));
 
                 if (!result.IsSuccess)
                 {
@@ -37,7 +38,7 @@ public static class DeleteBrandEndpoint
                     return BadRequest(message);
                 }
 
-                return Ok(MessageHelper.Format(AppMessages.Delete, AppEntity.Brand));
+                return Ok(MessageHelper.Format(AppMessages.Toggle, AppEntity.Brand));
 
 
             })

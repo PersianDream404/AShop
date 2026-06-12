@@ -45,6 +45,16 @@ public class CommandRepository<T> : ICommandRepository<T> where T : class
         _context.Set<T>().Update(entity);
         await _context.SaveChangesAsync(ct);
     }
+    public async Task ToggleAsync(T entity, CancellationToken ct = default)
+    {
+        var entry = _context.Entry(entity);
+        var current = (bool)entry.Property("Status").CurrentValue;
+        current = !current;
+        entry.Property("Status").CurrentValue = current;
+        _context.Set<T>().Update(entity);
+        await _context.SaveChangesAsync(ct);
+    }
+
 
     public async Task AttachAsync(T entity, CancellationToken ct = default)
     {

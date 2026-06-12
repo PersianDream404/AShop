@@ -23,7 +23,7 @@ public class CreateBrandCommandHandler(IBrandCommandRepository BrandCommandRepos
             if (!await brandQueryRepository.IsUniqueAsync(x => x.UrlName == command.request.UrlName,true,cancellationToken))
                 return Result.Error(MessageHelper.Format(AppMessages.Found, AppEntityBrand.UrlName));
             var brand = command.request.Adapt<Brand>();
-            await BrandCommandRepository.AddAsync(brand);
+            await BrandCommandRepository.AddAsync(brand,cancellationToken);
 
         }
         catch (Exception)

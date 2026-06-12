@@ -17,6 +17,7 @@ public interface ICommandRepository<T> where T : class
     Task AddRangeAsync(ICollection<T> entities, CancellationToken ct = default);
 
     Task UpdateAsync(T entity, CancellationToken ct = default);
+    Task ToggleAsync(T entity, CancellationToken ct = default);
 
     Task AttachAsync(T entity, CancellationToken ct = default);
 

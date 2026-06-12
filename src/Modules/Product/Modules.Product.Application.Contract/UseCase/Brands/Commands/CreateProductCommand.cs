@@ -7,3 +7,4 @@ namespace Modules.Product.Application.Contract.UseCase.Brands.Commands;
 public record CreateBrandCommand(CreateBrandRequestDto request) : ICommand<bool>;
 public record UpdateBrandCommand(UpdateBrandRequestDto request) : ICommand<bool>;
 public record DeleteBrandCommand(long Id) : ICommand<bool>;
+public record ToggleBrandCommand(long Id) : ICommand<bool>;

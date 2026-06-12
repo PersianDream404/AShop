@@ -10,5 +10,6 @@ namespace Modules.Product.Application.Contract.Interface.Brands;
 public interface IBrandQueryRepository : IQueryRepository<Brand>
 {
     Task<PagedList<GetAllBrandResponseDto>> GetAllProjectedAsync(GetAllBrandRequestDto request, CancellationToken ct);
+    Task<PagedList<GetSelectListBrandResponseDto>> GetSelectListProjectedAsync(GetSelectListBrandRequestDto request, CancellationToken ct);
     Task<GetByIdBrandResponseDto?> GetByIdProjectedAsync(long id, CancellationToken ct);
 }

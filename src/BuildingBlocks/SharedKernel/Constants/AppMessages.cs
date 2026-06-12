@@ -7,6 +7,7 @@ public class AppMessages
     public const string Create = "اطلاعات {0} با موفقیت ثبت گردید";
     public const string Delete = "اطلاعات {0} با موفقیت حذف گردید";
     public const string Edit = "اطلاعات {0} با موفقیت ویرایش گردید";
+    public const string Toggle = "وضعیت اطلاعات {0} با موفقیت بروزرسانی گردید";
     public const string NotFound = "اطلاعات {0} یافت نشد";
     public const string Found = "{0} تکراری میباشد";
     public const string Error = "خطای نامشخص رخ داده است";

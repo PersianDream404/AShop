@@ -27,7 +27,7 @@ public class UpdateBrandCommandHandler(IBrandCommandRepository brandCommandRepos
             if (!await brandQueryRepository.IsUniqueAsync(x => x.UrlName == command.request.UrlName, false, cancellationToken))
                 return Result.Error(MessageHelper.Format(AppMessages.Found, AppEntityBrand.UrlName));
             command.request.Adapt(brand);
-            await brandCommandRepository.UpdateAsync(brand);
+            await brandCommandRepository.UpdateAsync(brand,cancellationToken);
 
         }
         catch (Exception)

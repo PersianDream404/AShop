@@ -19,7 +19,7 @@ public static class BrandMapper
             Image = x.Image,
             UrlName = x.UrlName,
             Icon = x.Icon,
-            IsActive = x.IsActive
+            Status = x.Status
         };
     }
 
@@ -33,7 +33,18 @@ public static class BrandMapper
             Image = x.Image,
             UrlName = x.UrlName,
             Icon = x.Icon,
-            IsActive = x.IsActive
+            Status = x.Status
+        };
+    }
+
+    public static Expression<Func<Domain.Entities.Brands.Brand, GetSelectListBrandResponseDto>> ToGetSelectListDto()
+    {
+        return x => new GetSelectListBrandResponseDto
+        {
+            Id = x.Id,
+            Title = x.Title,
+            Image = x.Image,
+            Icon = x.Icon,
         };
     }
 }

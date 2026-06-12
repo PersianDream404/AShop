@@ -38,5 +38,5 @@ public class GetByIdBrandResponseDto
     /// <summary>
     /// وضعیت فعال بودن برند
     /// </summary>
-    public bool IsActive { get; set; }
+    public bool Status { get; set; }
 }

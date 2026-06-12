@@ -22,7 +22,7 @@ public static class UpdateBrandEndpoint
         {
             app.MapPut($"{ApiInfo.Prefix}/{{id}}", handler: async (
 
-                  int id,
+                  long id,
                     [FromBody]UpdateBrandRequestDto request,
                   [FromServices] ICommandBus _commandBus
                 ) =>
