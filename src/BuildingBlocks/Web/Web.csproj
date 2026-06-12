@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\Modules\FileStore\Modules.FileStore.Presentation\Modules.FileStore.Presentation.csproj" />
 		<ProjectReference Include="..\..\Modules\Identity\Identity.Presentation\Identity.Presentation.csproj" />
 		<ProjectReference Include="..\..\Modules\Product\Modules.Product.Presentation\Modules.Product.Presentation.csproj" />
 	</ItemGroup>
@@ -9,7 +10,7 @@
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" />
 		<!--<PackageReference Include="Microsoft.AspNetCore.OpenApi" />-->
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Design"/>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" />
 		<PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" />
 
 		<PackageReference Include="Asp.Versioning.Http" />
@@ -19,6 +20,10 @@
 		<PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" />
 		<PackageReference Include="Swashbuckle.AspNetCore.Swagger" />
 		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="wwwroot\uploads\" />
 	</ItemGroup>
 
 </Project>

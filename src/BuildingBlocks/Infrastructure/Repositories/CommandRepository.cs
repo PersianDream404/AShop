@@ -52,7 +52,24 @@ public class CommandRepository<T> : ICommandRepository<T> where T : class
         await _context.SaveChangesAsync(ct);
     }
 
-    public async Task DeleteAsync(int id, CancellationToken ct = default)
+    public async Task DeleteAsync(T entity, CancellationToken ct = default)
+    {
+ 
+        if (entity == null) return;
+
+        if (entity is BaseEntity softEntity)
+        {
+            softEntity.Deleted = true;
+            _context.Set<T>().Update(entity);
+        }
+        else
+        {
+            _context.Set<T>().Remove(entity);
+        }
+
+        await _context.SaveChangesAsync(ct);
+    }
+    public async Task DeleteAsync(long id, CancellationToken ct = default)
     {
         var entity = await _context.Set<T>().FindAsync(new object[] { id }, ct);
         if (entity == null) return;

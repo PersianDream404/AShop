@@ -20,7 +20,8 @@ public interface ICommandRepository<T> where T : class
 
     Task AttachAsync(T entity, CancellationToken ct = default);
 
-    Task DeleteAsync(int id, CancellationToken ct = default);
+    Task DeleteAsync(long id, CancellationToken ct = default);
+    Task DeleteAsync(T entity, CancellationToken ct = default);
 
     Task DeleteAsync(CancellationToken ct = default);
 

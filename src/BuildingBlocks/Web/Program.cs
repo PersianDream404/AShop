@@ -13,7 +13,7 @@ builder.Services.AddApplicationServices(builder.Configuration);
 var app = builder.Build();
 app.MapMyEndpoints();
 // Configure the HTTP request pipeline.
-
+app.UseStaticFiles();
 app.UseSwagger();
 app.UseSwaggerUI(options =>
 {

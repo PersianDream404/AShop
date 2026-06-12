@@ -10,6 +10,13 @@
     <Project Path="src/BuildingBlocks/SharedKernel/SharedKernel.csproj" Id="e9d5425e-3d9f-4088-8ccd-fd9edb22ee23" />
   </Folder>
   <Folder Name="/src/Modules/" />
+  <Folder Name="/src/Modules/FileStore/">
+    <Project Path="src/Modules/FileStore/Modules.FileStore.Application.Contract/Modules.FileStore.Application.Contract.csproj" />
+    <Project Path="src/Modules/FileStore/Modules.FileStore.Application/Modules.FileStore.Application.csproj" />
+    <Project Path="src/Modules/FileStore/Modules.FileStore.Domain/Modules.FileStore.Domain.csproj" />
+    <Project Path="src/Modules/FileStore/Modules.FileStore.Persistence/Modules.FileStore.Persistence.csproj" />
+    <Project Path="src/Modules/FileStore/Modules.FileStore.Presentation/Modules.FileStore.Presentation.csproj" />
+  </Folder>
   <Folder Name="/src/Modules/Identity/">
     <Project Path="src/Modules/Identity/Identity.Application.Contract/Identity.Application.Contract.csproj" Id="54631cdc-d393-402f-942d-94dad4de15d3" />
     <Project Path="src/Modules/Identity/Identity.Application/Identity.Application.csproj" Id="5a8fd422-fded-4fb6-a15e-4f54069040a2" />
@@ -26,6 +33,9 @@
   </Folder>
   <Folder Name="/src/Presentation/">
     <Project Path="src/BuildingBlocks/Web/Web.csproj" Id="e0450831-009b-46e2-b98a-f044cbab3848" />
+  </Folder>
+  <Folder Name="/src/Shared/">
+    <Project Path="src/BuildingBlocks/Shared/Shared.Contract/Shared.Contract.csproj" Id="7cdcf294-e8d7-4e48-a698-7a89532a5c3a" />
   </Folder>
   <Folder Name="/src/Test/" />
 </Solution>
