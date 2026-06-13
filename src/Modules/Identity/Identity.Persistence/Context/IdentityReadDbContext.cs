@@ -1,13 +1,15 @@
 ﻿using Identity.Domain.Entities;
 using Infrastructure.Context;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SharedKernel.Base;
 using System.Linq.Expressions;
 
 namespace Identity.Persistence.Context;
-public class IdentityReadDbContext : BaseDbContext
+public class IdentityReadDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long>, long>
 {
-    public IdentityReadDbContext(DbContextOptions<BaseDbContext> options) : base(options)
+    public IdentityReadDbContext(DbContextOptions<IdentityReadDbContext> options) : base(options)
     {
     
     }
@@ -19,8 +21,8 @@ public class IdentityReadDbContext : BaseDbContext
     #region DbSet
 
 
-    public DbSet<User> Users { get; set; }
-    public DbSet<UserRole> UserRoles { get; set; }
+    public DbSet<ApplicationUser> Users { get; set; }
+    
 
 
     //public DbSet<JobSeeker> JobSeeker { get; set; }

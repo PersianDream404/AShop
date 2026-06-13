@@ -7,4 +7,4 @@ using System.Text;
 
 namespace Identity.Application.Contract.Users.Queries;
 
-public record CreateUserCommand(CreateUserRequestDto request) : ICommand<bool>;
+public record RegisterUserCommand(RegisterUserRequestDto request) : ICommand<RegisterUserResponseDto>;

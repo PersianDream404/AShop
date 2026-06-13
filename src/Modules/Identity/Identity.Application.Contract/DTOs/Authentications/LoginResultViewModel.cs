@@ -6,12 +6,9 @@ using System.Text.Json.Serialization;
 
 namespace Identity.Application.Contract.DTOs.Authentications;
 
-public record LoginViewModel(
-    [property: JsonPropertyName("UserName")] string UserName,
-    [property: JsonPropertyName("Password")] string Password,
-    [property: JsonPropertyName("Role")] int Role,
-    [property: JsonPropertyName("RememberMe")] bool RememberMe,
-    [property: JsonPropertyName("ReturnUrl")] string ReturnUrl = ""
+public record LoginRequestDto(
+   string UserName,
+    string Password
 );
 
 public record LoginResultViewModel(int UserId, List<string> Roles);

@@ -19,14 +19,14 @@ public class GetUserQueryHandler(IUserQueryRepository userQueryRepository)
     {
 
 
-        var user = new GetAllUserResponseDto
-        {
-            Id = 1,
-            FirstName = "Ali",
-            LastName = "shabnai"
-        };
+        //var user = new GetAllUserResponseDto
+        //{
+        //    Id = 1,
+        //    FirstName = "Ali",
+        //    LastName = "shabnai"
+        //};
 
-        var res = userQueryRepository.GetAllAsync(cancellationToken);
+        //var res = userQueryRepository.GetAllAsync(cancellationToken);
 
         return Result.Error("");
     }

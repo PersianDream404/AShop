@@ -21,7 +21,7 @@ public class UserModule : IModule
 
         services.Scan(scan =>
         {
-            scan.FromAssemblyOf<CreateUserEndpoint.EndPoint>()
+            scan.FromAssemblyOf<RegisterUserEndpoint.EndPoint>()
                 .AddClasses(x => x.AssignableTo<IEndpoint>())
                 .AsImplementedInterfaces()
                 .WithSingletonLifetime();

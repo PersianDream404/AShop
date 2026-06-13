@@ -25,7 +25,7 @@ public static class ServiceConfigs
 
         services.AddEndpointsConfiguration(configuration);
         services.AddSwaggerConfiguration();
-        services.AddAuthenticationConfiguration(configuration);
+      //  services.AddAuthenticationConfiguration(configuration);
      
         services.AddCorsConfiguration();
         services.AddApiVersioningConfiguration();

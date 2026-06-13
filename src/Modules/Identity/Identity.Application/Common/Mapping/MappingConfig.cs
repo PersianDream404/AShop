@@ -15,9 +15,9 @@ public static class MappingConfig
 {
     public static void RegisterMappings()
     {
-        TypeAdapterConfig<RegisterUserViewModel, User>.NewConfig();
-        TypeAdapterConfig<CreateUserRequestDto, User>.NewConfig()
-             .Map(dest => dest.Password, src => HashingHelper.HashPassword(src.Password??AppSetting.DefultPassword,AppSetting.Salt))
+        //TypeAdapterConfig<RegisterUserViewModel, User>.NewConfig();
+        TypeAdapterConfig<RegisterUserRequestDto, ApplicationUser>.NewConfig()
+             //.Map(dest => dest.Password, src => HashingHelper.HashPassword(src.Password??AppSetting.DefultPassword,AppSetting.Salt))
             ;
 
     }

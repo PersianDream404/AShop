@@ -42,7 +42,7 @@ public static class CreateFileStoreEndpoint
                     Content = requestForm.File.OpenReadStream(),
                     Category = requestForm.Category
                 };
-                var result = await _commandBus.Send<CreateFileStoreCommand, bool>
+                var result = await _commandBus.Send<CreateFileStoreCommand, string>
                                  (new CreateFileStoreCommand(request));
 
                 if (!result.IsSuccess)
@@ -51,7 +51,7 @@ public static class CreateFileStoreEndpoint
                     return BadRequest(message);
                 }
 
-                return Ok(MessageHelper.Format(AppMessages.Create, AppEntity.FileStore));
+                return Ok(result.Value, MessageHelper.Format(AppMessages.Create, AppEntity.FileStore));
 
 
             })

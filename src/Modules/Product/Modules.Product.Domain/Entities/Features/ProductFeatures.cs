@@ -15,6 +15,6 @@ public class ProductFeatures : BaseEntityIdentity
     public string Title { get; set; } = null!;
 
 
-    public ICollection<ProductSelectedFeatures> ProductSelectedFeatures { get; set; }
+    public ICollection<ProductSelectedFeatures> ProductSelectedFeatures { get; set; } = [];
 }
 

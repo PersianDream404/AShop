@@ -21,9 +21,9 @@ public class UpdateFileStoreCommandHandler(
     IUnitOfWork unitOfWork
 
     )
-    : ICommandHandler<UpdateFileStoreCommand, bool>
+    : ICommandHandler<UpdateFileStoreCommand, string>
 {
-    public async Task<Result<bool>> Handle(
+    public async Task<Result<string>> Handle(
         UpdateFileStoreCommand command,
         CancellationToken cancellationToken)
     {
@@ -55,6 +55,8 @@ public class UpdateFileStoreCommandHandler(
             fileStore.UploadDate = DateTime.Now;
             await fileStoreCommandRepository.UpdateAsync(fileStore,cancellationToken);
             await unitOfWork.CommitAsync(cancellationToken);
+
+            return fileResult.FilePath;
         }
         catch (Exception)
         {
@@ -62,7 +64,6 @@ public class UpdateFileStoreCommandHandler(
             return Result.Error(MessageHelper.Format(AppMessages.ErrorIn, AppEntity.FileStore));
         }
 
-        return true;
     }
 }
 

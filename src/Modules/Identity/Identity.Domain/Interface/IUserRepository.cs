@@ -7,11 +7,12 @@ using System.Text;
 
 namespace Identity.Domain.Interface;
 
-public interface IUserQueryRepository : IQueryRepository<User>
+public interface IUserQueryRepository 
 {
+    Task<ApplicationUser> GetByMobile(string mobile);
 }
 
 
-public interface IUserCommandRepository : ICommandRepository<User>
+public interface IUserCommandRepository
 {
 }

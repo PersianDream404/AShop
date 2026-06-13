@@ -4,10 +4,7 @@ using Framwork.Bus.Query;
 using Framwork.Decorator.Command;
 using Framwork.Decorator.Query;
 using Identity.Application.Common.Mapping;
-using Identity.Application.Contract.Services;
-using Identity.Application.Users.Services;
-using Identity.Domain.Entities;
-
+using Identity.Application.Services;
 using Mapster;
 using MapsterMapper;
 
@@ -46,7 +43,7 @@ public static class DependencyInjection
 
         services.AddScoped<ICommandBus, CommandBus>();
         services.AddScoped<IQueryBus, QueryBus>();
-        services.AddScoped<IAuthenticationService, AuthenticationService>();
+        services.AddScoped<IJwtService, JwtService>();
 
 
         #region Mapping

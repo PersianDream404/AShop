@@ -51,7 +51,7 @@ public static class UpdateFileStoreEndpoint
                     Category = requestForm.Category
                 };
 
-                var result = await _commandBus.Send<UpdateFileStoreCommand, bool>
+                var result = await _commandBus.Send<UpdateFileStoreCommand, string>
                                  (new UpdateFileStoreCommand(request));
 
                 if (!result.IsSuccess)
@@ -60,7 +60,7 @@ public static class UpdateFileStoreEndpoint
                     return BadRequest(message);
                 }
 
-                return Ok(MessageHelper.Format(AppMessages.Edit, AppEntity.FileStore));
+                return Ok(result.Value,MessageHelper.Format(AppMessages.Edit, AppEntity.FileStore));
 
 
             })

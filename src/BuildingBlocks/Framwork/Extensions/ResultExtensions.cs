@@ -22,3 +22,15 @@ public static class ResultExtensions
         return string.Join(" | ", errors);
     }
 }
+public static class stringExtensions
+{
+    public static string NormalizePhoneNumber(this string phoneNumber)
+    {
+        phoneNumber = phoneNumber.Trim().Replace(" ", "").Replace("-", "");
+
+        if (phoneNumber.StartsWith("+98"))
+            phoneNumber = "0" + phoneNumber.Substring(3);
+
+        return phoneNumber;
+    }
+}

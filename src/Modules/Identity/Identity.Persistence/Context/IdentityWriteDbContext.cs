@@ -1,13 +1,15 @@
 ﻿using Identity.Domain.Entities;
 using Infrastructure.Context;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SharedKernel.Base;
 using System.Linq.Expressions;
 
 namespace Identity.Persistence.Context;
-public class IdentityWriteDbContext : BaseDbContext
+public class IdentityWriteDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long>, long>
 {
-    public IdentityWriteDbContext(DbContextOptions<BaseDbContext> options) : base(options)
+    public IdentityWriteDbContext(DbContextOptions<IdentityWriteDbContext> options) : base(options)
     {
     
     }
@@ -17,9 +19,8 @@ public class IdentityWriteDbContext : BaseDbContext
         modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
     }
     #region DbSet
-    public DbSet<User> Users { get; set; }
-    public DbSet<UserRole> UserRoles { get; set; }
-    //public DbSet<JobSeeker> JobSeeker { get; set; }
+    public DbSet<ApplicationUser> Users { get; set; }
+
 
 
     #endregion

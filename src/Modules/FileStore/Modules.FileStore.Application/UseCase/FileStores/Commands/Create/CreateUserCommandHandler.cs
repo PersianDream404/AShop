@@ -20,9 +20,9 @@ public class CreateFileStoreCommandHandler(
     IFileStorageService fileStorageService,
     IUnitOfWork unitOfWork
     )
-: ICommandHandler<CreateFileStoreCommand, bool>
+: ICommandHandler<CreateFileStoreCommand, string>
 {
-    public async Task<Result<bool>> Handle(
+    public async Task<Result<string>> Handle(
         CreateFileStoreCommand command,
         CancellationToken cancellationToken)
     {
@@ -40,6 +40,7 @@ public class CreateFileStoreCommandHandler(
             await fileStoreCommandRepository.AddAsync(fileStore,cancellationToken);
 
             await unitOfWork.CommitAsync(cancellationToken);
+            return fileResult.FilePath;
 
         }
         catch (Exception)
@@ -48,7 +49,6 @@ public class CreateFileStoreCommandHandler(
             return Result.Error(MessageHelper.Format(AppMessages.ErrorIn, AppEntity.FileStore));
         }
 
-        return true;
     }
 }
 
