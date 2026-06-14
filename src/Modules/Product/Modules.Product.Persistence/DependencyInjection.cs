@@ -3,11 +3,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Modules.Product.Application.Contract.Interface.Brands;
+using Modules.Product.Application.Contract.Interface.Colors;
 using Modules.Product.Application.Contract.Interface.Products;
 using Modules.Product.Domain.Interface.Brands;
+using Modules.Product.Domain.Interface.Colors;
 using Modules.Product.Domain.Interface.Products;
 using Modules.Product.Persistence.Context;
 using Modules.Product.Persistence.Repositories.Brands;
+using Modules.Product.Persistence.Repositories.Colors;
 using Modules.Product.Persistence.Repositories.Users;
 using SharedKernel.Constants;
 
@@ -55,6 +58,9 @@ public static class DependencyInjection
 
         services.AddScoped<IBrandCommandRepository, BrandCommandRepository>();
         services.AddScoped<IBrandQueryRepository, BrandQueryRepository>();
+
+        services.AddScoped<IColorCommandRepository, ColorCommandRepository>();
+        services.AddScoped<IColorQueryRepository, ColorQueryRepository>();
 
 
         return services;

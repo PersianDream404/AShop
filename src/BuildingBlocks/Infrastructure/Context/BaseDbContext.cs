@@ -5,6 +5,9 @@ using System.Linq.Expressions;
 namespace Infrastructure.Context;
 public class BaseDbContext : ApplicationDbContext
 {
+    //public BaseDbContext(DbContextOptions options) : base(options)
+    //{
+    //}
     public BaseDbContext(DbContextOptions<BaseDbContext> options) : base(options)
     {
     

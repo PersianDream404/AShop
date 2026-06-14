@@ -20,10 +20,7 @@ public class Color : BaseEntityIdentity
     /// </summary>
     public string ColorCode { get; set; } = null!;
 
-    /// <summary>
-    /// اختلاف قیمت رنگ نسبت به قیمت پایه محصول
-    /// </summary>
-    public int Price { get; set; }
+
 
     /// <summary>
     /// رنگ‌های محصول

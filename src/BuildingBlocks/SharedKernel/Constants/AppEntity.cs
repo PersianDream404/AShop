@@ -6,6 +6,7 @@ public class AppEntity
     public const string Product = "محصول";
     public const string Brand = "برند";
     public const string FileStore = "آپلودر";
+    public const string Color = "رنگ";
 
 
 }
@@ -19,6 +20,13 @@ public class AppEntityBrand
 public class AppEntityFileStore
 {
     public const string FilePath = " ادرس فایل";
+
+
+
+}
+public class AppEntityColor
+{
+    public const string ColorCode = "کد رنگی";
 
 
 

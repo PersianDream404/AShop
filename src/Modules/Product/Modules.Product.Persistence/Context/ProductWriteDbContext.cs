@@ -4,6 +4,10 @@ using Microsoft.EntityFrameworkCore;
 namespace Modules.Product.Persistence.Context;
 public class ProductWriteDbContext : BaseDbContext
 {
+    //public ProductWriteDbContext(DbContextOptions<ProductWriteDbContext> options) : base(options)
+    //{
+    //}
+
     public ProductWriteDbContext(DbContextOptions<BaseDbContext> options) : base(options)
     {
     
@@ -15,6 +19,8 @@ public class ProductWriteDbContext : BaseDbContext
     }
     #region DbSet
     public DbSet<Modules.Product.Domain.Entities.Products.Product> Products { get; set; }
+    public DbSet<Modules.Product.Domain.Entities.Colors.Color> Colors { get; set; }
+
 
 
     #endregion

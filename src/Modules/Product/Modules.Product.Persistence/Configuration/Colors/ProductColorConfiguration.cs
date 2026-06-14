@@ -20,8 +20,8 @@ public sealed class ProductColorConfiguration : IEntityTypeConfiguration<Color>
             .IsRequired()
             .HasMaxLength(250);
 
-        builder.Property(x => x.Price)
-            .IsRequired();
+        //builder.Property(x => x.Price)
+        //    .IsRequired();
 
         //builder.HasOne(x => x.Product)
         //    .WithMany(x => x.ProductColors)
