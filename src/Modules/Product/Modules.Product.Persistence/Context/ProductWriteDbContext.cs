@@ -1,5 +1,6 @@
 ﻿using Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
+using Modules.Product.Domain.Entities.Features;
 
 namespace Modules.Product.Persistence.Context;
 public class ProductWriteDbContext : BaseDbContext
@@ -22,7 +23,7 @@ public class ProductWriteDbContext : BaseDbContext
     public DbSet<Modules.Product.Domain.Entities.Colors.Color> Colors { get; set; }
     public DbSet<Modules.Product.Domain.Entities.FeaturesCategories.FeaturesCategory> FeaturesCategory { get; set; }
 
-
+    public DbSet<ProductFeatures> ProductFeatures { get; set; }
 
     #endregion
 

@@ -8,6 +8,7 @@ public class AppEntity
     public const string FileStore = "آپلودر";
     public const string Color = "رنگ";
     public const string FeaturesCategory = "دسته بندی قابلیت";
+    public const string ProductFeatures = " قابلیت";
 
 
 }
@@ -33,6 +34,13 @@ public class AppEntityColor
 
 }
 public class AppEntityFeaturesCategory
+{
+    public const string Title = "نام ";
+
+
+
+}
+public class AppEntityProductFeatures
 {
     public const string Title = "نام ";
 

@@ -1,5 +1,6 @@
 ﻿using Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
+using Modules.Product.Domain.Entities.Features;
 using SharedKernel.Base;
 using System.Linq.Expressions;
 
@@ -22,6 +23,7 @@ public class ProductReadDbContext : BaseDbContext
     public DbSet<Modules.Product.Domain.Entities.Brands.Brand> Brands { get; set; }
     public DbSet<Modules.Product.Domain.Entities.Colors.Color> Colors { get; set; }
     public DbSet<Modules.Product.Domain.Entities.FeaturesCategories.FeaturesCategory> FeaturesCategory { get; set; }
+    public DbSet<ProductFeatures> ProductFeatures { get; set; }
 
 
 
