@@ -14,7 +14,7 @@ public class FeaturesCategory : BaseEntityIdentity
     /// <summary>
     /// عنوان گروه ویژگی
     /// </summary>
-    public string FeatureCategoryTitle { get; set; } = null!;
+    public string Title { get; set; } = null!;
 
     /// <summary>
     /// ویژگی‌های مرتبط با این گروه

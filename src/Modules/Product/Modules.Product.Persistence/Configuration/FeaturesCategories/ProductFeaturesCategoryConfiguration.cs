@@ -13,11 +13,11 @@ public sealed class ProductFeaturesCategoryConfiguration
 
         builder.HasKey(x => x.Id);
 
-        builder.Property(x => x.FeatureCategoryTitle)
+        builder.Property(x => x.Title)
             .IsRequired()
             .HasMaxLength(300);
 
-        builder.HasIndex(x => x.FeatureCategoryTitle);
+        builder.HasIndex(x => x.Title);
 
         builder.HasMany(x => x.ProductFeatures)
             .WithOne(x => x.ProductFeaturesCategory)

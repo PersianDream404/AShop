@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Modules.Product.Persistence.Context;
 
@@ -11,9 +12,11 @@ using Modules.Product.Persistence.Context;
 namespace Modules.Product.Persistence.Migrations
 {
     [DbContext(typeof(ProductWriteDbContext))]
-    partial class ProductWriteDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260614175428_chnage-Title-FeaturesCategory")]
+    partial class chnageTitleFeaturesCategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
