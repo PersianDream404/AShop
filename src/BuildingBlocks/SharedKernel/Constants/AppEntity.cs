@@ -9,6 +9,7 @@ public class AppEntity
     public const string Color = "رنگ";
     public const string FeaturesCategory = "دسته بندی قابلیت";
     public const string ProductFeatures = " قابلیت";
+    public const string Category = " دسته بندی";
 
 
 }
@@ -41,6 +42,13 @@ public class AppEntityFeaturesCategory
 
 }
 public class AppEntityProductFeatures
+{
+    public const string Title = "نام ";
+
+
+
+}
+public class AppEntityCategory
 {
     public const string Title = "نام ";
 

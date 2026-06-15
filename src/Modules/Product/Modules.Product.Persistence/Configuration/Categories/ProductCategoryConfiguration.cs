@@ -27,8 +27,6 @@ public sealed class ProductCategoryConfiguration
         builder.Property(x => x.Icon)
             .HasMaxLength(250);
 
-        builder.Property(x => x.IsActive)
-            .HasDefaultValue(true);
 
         builder.HasIndex(x => x.UrlName)
             .IsUnique();

@@ -23,6 +23,8 @@ public class ProductReadDbContext : BaseDbContext
     public DbSet<Modules.Product.Domain.Entities.Brands.Brand> Brands { get; set; }
     public DbSet<Modules.Product.Domain.Entities.Colors.Color> Colors { get; set; }
     public DbSet<Modules.Product.Domain.Entities.FeaturesCategories.FeaturesCategory> FeaturesCategory { get; set; }
+    public DbSet<Modules.Product.Domain.Entities.Categories.Category> Category { get; set; }
+
     public DbSet<ProductFeatures> ProductFeatures { get; set; }
 
 

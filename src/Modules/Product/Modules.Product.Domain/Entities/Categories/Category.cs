@@ -33,10 +33,7 @@ public class Category : BaseEntityIdentity
     /// </summary>
     public string? Icon { get; set; }
 
-    /// <summary>
-    /// وضعیت فعال بودن دسته‌بندی
-    /// </summary>
-    public bool IsActive { get; set; }
+
 
     /// <summary>
     /// دسته‌بندی والد
