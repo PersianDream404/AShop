@@ -16,5 +16,7 @@ public class ProductFeatures : BaseEntityIdentity
 
 
     public ICollection<ProductSelectedFeatures> ProductSelectedFeatures { get; set; } = [];
+    public ICollection<FeaturesValues> FeaturesValues { get; set; }
+    = [];
 }
 

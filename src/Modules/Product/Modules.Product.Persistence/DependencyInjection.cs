@@ -19,6 +19,7 @@ using Modules.Product.Persistence.Repositories.Brands;
 using Modules.Product.Persistence.Repositories.Categorys;
 using Modules.Product.Persistence.Repositories.Colors;
 using Modules.Product.Persistence.Repositories.FeaturesCategorys;
+using Modules.Product.Persistence.Repositories.FeaturesValuess;
 using Modules.Product.Persistence.Repositories.ProductFeaturess;
 using Modules.Product.Persistence.Repositories.Users;
 using SharedKernel.Constants;
@@ -83,6 +84,10 @@ public static class DependencyInjection
 
         services.AddScoped<ICategoryCommandRepository, CategoryCommandRepository>();
         services.AddScoped<ICategoryQueryRepository, CategoryQueryRepository>();
+
+
+        services.AddScoped<IFeaturesValuesCommandRepository, FeaturesValuesCommandRepository>();
+        services.AddScoped<IFeaturesValuesQueryRepository, FeaturesValuesQueryRepository>();
 
         return services;
     }

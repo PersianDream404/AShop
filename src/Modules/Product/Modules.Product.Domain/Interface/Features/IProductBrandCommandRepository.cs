@@ -9,3 +9,6 @@ namespace Modules.Product.Domain.Interface;
 public interface IProductFeaturesCommandRepository : ICommandRepository<ProductFeatures>
 {
 }
+public interface IFeaturesValuesCommandRepository : ICommandRepository<FeaturesValues>
+{
+}

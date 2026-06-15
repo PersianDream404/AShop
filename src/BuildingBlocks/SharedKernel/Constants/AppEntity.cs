@@ -7,6 +7,7 @@ public class AppEntity
     public const string Brand = "برند";
     public const string FileStore = "آپلودر";
     public const string Color = "رنگ";
+    public const string FeaturesValues = "مقدار قابلیت";
     public const string FeaturesCategory = "دسته بندی قابلیت";
     public const string ProductFeatures = " قابلیت";
     public const string Category = " دسته بندی";

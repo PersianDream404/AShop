@@ -23,6 +23,8 @@ public class ProductWriteDbContext : BaseDbContext
     public DbSet<Modules.Product.Domain.Entities.Colors.Color> Colors { get; set; }
     public DbSet<Modules.Product.Domain.Entities.FeaturesCategories.FeaturesCategory> FeaturesCategory { get; set; }
     public DbSet<Modules.Product.Domain.Entities.Categories.Category> Category { get; set; }
+    public DbSet<Modules.Product.Domain.Entities.Features.FeaturesValues> FeaturesValues { get; set; }
+
 
     public DbSet<ProductFeatures> ProductFeatures { get; set; }
 

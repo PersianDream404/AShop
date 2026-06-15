@@ -1,4 +1,5 @@
-﻿using Modules.Product.Domain.Entities.Products;
+﻿using Modules.Product.Domain.Entities.Features;
+using Modules.Product.Domain.Entities.Products;
 using SharedKernel.Base;
 using System;
 using System.Collections.Generic;
@@ -21,5 +22,8 @@ public class FeaturesCategory : BaseEntityIdentity
     /// </summary>
     public ICollection<ProductSelectedFeatures> ProductFeatures { get; set; }
         = new List<ProductSelectedFeatures>();
+
+    public ICollection<FeaturesValues> FeaturesValues { get; set; }
+        = [];
 }
 

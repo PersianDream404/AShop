@@ -1,18 +1,14 @@
-﻿using Modules.Product.Domain.Entities.Features;
-using Modules.Product.Domain.Entities.FeaturesCategories;
+﻿using Modules.Product.Domain.Entities.FeaturesCategories;
 using SharedKernel.Base;
 
-namespace Modules.Product.Domain.Entities.Products;
+namespace Modules.Product.Domain.Entities.Features;
 
 /// <summary>
 /// ویژگی‌های محصول
 /// </summary>
-public class ProductSelectedFeatures : BaseEntityIdentity
+public class FeaturesValues : BaseEntityIdentity
 {
-    /// <summary>
-    /// شناسه محصول
-    /// </summary>
-    public long ProductId { get; set; }
+
 
     /// <summary>
     /// شناسه دسته‌بندی ویژگی (مثلاً: سخت‌افزار، نمایشگر)
@@ -35,8 +31,4 @@ public class ProductSelectedFeatures : BaseEntityIdentity
     public FeaturesCategory? ProductFeaturesCategory { get; set; }
     public ProductFeatures? ProductFeatures { get; set; }
 
-    /// <summary>
-    /// محصول مرتبط
-    /// </summary>
-    public Product Product { get; set; } = null!;
 }

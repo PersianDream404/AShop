@@ -1,4 +1,4 @@
-﻿namespace Modules.Product.Persistence.Configuration.Products;
+﻿namespace Modules.Product.Persistence.Configuration.FeaturesCategories;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
