@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Modules.Product.Application.Contract.Resources;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Modules.Product.Application.Contract.DTOs.Categorys.Create;
@@ -14,6 +16,10 @@ public class CreateCategoryRequestDto
     /// <summary>
     /// عنوان دسته‌بندی
     /// </summary>
+    [Display(
+        Name = nameof(CategoryFieldNames.Title),
+        ResourceType = typeof(CategoryFieldNames)
+    )]
     public string Title { get; set; } = null!;
 
     /// <summary>

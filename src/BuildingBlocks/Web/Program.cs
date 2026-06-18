@@ -1,4 +1,5 @@
 using Infrastructure;
+using System.Globalization;
 using Web.Extensions;
 using Web.Infrastructure.Modules;
 
@@ -9,6 +10,9 @@ builder.Services.AddInfrastructure(builder.Configuration);
 //builder.Services.AddEndpointsApiExplorer();
 //builder.Services.AddSwaggerGen();
 builder.Services.AddApplicationServices(builder.Configuration);
+var culture = new CultureInfo("fa-IR");
+CultureInfo.DefaultThreadCurrentCulture = culture;
+CultureInfo.DefaultThreadCurrentUICulture = culture;
 
 var app = builder.Build();
 app.MapMyEndpoints();

@@ -3,6 +3,7 @@ using Framwork.Bus.Command;
 using Framwork.Bus.Query;
 using Framwork.Decorator.Command;
 using Framwork.Decorator.Query;
+using Framwork.Extensions;
 using Identity.Application.Common.Mapping;
 
 using Mapster;
@@ -33,6 +34,7 @@ public static class DependencyInjection
         .AsImplementedInterfaces()
         .WithScopedLifetime()
                     );
+        FluentValidationConfig.Configure();
 
         services.AddScoped(typeof(IQueryBehavior<,>), typeof(LoggingQueryBehavior<,>));
         services.AddScoped(typeof(IQueryBehavior<,>), typeof(ValidationQueryBehavior<,>));

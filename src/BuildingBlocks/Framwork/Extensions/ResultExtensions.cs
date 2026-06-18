@@ -5,6 +5,9 @@ using System.Text;
 namespace Framwork.Extensions;
 
 using Ardalis.Result;
+using FluentValidation;
+using System.ComponentModel.DataAnnotations;
+using System.Reflection;
 using System.Text;
 
 public static class ResultExtensions
@@ -32,5 +35,24 @@ public static class stringExtensions
             phoneNumber = "0" + phoneNumber.Substring(3);
 
         return phoneNumber;
+    }
+}
+
+public static class FluentValidationConfig
+{
+    public static void Configure()
+    {
+        ValidatorOptions.Global.DisplayNameResolver = (type, member, expression) =>
+        {
+            if (member != null)
+            {
+                var display = member.GetCustomAttribute<DisplayAttribute>();
+
+                if (display != null)
+                    return display.GetName();
+            }
+
+            return member?.Name;
+        };
     }
 }

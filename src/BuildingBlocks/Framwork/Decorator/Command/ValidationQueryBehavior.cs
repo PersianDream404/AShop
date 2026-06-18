@@ -3,6 +3,8 @@
 using Ardalis.Result;
 using FluentValidation;
 using Framwork.Bus.Query;
+using System.ComponentModel.DataAnnotations;
+using System.Reflection;
 
 public class ValidationQueryBehavior<TQuery, TResponse>
     : IQueryBehavior<TQuery, TResponse>
@@ -45,3 +47,24 @@ public class ValidationQueryBehavior<TQuery, TResponse>
         return await next();
     }
 }
+
+
+//public static class FluentValidationExtensions
+//{
+//    public static IRuleBuilderOptions<T, TProperty> WithDisplayName<T, TProperty>(
+//        this IRuleBuilderOptions<T, TProperty> rule,
+//        string propertyName,
+//        Type type)
+//    {
+//        var prop = type.GetProperty(propertyName);
+
+//        var display = prop?
+//            .GetCustomAttribute<DisplayAttribute>()?
+//            .GetName();
+
+//        if (!string.IsNullOrWhiteSpace(display))
+//            rule.WithName(display);
+
+//        return rule;
+//    }
+//}

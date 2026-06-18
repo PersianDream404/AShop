@@ -10,4 +10,19 @@
     <ProjectReference Include="..\Modules.Product.Domain\Modules.Product.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Resources\CategoryFieldNames.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CategoryFieldNames.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\CategoryFieldNames.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CategoryFieldNames.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>
