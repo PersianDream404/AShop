@@ -22,7 +22,7 @@ namespace Modules.Product.Application.Contract.Resources.FeaturesCategories {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class FeaturesCategoriesFieldNames {
+    public class FeaturesCategoriesFieldNames {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Modules.Product.Application.Contract.Resources.FeaturesCategories {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Modules.Product.Application.Contract.Resources.FeaturesCategories.FeaturesCategor" +
@@ -52,7 +52,7 @@ namespace Modules.Product.Application.Contract.Resources.FeaturesCategories {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -64,7 +64,7 @@ namespace Modules.Product.Application.Contract.Resources.FeaturesCategories {
         /// <summary>
         ///   Looks up a localized string similar to شناسه.
         /// </summary>
-        internal static string Id {
+        public static string Id {
             get {
                 return ResourceManager.GetString("Id", resourceCulture);
             }
@@ -73,7 +73,7 @@ namespace Modules.Product.Application.Contract.Resources.FeaturesCategories {
         /// <summary>
         ///   Looks up a localized string similar to عنوان.
         /// </summary>
-        internal static string Title {
+        public static string Title {
             get {
                 return ResourceManager.GetString("Title", resourceCulture);
             }

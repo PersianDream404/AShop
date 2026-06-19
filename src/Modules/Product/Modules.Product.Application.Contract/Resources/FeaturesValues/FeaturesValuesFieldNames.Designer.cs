@@ -22,7 +22,7 @@ namespace Modules.Product.Application.Contract.Resources.FeaturesValues {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class FeaturesValuesFieldNames {
+    public class FeaturesValuesFieldNames {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Modules.Product.Application.Contract.Resources.FeaturesValues {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Modules.Product.Application.Contract.Resources.FeaturesValues.FeaturesValuesField" +
@@ -52,7 +52,7 @@ namespace Modules.Product.Application.Contract.Resources.FeaturesValues {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -64,7 +64,7 @@ namespace Modules.Product.Application.Contract.Resources.FeaturesValues {
         /// <summary>
         ///   Looks up a localized string similar to مقدار ویژگی.
         /// </summary>
-        internal static string FeatureValue {
+        public static string FeatureValue {
             get {
                 return ResourceManager.GetString("FeatureValue", resourceCulture);
             }
@@ -73,7 +73,7 @@ namespace Modules.Product.Application.Contract.Resources.FeaturesValues {
         /// <summary>
         ///   Looks up a localized string similar to شناسه.
         /// </summary>
-        internal static string Id {
+        public static string Id {
             get {
                 return ResourceManager.GetString("Id", resourceCulture);
             }
@@ -82,7 +82,7 @@ namespace Modules.Product.Application.Contract.Resources.FeaturesValues {
         /// <summary>
         ///   Looks up a localized string similar to دسته بندی ویژگی.
         /// </summary>
-        internal static string ProductFeaturesCategoryId {
+        public static string ProductFeaturesCategoryId {
             get {
                 return ResourceManager.GetString("ProductFeaturesCategoryId", resourceCulture);
             }
@@ -91,7 +91,7 @@ namespace Modules.Product.Application.Contract.Resources.FeaturesValues {
         /// <summary>
         ///   Looks up a localized string similar to شناسه ویژگی.
         /// </summary>
-        internal static string ProductFeaturesId {
+        public static string ProductFeaturesId {
             get {
                 return ResourceManager.GetString("ProductFeaturesId", resourceCulture);
             }

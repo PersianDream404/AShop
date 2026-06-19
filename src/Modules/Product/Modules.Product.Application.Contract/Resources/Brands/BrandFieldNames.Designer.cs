@@ -22,7 +22,7 @@ namespace Modules.Product.Application.Contract.Resources.Brands {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class BrandFieldNames {
+    public class BrandFieldNames {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Modules.Product.Application.Contract.Resources.Brands {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Modules.Product.Application.Contract.Resources.Brands.BrandFieldNames", typeof(BrandFieldNames).Assembly);
@@ -51,7 +51,7 @@ namespace Modules.Product.Application.Contract.Resources.Brands {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace Modules.Product.Application.Contract.Resources.Brands {
         /// <summary>
         ///   Looks up a localized string similar to ایکون.
         /// </summary>
-        internal static string Icon {
+        public static string Icon {
             get {
                 return ResourceManager.GetString("Icon", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace Modules.Product.Application.Contract.Resources.Brands {
         /// <summary>
         ///   Looks up a localized string similar to شناسه.
         /// </summary>
-        internal static string Id {
+        public static string Id {
             get {
                 return ResourceManager.GetString("Id", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace Modules.Product.Application.Contract.Resources.Brands {
         /// <summary>
         ///   Looks up a localized string similar to تصویر.
         /// </summary>
-        internal static string Image {
+        public static string Image {
             get {
                 return ResourceManager.GetString("Image", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace Modules.Product.Application.Contract.Resources.Brands {
         /// <summary>
         ///   Looks up a localized string similar to شناسه والد.
         /// </summary>
-        internal static string ParentId {
+        public static string ParentId {
             get {
                 return ResourceManager.GetString("ParentId", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace Modules.Product.Application.Contract.Resources.Brands {
         /// <summary>
         ///   Looks up a localized string similar to نام.
         /// </summary>
-        internal static string Title {
+        public static string Title {
             get {
                 return ResourceManager.GetString("Title", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace Modules.Product.Application.Contract.Resources.Brands {
         /// <summary>
         ///   Looks up a localized string similar to نام تصویر.
         /// </summary>
-        internal static string UrlName {
+        public static string UrlName {
             get {
                 return ResourceManager.GetString("UrlName", resourceCulture);
             }
