@@ -1,6 +1,7 @@
 ﻿using Ardalis.Result;
 using FluentValidation;
 using Framwork.Bus.Query;
+using Framwork.Validation.Resources;
 using Modules.Product.Application.Contract.DTOs.Brands.GetAll;
 using Modules.Product.Application.Contract.Interface.Brands;
 using Modules.Product.Application.Contract.UseCase.Brands.Queries;
@@ -32,12 +33,12 @@ public class GetByIdBrandQueryHandler(IBrandQueryRepository BrandQueryRepository
     }
 }
 public class GetAllBrandQueryValidator
-    : AbstractValidator<GetAllBrandQuery>
+    : AbstractValidator<GetByIdBrandQuery>
 {
     public GetAllBrandQueryValidator()
     {
-        //RuleFor(x => x.request.Q)
-        //    .NotEmpty()
-        //    .WithMessage("Brand Id is required");
+        RuleFor(x => x.Id)
+            .NotEmpty()
+            .WithMessage(SharedValidationMessages.Required);
     }
 }

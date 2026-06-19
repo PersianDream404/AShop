@@ -1,6 +1,7 @@
 ﻿using Ardalis.Result;
 using FluentValidation;
 using Framwork.Bus.Command;
+using Framwork.Validation.Resources;
 using Mapster;
 using Modules.Product.Application.Contract.UseCase.Products.Commands;
 using Modules.Product.Domain.Entities.Products;
@@ -41,66 +42,81 @@ public class CreateProductCommandValidator
         // اطلاعات اصلی محصول
         // =====================
         RuleFor(x => x.request.Title)
-            .NotEmpty().WithMessage("عنوان محصول الزامی است")
-            .MaximumLength(300).WithMessage("عنوان محصول نمی‌تواند بیشتر از 300 کاراکتر باشد");
+            .NotEmpty()
+            .WithMessage(SharedValidationMessages.Required)
+            .MaximumLength(300)
+            .WithMessage(SharedValidationMessages.MaxLength);
 
         RuleFor(x => x.request.Code)
-            .MaximumLength(300).WithMessage("کد محصول نمی‌تواند بیشتر از 300 کاراکتر باشد");
+            .MaximumLength(300)
+            .WithMessage(SharedValidationMessages.MaxLength);
 
         RuleFor(x => x.request.Price)
-            .GreaterThan(0).WithMessage("قیمت محصول باید بیشتر از صفر باشد");
+            .GreaterThan(0)
+            .WithMessage(SharedValidationMessages.GreaterThanZero);
 
         RuleFor(x => x.request.ShortDescription)
-            .MaximumLength(300).WithMessage("توضیحات کوتاه نمی‌تواند بیشتر از 300 کاراکتر باشد");
+            .MaximumLength(300)
+            .WithMessage(SharedValidationMessages.MaxLength);
 
         RuleFor(x => x.request.Description)
-            .MaximumLength(5000).WithMessage("توضیحات کامل بیش از حد مجاز است");
+            .MaximumLength(5000)
+            .WithMessage(SharedValidationMessages.MaxLength);
 
         RuleFor(x => x.request.Image)
-            .MaximumLength(500).WithMessage("مسیر تصویر معتبر نیست");
+            .MaximumLength(500)
+            .WithMessage(SharedValidationMessages.MaxLength);
 
         RuleFor(x => x.request.IsActive)
-            .NotNull().WithMessage("وضعیت فعال/غیرفعال مشخص نشده است");
+            .NotNull()
+            .WithMessage(SharedValidationMessages.Required);
 
         // =====================
         // دسته‌بندی‌ها
         // =====================
         RuleFor(x => x.request.CategoriesIds)
-            .NotNull().WithMessage("انتخاب دسته‌بندی الزامی است")
-            .Must(x => x.Any()).WithMessage("حداقل یک دسته‌بندی باید انتخاب شود");
+            .NotNull()
+            .WithMessage(SharedValidationMessages.Required)
+            .Must(x => x.Any())
+            .WithMessage(SharedValidationMessages.AtLeastOneRequired);
 
         RuleForEach(x => x.request.CategoriesIds)
-            .GreaterThan(0).WithMessage("شناسه دسته‌بندی نامعتبر است");
+            .GreaterThan(0)
+            .WithMessage(SharedValidationMessages.InvalidId);
 
         // =====================
         // رنگ‌ها
         // =====================
         RuleForEach(x => x.request.SelectedColorsIds)
-            .GreaterThan(0).WithMessage("شناسه رنگ نامعتبر است");
+            .GreaterThan(0)
+            .WithMessage(SharedValidationMessages.InvalidId);
 
         // =====================
         // تخفیف‌ها
         // =====================
         RuleForEach(x => x.request.DiscountsIds)
-            .GreaterThan(0).WithMessage("شناسه تخفیف نامعتبر است");
+            .GreaterThan(0)
+            .WithMessage(SharedValidationMessages.InvalidId);
 
         // =====================
         // گالری تصاویر
         // =====================
         RuleFor(x => x.request.ProductGalleries)
             .Must(x => x.Count <= 10)
-            .WithMessage("حداکثر 10 تصویر برای گالری مجاز است");
+            .WithMessage(SharedValidationMessages.MaxItems);
 
         RuleForEach(x => x.request.ProductGalleries)
             .ChildRules(gallery =>
             {
                 gallery.RuleFor(x => x.ImageName)
-                    .NotEmpty().WithMessage("تصویر گالری الزامی است")
-                    .MaximumLength(500).WithMessage("نام تصویر بیش از حد مجاز است");
+                    .NotEmpty()
+                    .WithMessage(SharedValidationMessages.Required)
+                    .MaximumLength(500)
+                    .WithMessage(SharedValidationMessages.MaxLength);
 
                 gallery.RuleFor(x => x.DisplayPriority)
                     .GreaterThanOrEqualTo(0)
-                    .WithMessage("اولویت نمایش نمی‌تواند منفی باشد");
+                    .WithMessage(SharedValidationMessages.InvalidNumber);
             });
 
         // =====================
@@ -110,18 +126,21 @@ public class CreateProductCommandValidator
             .ChildRules(feature =>
             {
                 feature.RuleFor(x => x.FeatureValue)
-                    .NotEmpty().WithMessage("مقدار ویژگی الزامی است")
-                    .MaximumLength(300).WithMessage("مقدار ویژگی بیش از حد مجاز است");
+                    .NotEmpty()
+                    .WithMessage(SharedValidationMessages.Required)
+                    .MaximumLength(300)
+                    .WithMessage(SharedValidationMessages.MaxLength);
 
                 feature.RuleFor(x => x.ProductFeaturesCategoryId)
                     .GreaterThan(0)
                     .When(x => x.ProductFeaturesCategoryId.HasValue)
-                    .WithMessage("دسته‌بندی ویژگی نامعتبر است");
+                    .WithMessage(SharedValidationMessages.InvalidId);
 
                 feature.RuleFor(x => x.ProductFeaturesId)
                     .GreaterThan(0)
                     .When(x => x.ProductFeaturesId.HasValue)
-                    .WithMessage("شناسه ویژگی نامعتبر است");
+                    .WithMessage(SharedValidationMessages.InvalidId);
             });
+
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Ardalis.Result;
 using FluentValidation;
 using Framwork.Bus.Command;
+using Framwork.Validation.Resources;
 using Modules.Product.Application.Contract.Interface.FeaturesCategories;
 using Modules.Product.Application.Contract.UseCase.FeaturesCategorys.Commands;
 using Modules.Product.Domain.Interface.FeaturesCategories;
@@ -38,8 +39,8 @@ public class DeleteFeaturesCategoryCommandValidator
 
         RuleFor(x => x.Id)
             .NotEmpty()
-            .WithMessage("ارسال شناسه الزامی است.");
-   
+            .WithMessage(SharedValidationMessages.Required);
+
 
 
     }

@@ -1,6 +1,7 @@
 ﻿using Ardalis.Result;
 using FluentValidation;
 using Framwork.Bus.Command;
+using Framwork.Validation.Resources;
 using Mapster;
 using Modules.Product.Application.Contract.Interface.Categories;
 using Modules.Product.Application.Contract.Interface.Features;
@@ -45,16 +46,17 @@ public class CreateFeaturesValuesCommandValidator : AbstractValidator<CreateFeat
     {
         RuleFor(x => x.request.FeatureValue)
             .NotEmpty()
-            .WithMessage("مقدار قابلیت الزامی است.")
+            .WithMessage(SharedValidationMessages.Required)
             .MaximumLength(250)
-            .WithMessage("مقدار قابلیت ‌ نمی‌تواند بیشتر از ۲۵۰ کاراکتر باشد.");
+            .WithMessage(SharedValidationMessages.MaxLength);
 
         RuleFor(x => x.request.ProductFeaturesCategoryId)
             .NotEmpty()
-            .WithMessage("ارسال شناسه  دسته بندی قابلیت الزامی است.");
+            .WithMessage(SharedValidationMessages.Required);
 
         RuleFor(x => x.request.ProductFeaturesId)
             .NotEmpty()
-            .WithMessage("ارسال شناسه  قابلیت الزامی است.");
+            .WithMessage(SharedValidationMessages.Required);
+
     }
 }

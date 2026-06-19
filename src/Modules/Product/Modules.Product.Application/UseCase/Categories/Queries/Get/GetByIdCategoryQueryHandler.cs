@@ -1,6 +1,7 @@
 ﻿using Ardalis.Result;
 using FluentValidation;
 using Framwork.Bus.Query;
+using Framwork.Validation.Resources;
 using Modules.Product.Application.Contract.DTOs.Categorys.GetAll;
 using Modules.Product.Application.Contract.Interface.Categories;
 using Modules.Product.Application.Contract.Interface.Features;
@@ -33,12 +34,12 @@ public class GetByIdCategoryQueryHandler(ICategoryQueryRepository CategoryQueryR
     }
 }
 public class GetAllCategoryQueryValidator
-    : AbstractValidator<GetAllCategoryQuery>
+    : AbstractValidator<GetByIdCategoryQuery>
 {
     public GetAllCategoryQueryValidator()
     {
-        //RuleFor(x => x.request.Q)
-        //    .NotEmpty()
-        //    .WithMessage("Category Id is required");
+        RuleFor(x => x.Id)
+            .NotEmpty()
+            .WithMessage(SharedValidationMessages.Required);
     }
 }

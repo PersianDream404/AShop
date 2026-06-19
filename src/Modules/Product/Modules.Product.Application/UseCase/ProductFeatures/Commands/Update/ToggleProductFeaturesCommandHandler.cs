@@ -1,6 +1,7 @@
 ﻿using Ardalis.Result;
 using FluentValidation;
 using Framwork.Bus.Command;
+using Framwork.Validation.Resources;
 using Modules.Product.Application.Contract.Interface.Features;
 using Modules.Product.Application.Contract.UseCase.ProductFeaturess.Commands;
 using Modules.Product.Domain.Interface;
@@ -42,7 +43,7 @@ public class ToggleProductFeaturesCommandValidator
 
         RuleFor(x => x.Id)
             .NotEmpty()
-            .WithMessage("ارسال شناسه الزامب است.");
+            .WithMessage(SharedValidationMessages.Required);
 
     }
 }

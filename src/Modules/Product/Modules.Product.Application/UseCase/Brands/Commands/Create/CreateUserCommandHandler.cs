@@ -1,6 +1,7 @@
 ﻿using Ardalis.Result;
 using FluentValidation;
 using Framwork.Bus.Command;
+using Framwork.Validation.Resources;
 using Mapster;
 using Modules.Product.Application.Contract.Interface.Brands;
 using Modules.Product.Application.Contract.UseCase.Brands.Commands;
@@ -42,29 +43,31 @@ public class CreateBrandCommandValidator : AbstractValidator<CreateBrandCommand>
     {
         RuleFor(x => x.request.Title)
             .NotEmpty()
-            .WithMessage("عنوان برند الزامی است.")
+            .WithMessage(SharedValidationMessages.Required)
             .MaximumLength(250)
-            .WithMessage("عنوان برند نمی‌تواند بیشتر از ۲۵۰ کاراکتر باشد.");
+            .WithMessage(SharedValidationMessages.MaxLength);
 
         RuleFor(x => x.request.UrlName)
             .NotEmpty()
-            .WithMessage("نام URL برند الزامی است.")
+            .WithMessage(SharedValidationMessages.Required)
             .MaximumLength(250)
-            .WithMessage("نام URL برند نمی‌تواند بیشتر از ۲۵۰ کاراکتر باشد.");
+            .WithMessage(SharedValidationMessages.MaxLength)
+            .Matches("^[a-z0-9-]+$")
+            .WithMessage(SharedValidationMessages.UrlSlugPattern);
 
         RuleFor(x => x.request.Image)
             .MaximumLength(250)
-            .WithMessage("آدرس تصویر نمی‌تواند بیشتر از ۲۵۰ کاراکتر باشد.")
-            .When(x => !string.IsNullOrWhiteSpace(x.request.Image));
+            .When(x => !string.IsNullOrWhiteSpace(x.request.Image))
+            .WithMessage(SharedValidationMessages.MaxLength);
 
         RuleFor(x => x.request.Icon)
             .MaximumLength(250)
-            .WithMessage("آدرس آیکون نمی‌تواند بیشتر از ۲۵۰ کاراکتر باشد.")
-            .When(x => !string.IsNullOrWhiteSpace(x.request.Icon));
+            .When(x => !string.IsNullOrWhiteSpace(x.request.Icon))
+            .WithMessage(SharedValidationMessages.MaxLength);
 
         RuleFor(x => x.request.ParentId)
             .GreaterThan(0)
-            .WithMessage("شناسه برند والد نامعتبر است.")
-            .When(x => x.request.ParentId.HasValue);
+            .When(x => x.request.ParentId.HasValue)
+            .WithMessage(SharedValidationMessages.InvalidId);
     }
 }

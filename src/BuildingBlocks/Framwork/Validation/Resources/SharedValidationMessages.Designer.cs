@@ -61,11 +61,56 @@ namespace Framwork.Validation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to حداقل یک مورد  {PropertyName}باید انتخاب شود..
+        /// </summary>
+        public static string AtLeastOneRequired {
+            get {
+                return ResourceManager.GetString("AtLeastOneRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {PropertyName} معتبر نیست.
         /// </summary>
         public static string Email {
             get {
                 return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to مقدار  {PropertyName}وارد شده باید بیشتر از صفر باشد..
+        /// </summary>
+        public static string GreaterThanZero {
+            get {
+                return ResourceManager.GetString("GreaterThanZero", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {PropertyName} نامعتبر است..
+        /// </summary>
+        public static string InvalidId {
+            get {
+                return ResourceManager.GetString("InvalidId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to مقدار {PropertyName} عددی وارد شده نامعتبر است..
+        /// </summary>
+        public static string InvalidNumber {
+            get {
+                return ResourceManager.GetString("InvalidNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تعداد آیتم‌های  {PropertyName}ارسال شده بیشتر از حد مجاز است..
+        /// </summary>
+        public static string MaxItems {
+            get {
+                return ResourceManager.GetString("MaxItems", resourceCulture);
             }
         }
         
@@ -84,6 +129,15 @@ namespace Framwork.Validation.Resources {
         public static string Required {
             get {
                 return ResourceManager.GetString("Required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {PropertyName} فقط می‌تواند شامل حروف انگلیسی کوچک، عدد و - باشد.
+        /// </summary>
+        public static string UrlSlugPattern {
+            get {
+                return ResourceManager.GetString("UrlSlugPattern", resourceCulture);
             }
         }
     }

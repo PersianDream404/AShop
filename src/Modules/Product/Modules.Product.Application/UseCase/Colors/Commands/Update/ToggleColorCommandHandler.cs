@@ -1,6 +1,7 @@
 ﻿using Ardalis.Result;
 using FluentValidation;
 using Framwork.Bus.Command;
+using Framwork.Validation.Resources;
 using Mapster;
 using Modules.Product.Application.Contract.Interface.Colors;
 using Modules.Product.Application.Contract.UseCase.Colors.Commands;
@@ -41,10 +42,9 @@ public class ToggleColorCommandValidator
 {
     public ToggleColorCommandValidator()
     {
-
         RuleFor(x => x.Id)
             .NotEmpty()
-            .WithMessage("ارسال شناسه الزامب است.");
+            .WithMessage(SharedValidationMessages.Required);
 
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Ardalis.Result;
 using FluentValidation;
 using Framwork.Bus.Command;
+using Framwork.Validation.Resources;
 using Mapster;
 using Modules.Product.Application.Contract.Interface.FeaturesCategories;
 using Modules.Product.Application.Contract.UseCase.FeaturesCategorys.Commands;
@@ -40,11 +41,12 @@ public class CreateFeaturesCategoryCommandValidator : AbstractValidator<CreateFe
 {
     public CreateFeaturesCategoryCommandValidator()
     {
-    
+
         RuleFor(x => x.request.Title)
             .NotEmpty()
-            .WithMessage("  نام  الزامی است.")
+            .WithMessage(SharedValidationMessages.Required)
             .MaximumLength(250)
-            .WithMessage(" نام نمی‌تواند بیشتر از ۲۵۰ کاراکتر باشد.");
+            .WithMessage(SharedValidationMessages.MaxLength);
+
     }
 }

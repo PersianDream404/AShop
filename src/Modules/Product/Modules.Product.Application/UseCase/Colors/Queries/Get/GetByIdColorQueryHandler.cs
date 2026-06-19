@@ -1,6 +1,7 @@
 ﻿using Ardalis.Result;
 using FluentValidation;
 using Framwork.Bus.Query;
+using Framwork.Validation.Resources;
 using Modules.Product.Application.Contract.DTOs.Colors.GetAll;
 using Modules.Product.Application.Contract.Interface.Colors;
 using Modules.Product.Application.Contract.UseCase.Colors.Queries;
@@ -32,12 +33,12 @@ public class GetByIdColorQueryHandler(IColorQueryRepository ColorQueryRepository
     }
 }
 public class GetAllColorQueryValidator
-    : AbstractValidator<GetAllColorQuery>
+    : AbstractValidator<GetByIdColorQuery>
 {
     public GetAllColorQueryValidator()
     {
-        //RuleFor(x => x.request.Q)
-        //    .NotEmpty()
-        //    .WithMessage("Color Id is required");
+        RuleFor(x => x.Id)
+            .NotEmpty()
+            .WithMessage(SharedValidationMessages.Required);
     }
 }

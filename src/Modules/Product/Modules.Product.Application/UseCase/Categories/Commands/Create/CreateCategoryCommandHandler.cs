@@ -46,35 +46,29 @@ public class CreateCategoryCommandValidator : AbstractValidator<CreateCategoryCo
 {
     public CreateCategoryCommandValidator()
     {
-        RuleFor(x => x.request)
-    .SetValidator(new CreateCategoryRequestValidator());
-    }
-}
-public class CreateCategoryRequestValidator : AbstractValidator<CreateCategoryRequestDto>
-{
-    public CreateCategoryRequestValidator()
-    {
-        RuleFor(x => x.Title)
+        RuleFor(x => x.request.Title)
             .NotEmpty()
-              //.WithDisplayName(nameof(CreateCategoryRequestDto.Title), typeof(CreateCategoryRequestDto))
             .WithMessage(SharedValidationMessages.Required)
             .MaximumLength(250)
             .WithMessage(SharedValidationMessages.MaxLength);
 
-        RuleFor(x => x.UrlName)
+        RuleFor(x => x.request.UrlName)
             .NotEmpty()
-            .WithMessage("نام URL الزامی است.")
+            .WithMessage(SharedValidationMessages.Required)
             .MaximumLength(250)
-            .WithMessage("نام URL نمی‌تواند بیشتر از ۲۵۰ کاراکتر باشد.")
+            .WithMessage(SharedValidationMessages.MaxLength)
             .Matches("^[a-z0-9-]+$")
-            .WithMessage("نام URL فقط می‌تواند شامل حروف انگلیسی کوچک، عدد و - باشد.");
+            .WithMessage(SharedValidationMessages.UrlSlugPattern);
 
-        RuleFor(x => x.Image)
+        RuleFor(x => x.request.Image)
             .MaximumLength(250)
-            .When(x => !string.IsNullOrWhiteSpace(x.Image));
+            .When(x => !string.IsNullOrWhiteSpace(x.request.Image))
+            .WithMessage(SharedValidationMessages.MaxLength)
+            ;
 
-        RuleFor(x => x.Icon)
+        RuleFor(x => x.request.Icon)
             .MaximumLength(250)
-            .When(x => !string.IsNullOrWhiteSpace(x.Icon));
+            .When(x => !string.IsNullOrWhiteSpace(x.request.Icon))
+            .WithMessage(SharedValidationMessages.MaxLength);
     }
 }

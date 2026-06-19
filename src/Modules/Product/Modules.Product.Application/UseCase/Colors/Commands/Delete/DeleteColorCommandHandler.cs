@@ -1,6 +1,7 @@
 ﻿using Ardalis.Result;
 using FluentValidation;
 using Framwork.Bus.Command;
+using Framwork.Validation.Resources;
 using Mapster;
 using Modules.Product.Application.Contract.Interface.Colors;
 using Modules.Product.Application.Contract.UseCase.Colors.Commands;
@@ -40,8 +41,8 @@ public class DeleteColorCommandValidator
 
         RuleFor(x => x.Id)
             .NotEmpty()
-            .WithMessage("ارسال شناسه الزامی است.");
-   
+            .WithMessage(SharedValidationMessages.Required);
+
 
 
     }

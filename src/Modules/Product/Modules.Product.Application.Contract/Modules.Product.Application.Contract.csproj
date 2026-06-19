@@ -11,17 +11,71 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Resources\CategoryFieldNames.Designer.cs">
+    <Compile Update="Resources\Brands\BrandFieldNames.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>BrandFieldNames.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Categories\CategoryFieldNames.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>CategoryFieldNames.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\Colors\ColorFieldNames.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ColorFieldNames.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\FeaturesCategories\FeaturesCategoriesFieldNames.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>FeaturesCategoriesFieldNames.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\FeaturesValues\FeaturesValuesFieldNames.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>FeaturesValuesFieldNames.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\ProductFeatures\ProductFeaturesFieldNames.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ProductFeaturesFieldNames.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Products\ProductFieldNames.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ProductFieldNames.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Resources\CategoryFieldNames.resx">
+    <EmbeddedResource Update="Resources\Brands\BrandFieldNames.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>BrandFieldNames.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Categories\CategoryFieldNames.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CategoryFieldNames.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Colors\ColorFieldNames.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ColorFieldNames.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\FeaturesCategories\FeaturesCategoriesFieldNames.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>FeaturesCategoriesFieldNames.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\FeaturesValues\FeaturesValuesFieldNames.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>FeaturesValuesFieldNames.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\ProductFeatures\ProductFeaturesFieldNames.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ProductFeaturesFieldNames.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Products\ProductFieldNames.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ProductFieldNames.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 

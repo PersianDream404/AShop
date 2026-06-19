@@ -1,6 +1,7 @@
 ﻿using Ardalis.Result;
 using FluentValidation;
 using Framwork.Bus.Command;
+using Framwork.Validation.Resources;
 using Mapster;
 using Modules.Product.Application.Contract.Interface.FeaturesCategories;
 using Modules.Product.Application.Contract.UseCase.FeaturesCategorys.Commands;
@@ -45,12 +46,12 @@ public class UpdateFeaturesCategoryCommandValidator
 
         RuleFor(x => x.request.Id)
             .NotEmpty()
-            .WithMessage("ارسال شناسه الزامی است.");
+            .WithMessage(SharedValidationMessages.Required);
 
         RuleFor(x => x.request.Title)
-             .NotEmpty()
-             .WithMessage("  نام  الزامی است.")
-             .MaximumLength(250)
-             .WithMessage(" نام نمی‌تواند بیشتر از ۲۵۰ کاراکتر باشد.");
+            .NotEmpty()
+            .WithMessage(SharedValidationMessages.Required)
+            .MaximumLength(250)
+            .WithMessage(SharedValidationMessages.MaxLength);
     }
 }

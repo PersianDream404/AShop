@@ -1,6 +1,7 @@
 ﻿using Ardalis.Result;
 using FluentValidation;
 using Framwork.Bus.Command;
+using Framwork.Validation.Resources;
 using Mapster;
 using Modules.Product.Application.Contract.Interface.Colors;
 using Modules.Product.Application.Contract.UseCase.Colors.Commands;
@@ -46,18 +47,19 @@ public class UpdateColorCommandValidator
 
         RuleFor(x => x.request.Id)
             .NotEmpty()
-            .WithMessage("ارسال شناسه الزامی است.");
+            .WithMessage(SharedValidationMessages.Required);
 
         RuleFor(x => x.request.ColorCode)
             .NotEmpty()
-            .WithMessage(" کد رنگ الزامی است.")
+            .WithMessage(SharedValidationMessages.Required)
             .MaximumLength(250)
-            .WithMessage("کد رنگ نمی‌تواند بیشتر از ۲۵۰ کاراکتر باشد.");
+            .WithMessage(SharedValidationMessages.MaxLength);
 
         RuleFor(x => x.request.ColorName)
             .NotEmpty()
-            .WithMessage("  نام رنگ الزامی است.")
+            .WithMessage(SharedValidationMessages.Required)
             .MaximumLength(250)
-            .WithMessage("کد رنگ نمی‌تواند بیشتر از ۲۵۰ کاراکتر باشد.");
+            .WithMessage(SharedValidationMessages.MaxLength);
+
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Ardalis.Result;
 using FluentValidation;
 using Framwork.Bus.Query;
+using Framwork.Validation.Resources;
 using Modules.Product.Application.Contract.DTOs.FeaturesCategorys.GetAll;
 using Modules.Product.Application.Contract.Interface.FeaturesCategories;
 using Modules.Product.Application.Contract.UseCase.FeaturesCategorys.Queries;
@@ -32,12 +33,12 @@ public class GetByIdFeaturesCategoryQueryHandler(IFeaturesCategoryQueryRepositor
     }
 }
 public class GetAllFeaturesCategoryQueryValidator
-    : AbstractValidator<GetAllFeaturesCategoryQuery>
+    : AbstractValidator<GetByIdFeaturesCategoryQuery>
 {
     public GetAllFeaturesCategoryQueryValidator()
     {
-        //RuleFor(x => x.request.Q)
-        //    .NotEmpty()
-        //    .WithMessage("FeaturesCategory Id is required");
+        RuleFor(x => x.Id)
+            .NotEmpty()
+            .WithMessage(SharedValidationMessages.Required);
     }
 }

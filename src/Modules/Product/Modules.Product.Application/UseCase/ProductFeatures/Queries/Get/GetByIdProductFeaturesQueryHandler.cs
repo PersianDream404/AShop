@@ -3,6 +3,7 @@ using FluentValidation;
 using Framwork.Bus.Query;
 using Modules.Product.Application.Contract.DTOs.ProductFeaturess.GetAll;
 using Modules.Product.Application.Contract.Interface.Features;
+using Modules.Product.Application.Contract.UseCase.FeaturesValuess.Queries;
 using Modules.Product.Application.Contract.UseCase.ProductFeaturess.Queries;
 using SharedKernel.Constants;
 using SharedKernel.Helper;
@@ -32,7 +33,7 @@ public class GetByIdProductFeaturesQueryHandler(IProductFeaturesQueryRepository 
     }
 }
 public class GetAllProductFeaturesQueryValidator
-    : AbstractValidator<GetAllProductFeaturesQuery>
+    : AbstractValidator<GetByIdFeaturesValuesQuery>
 {
     public GetAllProductFeaturesQueryValidator()
     {

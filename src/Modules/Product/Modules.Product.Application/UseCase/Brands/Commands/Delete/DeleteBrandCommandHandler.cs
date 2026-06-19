@@ -1,6 +1,7 @@
 ﻿using Ardalis.Result;
 using FluentValidation;
 using Framwork.Bus.Command;
+using Framwork.Validation.Resources;
 using Mapster;
 using Modules.Product.Application.Contract.Interface.Brands;
 using Modules.Product.Application.Contract.UseCase.Brands.Commands;
@@ -40,8 +41,7 @@ public class DeleteBrandCommandValidator
 
         RuleFor(x => x.Id)
             .NotEmpty()
-            .WithMessage("ارسال شناسه الزامی است.");
-   
+            .WithMessage(SharedValidationMessages.Required);
 
 
     }
