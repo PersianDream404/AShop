@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Modules.Product.Application.Contract.DTOs.Products;
+namespace Modules.Product.Application.Contract.DTOs.Products.GetAll;
 
 public class GetAllProductRequestDto : PagedParamData
 {
@@ -39,11 +39,6 @@ public class GetAllProductResponseDto
 
     /// <summary>
     /// وضعیت فعال یا غیرفعال بودن محصول
-    /// </summary>
-    public bool? IsActive { get; set; }
-
-    /// <summary>
-    /// تصویر اصلی محصول
     /// </summary>
     public string? Image { get; set; }
 

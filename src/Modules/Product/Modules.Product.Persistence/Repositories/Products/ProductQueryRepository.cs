@@ -2,7 +2,7 @@
 using Identity.Persistence.Context;
 using Infrastructure.Extensions;
 using Infrastructure.Repositories;
-using Modules.Product.Application.Contract.DTOs.Products;
+using Modules.Product.Application.Contract.DTOs.Products.GetAll;
 using Modules.Product.Application.Contract.Interface.Products;
 using Modules.Product.Domain.Entities.Products;
 using Modules.Product.Domain.Interface.Products;

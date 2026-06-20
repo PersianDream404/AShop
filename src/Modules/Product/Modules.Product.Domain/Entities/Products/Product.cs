@@ -34,10 +34,10 @@ public class Product : BaseEntityIdentity
     /// </summary>
     public string? Description { get; set; }
 
-    /// <summary>
-    /// وضعیت فعال یا غیرفعال بودن محصول
-    /// </summary>
-    public bool? IsActive { get; set; }
+    ///// <summary>
+    ///// وضعیت فعال یا غیرفعال بودن محصول
+    ///// </summary>
+    //public bool? IsActive { get; set; }
 
     /// <summary>
     /// تصویر اصلی محصول
@@ -49,10 +49,10 @@ public class Product : BaseEntityIdentity
     /// </summary>
     public int? ViewCount { get; set; }
 
-    /// <summary>
-    /// تعداد فروش محصول
-    /// </summary>
-    public int? SellCount { get; set; }
+    ///// <summary>
+    ///// تعداد فروش محصول
+    ///// </summary>
+    //public int? SellCount { get; set; }
 
     /// <summary>
     /// دسته‌بندی‌های انتخاب شده محصول

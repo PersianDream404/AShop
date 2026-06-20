@@ -1,6 +1,6 @@
 ﻿using Framwork.PagedList;
 using Modules.Product.Application.Contract.DTOs.Brands.GetAll;
-using Modules.Product.Application.Contract.DTOs.Products;
+using Modules.Product.Application.Contract.DTOs.Products.GetAll;
 using SharedKernel.Interface.Repositories;
 
 

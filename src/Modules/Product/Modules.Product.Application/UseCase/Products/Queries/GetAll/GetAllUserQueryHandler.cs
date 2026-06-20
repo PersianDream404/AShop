@@ -2,7 +2,7 @@
 using FluentValidation;
 using Framwork.Bus.Query;
 using Framwork.PagedList;
-using Modules.Product.Application.Contract.DTOs.Products;
+using Modules.Product.Application.Contract.DTOs.Products.GetAll;
 using Modules.Product.Application.Contract.Interface.Products;
 using Modules.Product.Application.Contract.UseCase.Products.Queries;
 using Modules.Product.Domain.Interface;

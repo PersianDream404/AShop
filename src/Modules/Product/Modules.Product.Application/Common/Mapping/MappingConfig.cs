@@ -13,9 +13,10 @@ public static class MappingConfig
         #region Products
 
         TypeAdapterConfig<CreateProductRequestDto, Product>.NewConfig()
+             //.Map(dest => dest.ProductDiscounts, src => src.DiscountsIds.Select(x=>new ProductDiscountUse { ProductDiscountId=x}))
              .Map(dest => dest.ProductSelectedCategories, src => src.CategoriesIds.Select(x=>new ProductSelectedCategory { ProductCategoryId=x}))
-             .Map(dest => dest.ProductDiscounts, src => src.DiscountsIds.Select(x=>new ProductDiscountUse { ProductDiscountId=x}))
-             .Map(dest => dest.ProductSelectedColors, src => src.SelectedColorsIds.Select(x=>new ProductSelectedColors { ProductColorId=x}))
+             .Map(dest => dest.ProductSelectedColors, src => src.ColorsIds.Select(x=>new ProductSelectedColors { ProductColorId=x}))
+             .Map(dest => dest.ProductSelectedBrands, src => src.BrandsIds.Select(x=>new ProductSelectedBrands { ProductBrandId=x}))
             ;
         #endregion
 

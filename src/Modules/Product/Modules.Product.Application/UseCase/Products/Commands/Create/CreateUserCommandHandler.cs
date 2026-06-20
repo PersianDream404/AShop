@@ -87,7 +87,7 @@ public class CreateProductCommandValidator
         // =====================
         // رنگ‌ها
         // =====================
-        RuleForEach(x => x.request.SelectedColorsIds)
+        RuleForEach(x => x.request.ColorsIds)
             .GreaterThan(0)
             .WithMessage(SharedValidationMessages.InvalidId);
 
