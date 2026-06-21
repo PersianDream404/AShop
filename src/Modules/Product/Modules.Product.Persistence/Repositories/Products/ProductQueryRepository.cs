@@ -2,10 +2,14 @@
 using Identity.Persistence.Context;
 using Infrastructure.Extensions;
 using Infrastructure.Repositories;
+using Microsoft.EntityFrameworkCore;
+using Modules.Product.Application.Contract.DTOs.Brands.GetAll;
+using Modules.Product.Application.Contract.DTOs.Products.Get;
 using Modules.Product.Application.Contract.DTOs.Products.GetAll;
 using Modules.Product.Application.Contract.Interface.Products;
 using Modules.Product.Domain.Entities.Products;
 using Modules.Product.Domain.Interface.Products;
+using Modules.Product.Persistence.Mapper.Brands;
 
 namespace Modules.Product.Persistence.Repositories.Users;
 
@@ -25,22 +29,17 @@ public class ProductQueryRepository
             .WhereIf(!string.IsNullOrEmpty(request.Q),x=>x.Title.Contains(request.Q!));
 
 
-        var result = await query.ToPagedListAsync(x => new GetAllProductResponseDto
-        {
-            Code= x.Code,
-            Description= x.Description,
-            Id= x.Id,
-            Image= x.Image,
-            IsActive= x.IsActive,
-            Price= x.Price,
-            SellCount= x.SellCount,
-            ShortDescription= x.ShortDescription,
-            Title= x.Title,
-            ViewCount = x.ViewCount
-        }, request.PageNumber, request.PageSize,ct);
+        var result = await query.ToPagedListAsync(ProductMapper.ToGetAllDto(), request.PageNumber, request.PageSize,ct);
         return result;
 
     }
 
-
+    public async Task<GetByIdProductResponseDto?> GetByIdProjectedAsync(int Id, CancellationToken ct)
+    {
+        return await _dbContext.Products
+            .AsNoTracking()
+            .Where(x => x.Id == Id)
+            .Select(ProductMapper.ToGetByIdDto())
+            .FirstOrDefaultAsync(ct);
+    }
 }

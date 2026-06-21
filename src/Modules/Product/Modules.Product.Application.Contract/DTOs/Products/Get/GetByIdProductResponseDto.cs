@@ -54,17 +54,17 @@ public class GetByIdProductResponseDto
     /// دسته‌بندی‌های انتخاب شده محصول
     /// </summary>
     /// 
-    public List<GetByIdProductGalleryRequestDto> ProductGalleries { get; set; } = [];
-    public List<GetByIdProductSelectedFeaturesRequestDto> ProductFeatures { get; set; } = [];
-    public List<GetByIdProductColorsSelectListResponseDto> Colors { get; set; } = [];
-    public List<GetByIdProductCategoriesSelectListResponseDto> Categories { get; set; } = [];
-    public List<GetByIdProductBrandsSelectListResponseDto> Brands { get; set; } = [];
+    public IEnumerable<GetByIdProductGalleryRequestDto> ProductGalleries { get; set; } = [];
+    public IEnumerable<GetByIdProductSelectedFeaturesRequestDto> ProductFeatures { get; set; } = [];
+    public IEnumerable<GetByIdProductColorsSelectListResponseDto> Colors { get; set; } = [];
+    public IEnumerable<GetByIdProductCategoriesSelectListResponseDto> Categories { get; set; } = [];
+    public IEnumerable<GetByIdProductBrandsSelectListResponseDto> Brands { get; set; } = [];
 }
-public record GetByIdProductColorsSelectListResponseDto(int Id,string Name);
-public record GetByIdProductCategoriesSelectListResponseDto(int Id,string Name);
-public record GetByIdProductBrandsSelectListResponseDto(int Id,string Name);
+public record GetByIdProductColorsSelectListResponseDto(long Id,string Name);
+public record GetByIdProductCategoriesSelectListResponseDto(long Id,string Name);
+public record GetByIdProductBrandsSelectListResponseDto(long Id,string Name);
 
 
-public record GetByIdProductSelectedFeaturesRequestDto(int Id, long? ProductFeaturesCategoryId, long? ProductFeaturesId, string FeatureValue);
+public record GetByIdProductSelectedFeaturesRequestDto(long Id, long? ProductFeaturesCategoryId, long? ProductFeaturesId, string FeatureValue);
 
-public record GetByIdProductGalleryRequestDto(int Id, int DisplayPriority, string ImageName);
+public record GetByIdProductGalleryRequestDto(long Id, int DisplayPriority, string ImageName);
