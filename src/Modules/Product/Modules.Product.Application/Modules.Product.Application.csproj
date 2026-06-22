@@ -10,8 +10,4 @@
 	  <PackageReference Include="Scrutor" />
     <PackageReference Include="Mapster.DependencyInjection" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="UseCase\Products\Services\" />
-    <Folder Include="UseCase\Products\Validation\" />
-  </ItemGroup>
 </Project>

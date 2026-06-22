@@ -44,9 +44,20 @@ public static class ProductMapper
             ShortDescription = x.ShortDescription,
             Title = x.Title,
             ViewCount = x.ViewCount,
+            Status=x.Status,
             //SellCount=x.
         };
     }
-
+    public static Expression<Func<Domain.Entities.Products.Product, GetSelectListProductResponseDto>> ToGetAllSelectListDto()
+    {
+        return x => new GetSelectListProductResponseDto
+        {
+            Id = x.Id,
+            Image = x.Image,
+            Status=x.Status,
+            Title = x.Title,
+    
+        };
+    }
 
 }

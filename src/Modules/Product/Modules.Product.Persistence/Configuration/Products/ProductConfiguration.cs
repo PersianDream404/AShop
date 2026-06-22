@@ -33,13 +33,12 @@ public class ProductConfiguration : IEntityTypeConfiguration<Modules.Product.Dom
         builder.Property(x => x.Image)
             .HasMaxLength(500);
 
-        builder.Property(x => x.IsActive);
+
 
         builder.Property(x => x.ViewCount)
             .HasDefaultValue(0);
 
-        builder.Property(x => x.SellCount)
-            .HasDefaultValue(0);
+    
 
         builder.HasMany(x => x.ProductSelectedCategories)
             .WithOne(x => x.Product)

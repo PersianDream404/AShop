@@ -67,9 +67,9 @@ public class CreateProductCommandValidator
             .MaximumLength(500)
             .WithMessage(SharedValidationMessages.MaxLength);
 
-        RuleFor(x => x.request.IsActive)
-            .NotNull()
-            .WithMessage(SharedValidationMessages.Required);
+        //RuleFor(x => x.request.IsActive)
+        //    .NotNull()
+        //    .WithMessage(SharedValidationMessages.Required);
 
         // =====================
         // دسته‌بندی‌ها
@@ -94,9 +94,9 @@ public class CreateProductCommandValidator
         // =====================
         // تخفیف‌ها
         // =====================
-        RuleForEach(x => x.request.DiscountsIds)
-            .GreaterThan(0)
-            .WithMessage(SharedValidationMessages.InvalidId);
+        //RuleForEach(x => x.request.DiscountsIds)
+        //    .GreaterThan(0)
+        //    .WithMessage(SharedValidationMessages.InvalidId);
 
         // =====================
         // گالری تصاویر

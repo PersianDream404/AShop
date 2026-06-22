@@ -6,31 +6,30 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using SharedKernel.Interface;
-using Modules.Product.Application.Contract.DTOs.Products.GetAll;
 using Modules.Product.Application.Contract.UseCase.Products.Queries;
+using Modules.Product.Application.Contract.DTOs.Products.GetAll;
 using Modules.Product.Presentation.Endpoints.Products;
+using Modules.Product.Application.Contract.DTOs.Products.Get;
 
 
 namespace Modules.Product.Presentation.Endpoints.Products.Write;
 
-
-
-public static class GetAllProductEndpoint
+public static class GetByIdProductEndpoint
 {
     public class EndPoint : BaseEndpoint, IEndpoint
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
-            app.MapGet($"{ApiInfo.Prefix}", handler: async (
+            app.MapGet($"{ApiInfo.Prefix}/{{id}}", handler: async (
 
 
-                    [AsParameters] GetAllProductRequestDto request,
+                    int id,
                   [FromServices] IQueryBus _queryBus
                 ) =>
             {
 
-                var result = await _queryBus.Send<GetAllProductQuery, PagedList< GetAllProductResponseDto >>
-                                 (new GetAllProductQuery(request));
+                var result = await _queryBus.Send<GetByIdProductQuery, GetByIdProductResponseDto>
+                                 (new GetByIdProductQuery(id));
 
                 if (!result.IsSuccess)
                 {

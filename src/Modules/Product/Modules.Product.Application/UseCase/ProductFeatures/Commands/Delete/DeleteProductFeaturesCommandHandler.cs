@@ -5,6 +5,7 @@ using Framwork.Validation.Resources;
 using Modules.Product.Application.Contract.Interface.Features;
 using Modules.Product.Application.Contract.UseCase.ProductFeaturess.Commands;
 using Modules.Product.Domain.Interface;
+using Modules.Product.Domain.Interface.FeaturesCategories;
 using SharedKernel.Constants;
 using SharedKernel.Helper;
 
@@ -22,6 +23,8 @@ public class DeleteProductFeaturesCommandHandler(IProductFeaturesCommandReposito
             var productFeatures = await productFeaturesQueryRepository.GetByIdProjectedAsync(command.Id, cancellationToken);
             if (productFeatures == null)
                 return Result.Error(MessageHelper.Format(AppMessages.NotFound, AppEntity.ProductFeatures));
+
+            await productFeaturesCommandRepository.DeleteAsync(command.Id);
         }
         catch (Exception)
         {

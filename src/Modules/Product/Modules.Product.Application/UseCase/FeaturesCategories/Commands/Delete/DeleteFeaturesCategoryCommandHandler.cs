@@ -4,6 +4,7 @@ using Framwork.Bus.Command;
 using Framwork.Validation.Resources;
 using Modules.Product.Application.Contract.Interface.FeaturesCategories;
 using Modules.Product.Application.Contract.UseCase.FeaturesCategorys.Commands;
+using Modules.Product.Domain.Interface.Categories;
 using Modules.Product.Domain.Interface.FeaturesCategories;
 using SharedKernel.Constants;
 using SharedKernel.Helper;
@@ -22,6 +23,8 @@ public class DeleteFeaturesCategoryCommandHandler(IFeaturesCategoryCommandReposi
             var featuresCategory = await featuresCategoryQueryRepository.GetByIdProjectedAsync(command.Id, cancellationToken);
             if (featuresCategory == null)
                 return Result.Error(MessageHelper.Format(AppMessages.NotFound, AppEntity.FeaturesCategory));
+
+            await featuresCategoryCommandRepository.DeleteAsync(command.Id);
         }
         catch (Exception)
         {

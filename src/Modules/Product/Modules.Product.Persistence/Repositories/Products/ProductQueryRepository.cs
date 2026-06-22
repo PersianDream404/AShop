@@ -34,12 +34,23 @@ public class ProductQueryRepository
 
     }
 
-    public async Task<GetByIdProductResponseDto?> GetByIdProjectedAsync(int Id, CancellationToken ct)
+    public async Task<GetByIdProductResponseDto?> GetByIdProjectedAsync(long Id, CancellationToken ct)
     {
         return await _dbContext.Products
             .AsNoTracking()
             .Where(x => x.Id == Id)
             .Select(ProductMapper.ToGetByIdDto())
             .FirstOrDefaultAsync(ct);
+    }
+
+    public async Task<PagedList<GetSelectListProductResponseDto>> GetSelectListAsync(GetSelectListProductRequestDto request, CancellationToken ct)
+    {
+        var query = _dbContext.Products
+      .AsQueryable()
+      .WhereIf(!string.IsNullOrEmpty(request.Q), x => x.Title.Contains(request.Q!));
+
+
+        var result = await query.ToPagedListAsync(ProductMapper.ToGetAllSelectListDto(), request.PageNumber, request.PageSize, ct);
+        return result;
     }
 }

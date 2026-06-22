@@ -7,6 +7,7 @@ using Modules.Product.Application.Contract.Interface.Brands;
 using Modules.Product.Application.Contract.UseCase.Brands.Commands;
 using Modules.Product.Domain.Entities.Brands;
 using Modules.Product.Domain.Interface.Brands;
+using Modules.Product.Domain.Interface.Categories;
 using SharedKernel.Constants;
 using SharedKernel.Helper;
 
@@ -24,6 +25,7 @@ public class DeleteBrandCommandHandler(IBrandCommandRepository brandCommandRepos
             var brand = await brandQueryRepository.GetByIdProjectedAsync(command.Id, cancellationToken);
             if (brand == null)
                 return Result.Error(MessageHelper.Format(AppMessages.NotFound, AppEntity.Brand));
+            await brandCommandRepository.DeleteAsync(command.Id);
         }
         catch (Exception)
         {

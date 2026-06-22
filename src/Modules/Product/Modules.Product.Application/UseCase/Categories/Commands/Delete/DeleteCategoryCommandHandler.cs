@@ -12,7 +12,7 @@ using SharedKernel.Helper;
 
 namespace Modules.Product.Application.UseCase.Categorys.Commands.Delete;
 
-public class DeleteCategoryCommandHandler(ICategoryCommandRepository categoryCommandRepository,ICategoryQueryRepository categoryQueryRepository)
+public class DeleteCategoryCommandHandler(ICategoryCommandRepository categoryCommandRepository, ICategoryQueryRepository categoryQueryRepository)
 : ICommandHandler<DeleteCategoryCommand, bool>
 {
     public async Task<Result<bool>> Handle(
@@ -24,6 +24,7 @@ public class DeleteCategoryCommandHandler(ICategoryCommandRepository categoryCom
             var category = await categoryQueryRepository.GetByIdProjectedAsync(command.Id, cancellationToken);
             if (category == null)
                 return Result.Error(MessageHelper.Format(AppMessages.NotFound, AppEntity.Category));
+            await categoryCommandRepository.DeleteAsync(command.Id);
         }
         catch (Exception)
         {

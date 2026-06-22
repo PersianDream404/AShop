@@ -55,4 +55,6 @@ public class GetAllProductResponseDto
     /// <summary>
     /// دسته‌بندی‌های انتخاب شده محصول
     /// </summary>
+    /// 
+    public bool Status { get; set; }
 }

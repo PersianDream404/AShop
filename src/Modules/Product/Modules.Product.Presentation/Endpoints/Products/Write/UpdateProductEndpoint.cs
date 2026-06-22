@@ -14,22 +14,25 @@ namespace Modules.Product.Presentation.Endpoints.Products.Write;
 
 
 
-public static class CreateProductEndpoint
+public static class UpdateProductEndpoint
 {
     public class EndPoint : BaseEndpoint, IEndpoint
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
-            app.MapPost($"{ApiInfo.Prefix}", handler: async (
+            app.MapPut($"{ApiInfo.Prefix}/{{id}}", handler: async (
 
-
-                    [FromBody]CreateProductRequestDto request,
+                  long id,
+                    [FromBody]UpdateProductRequestDto request,
                   [FromServices] ICommandBus _commandBus
                 ) =>
             {
 
-                var result = await _commandBus.Send<CreateProductCommand, bool>
-                                 (new CreateProductCommand(request));
+                if (id != request.Id)
+                    return BadRequest(AppMessages.BadRequest);
+
+                var result = await _commandBus.Send<UpdateProductCommand, bool>
+                                 (new UpdateProductCommand(request));
 
                 if (!result.IsSuccess)
                 {
@@ -37,7 +40,7 @@ public static class CreateProductEndpoint
                     return BadRequest(message);
                 }
 
-                return Ok(MessageHelper.Format(AppMessages.Create, AppEntity.Product));
+                return Ok(MessageHelper.Format(AppMessages.Edit, AppEntity.Product));
 
 
             })

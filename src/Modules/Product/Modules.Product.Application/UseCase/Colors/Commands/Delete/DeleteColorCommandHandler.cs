@@ -6,6 +6,7 @@ using Mapster;
 using Modules.Product.Application.Contract.Interface.Colors;
 using Modules.Product.Application.Contract.UseCase.Colors.Commands;
 using Modules.Product.Domain.Entities.Colors;
+using Modules.Product.Domain.Interface.Categories;
 using Modules.Product.Domain.Interface.Colors;
 using SharedKernel.Constants;
 using SharedKernel.Helper;
@@ -24,6 +25,8 @@ public class DeleteColorCommandHandler(IColorCommandRepository colorCommandRepos
             var color = await colorQueryRepository.GetByIdProjectedAsync(command.Id, cancellationToken);
             if (color == null)
                 return Result.Error(MessageHelper.Format(AppMessages.NotFound, AppEntity.Color));
+
+            await colorCommandRepository.DeleteAsync(command.Id);
         }
         catch (Exception)
         {

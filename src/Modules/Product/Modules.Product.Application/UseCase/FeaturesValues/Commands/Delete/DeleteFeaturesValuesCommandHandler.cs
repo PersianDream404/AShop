@@ -7,6 +7,7 @@ using Modules.Product.Application.Contract.Interface.Features;
 using Modules.Product.Application.Contract.UseCase.FeaturesValuess.Commands;
 using Modules.Product.Domain.Interface;
 using Modules.Product.Domain.Interface.Categories;
+using Modules.Product.Domain.Interface.FeaturesCategories;
 using SharedKernel.Constants;
 using SharedKernel.Helper;
 
@@ -24,6 +25,8 @@ public class DeleteFeaturesValuesCommandHandler(IFeaturesValuesCommandRepository
             var featuresValues = await featuresValuesQueryRepository.GetByIdProjectedAsync(command.Id, cancellationToken);
             if (featuresValues == null)
                 return Result.Error(MessageHelper.Format(AppMessages.NotFound, AppEntity.FeaturesValues));
+
+            await featuresValuesCommandRepository.DeleteAsync(command.Id);
         }
         catch (Exception)
         {

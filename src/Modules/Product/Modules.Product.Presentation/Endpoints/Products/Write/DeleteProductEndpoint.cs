@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
-using Modules.Product.Application.Contract.DTOs.Products.Create;
 using Modules.Product.Application.Contract.UseCase.Products.Commands;
 using SharedKernel.Constants;
 using SharedKernel.Helper;
@@ -14,22 +13,23 @@ namespace Modules.Product.Presentation.Endpoints.Products.Write;
 
 
 
-public static class CreateProductEndpoint
+public static class DeleteProductEndpoint
 {
     public class EndPoint : BaseEndpoint, IEndpoint
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
-            app.MapPost($"{ApiInfo.Prefix}", handler: async (
+            app.MapDelete($"{ApiInfo.Prefix}/{{id}}", handler: async (
 
-
-                    [FromBody]CreateProductRequestDto request,
+                  long id,
+                   
                   [FromServices] ICommandBus _commandBus
                 ) =>
             {
 
-                var result = await _commandBus.Send<CreateProductCommand, bool>
-                                 (new CreateProductCommand(request));
+
+                var result = await _commandBus.Send<DeleteProductCommand, bool>
+                                 (new DeleteProductCommand(id));
 
                 if (!result.IsSuccess)
                 {
@@ -37,7 +37,7 @@ public static class CreateProductEndpoint
                     return BadRequest(message);
                 }
 
-                return Ok(MessageHelper.Format(AppMessages.Create, AppEntity.Product));
+                return Ok(MessageHelper.Format(AppMessages.Delete, AppEntity.Product));
 
 
             })
