@@ -26,19 +26,18 @@ public class CreateOrderCommandHandler(IOrderCommandRepository commandRepository
             if (cart == null)
                 return Result.Error(OrderValidationMessages.ShoppingCartNotFound);
 
-            var order = OrderEntity.Create(
+            var orderResult = OrderEntity.Create(
                 command.Request.ShoppingCartId,
                 command.Request.ShippingAddress,
                 command.Request.MobileNumber,
                 command.Request.TrackingNumber
             );
 
-            await commandRepository.AddAsync(order, cancellationToken);
+            if (!orderResult.IsSuccess)
+                return Result.Error(orderResult.Errors.FirstOrDefault()?.ErrorMessage ?? OrderValidationMessages.ErrorCreatingOrder);
+
+            await commandRepository.AddAsync(orderResult.Value, cancellationToken);
             return Result.Success(true);
-        }
-        catch (ArgumentException ex)
-        {
-            return Result.Error(ex.Message);
         }
         catch (Exception ex)
         {
@@ -79,13 +78,12 @@ public class UpdateOrderStatusCommandHandler(IOrderCommandRepository commandRepo
             if (order == null)
                 return Result.Error(OrderValidationMessages.OrderNotFound);
 
-            order.UpdateStatus(command.Request.NewStatus);
+            var statusResult = order.UpdateStatus(command.Request.NewStatus);
+            if (!statusResult.IsSuccess)
+                return Result.Error(statusResult.Errors.FirstOrDefault()?.ErrorMessage ?? OrderValidationMessages.ErrorUpdatingOrderStatus);
+
             await commandRepository.UpdateAsync(order, cancellationToken);
             return Result.Success(true);
-        }
-        catch (InvalidOperationException ex)
-        {
-            return Result.Error(ex.Message);
         }
         catch (Exception ex)
         {
@@ -119,17 +117,12 @@ public class UpdateTrackingNumberCommandHandler(IOrderCommandRepository commandR
             if (order == null)
                 return Result.Error(OrderValidationMessages.OrderNotFound);
 
-            order.UpdateTrackingNumber(command.Request.TrackingNumber);
+            var updateResult = order.UpdateTrackingNumber(command.Request.TrackingNumber);
+            if (!updateResult.IsSuccess)
+                return Result.Error(updateResult.Errors.FirstOrDefault()?.ErrorMessage ?? OrderValidationMessages.ErrorUpdatingTrackingNumber);
+
             await commandRepository.UpdateAsync(order, cancellationToken);
             return Result.Success(true);
-        }
-        catch (InvalidOperationException ex)
-        {
-            return Result.Error(ex.Message);
-        }
-        catch (ArgumentException ex)
-        {
-            return Result.Error(ex.Message);
         }
         catch (Exception ex)
         {
@@ -165,7 +158,7 @@ public class AddOrderItemCommandHandler(IOrderCommandRepository commandRepositor
             if (order == null)
                 return Result.Error(OrderValidationMessages.OrderNotFound);
 
-            var orderItem = OrderItem.Create(
+            var itemResult = OrderItem.Create(
                 command.OrderId,
                 command.Request.ProductId,
                 command.Request.UnitPrice,
@@ -173,18 +166,16 @@ public class AddOrderItemCommandHandler(IOrderCommandRepository commandRepositor
                 command.Request.DiscountValue
             );
 
-            order.AddOrderItem(orderItem);
-            await itemRepository.AddAsync(orderItem, cancellationToken);
+            if (!itemResult.IsSuccess)
+                return Result.Error(itemResult.Errors.FirstOrDefault()?.ErrorMessage ?? OrderValidationMessages.ErrorAddingOrderItem);
+
+            var addResult = order.AddOrderItem(itemResult.Value);
+            if (!addResult.IsSuccess)
+                return Result.Error(addResult.Errors.FirstOrDefault()?.ErrorMessage ?? OrderValidationMessages.ErrorAddingOrderItem);
+
+            await itemRepository.AddAsync(itemResult.Value, cancellationToken);
             await commandRepository.UpdateAsync(order, cancellationToken);
             return Result.Success(true);
-        }
-        catch (ArgumentException ex)
-        {
-            return Result.Error(ex.Message);
-        }
-        catch (InvalidOperationException ex)
-        {
-            return Result.Error(ex.Message);
         }
         catch (Exception ex)
         {
@@ -230,14 +221,13 @@ public class RemoveOrderItemCommandHandler(IOrderCommandRepository commandReposi
             if (order == null)
                 return Result.Error(OrderValidationMessages.OrderNotFound);
 
-            order.RemoveOrderItem(orderItem);
+            var removeResult = order.RemoveOrderItem(orderItem);
+            if (!removeResult.IsSuccess)
+                return Result.Error(removeResult.Errors.FirstOrDefault()?.ErrorMessage ?? OrderValidationMessages.ErrorRemovingOrderItem);
+
             await itemRepository.DeleteAsync(command.OrderItemId, cancellationToken);
             await commandRepository.UpdateAsync(order, cancellationToken);
             return Result.Success(true);
-        }
-        catch (InvalidOperationException ex)
-        {
-            return Result.Error(ex.Message);
         }
         catch (Exception ex)
         {
@@ -271,18 +261,13 @@ public class UpdateOrderItemCommandHandler(IOrderCommandRepository commandReposi
             if (orderItem == null)
                 return Result.Error(OrderValidationMessages.OrderItemNotFound);
 
-            order.UpdateOrderItem(orderItem, command.Request.Quantity);
+            var updateResult = order.UpdateOrderItem(orderItem, command.Request.Quantity);
+            if (!updateResult.IsSuccess)
+                return Result.Error(updateResult.Errors.FirstOrDefault()?.ErrorMessage ?? OrderValidationMessages.ErrorUpdatingOrderItem);
+
             await itemRepository.UpdateAsync(orderItem, cancellationToken);
             await commandRepository.UpdateAsync(order, cancellationToken);
             return Result.Success(true);
-        }
-        catch (ArgumentException ex)
-        {
-            return Result.Error(ex.Message);
-        }
-        catch (InvalidOperationException ex)
-        {
-            return Result.Error(ex.Message);
         }
         catch (Exception ex)
         {
@@ -320,13 +305,12 @@ public class UpdateOrderTotalAmountCommandHandler(IOrderCommandRepository comman
             if (order == null)
                 return Result.Error(OrderValidationMessages.OrderNotFound);
 
-            order.UpdateTotalAmount(command.NewTotalAmount);
+            var amountResult = order.UpdateTotalAmount(command.NewTotalAmount);
+            if (!amountResult.IsSuccess)
+                return Result.Error(amountResult.Errors.FirstOrDefault()?.ErrorMessage ?? OrderValidationMessages.ErrorUpdatingOrderTotalAmount);
+
             await commandRepository.UpdateAsync(order, cancellationToken);
             return Result.Success(true);
-        }
-        catch (ArgumentException ex)
-        {
-            return Result.Error(ex.Message);
         }
         catch (Exception ex)
         {

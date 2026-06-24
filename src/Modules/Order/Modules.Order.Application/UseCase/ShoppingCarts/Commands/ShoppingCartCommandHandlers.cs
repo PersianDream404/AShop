@@ -20,13 +20,12 @@ public class CreateShoppingCartCommandHandler(IShoppingCartCommandRepository com
     {
         try
         {
-            var cart = ShoppingCart.Create(command.Request.SessionId, command.Request.UserId);
-            await commandRepository.AddAsync(cart, cancellationToken);
+            var cartResult = ShoppingCart.Create(command.Request.SessionId, command.Request.UserId);
+            if (!cartResult.IsSuccess)
+                return Result.Error(cartResult.Errors.FirstOrDefault()?.ErrorMessage ?? OrderValidationMessages.ErrorCreatingShoppingCart);
+
+            await commandRepository.AddAsync(cartResult.Value, cancellationToken);
             return Result.Success(true);
-        }
-        catch (ArgumentException ex)
-        {
-            return Result.Error(ex.Message);
         }
         catch (Exception ex)
         {
@@ -56,13 +55,12 @@ public class LinkSessionToUserCommandHandler(IShoppingCartCommandRepository comm
             if (cart == null)
                 return Result.Error(OrderValidationMessages.ShoppingCartNotFound);
 
-            cart.LinkToUser(command.Request.UserId);
+            var linkResult = cart.LinkToUser(command.Request.UserId);
+            if (!linkResult.IsSuccess)
+                return Result.Error(linkResult.Errors.FirstOrDefault()?.ErrorMessage ?? OrderValidationMessages.ErrorLinkingSessionToUser);
+
             await commandRepository.UpdateAsync(cart, cancellationToken);
             return Result.Success(true);
-        }
-        catch (ArgumentException ex)
-        {
-            return Result.Error(ex.Message);
         }
         catch (Exception ex)
         {
