@@ -4,6 +4,7 @@ using Framwork.Bus.Command;
 using Framwork.Validation.Resources;
 using Mapster;
 using Modules.Order.Application.Contract.DTOs;
+using Modules.Order.Application.Contract.Resources.Orders;
 using Modules.Order.Application.Contract.UseCase.Orders.Commands;
 using Modules.Order.Domain.Entities;
 using Modules.Order.Domain.Enums;
@@ -23,7 +24,7 @@ public class CreateOrderCommandHandler(IOrderCommandRepository commandRepository
         {
             var cart = await cartQueryRepository.GetByIdAsync(command.Request.ShoppingCartId, cancellationToken);
             if (cart == null)
-                return Result.Error("Shopping cart not found");
+                return Result.Error(OrderValidationMessages.ShoppingCartNotFound);
 
             var order = OrderEntity.Create(
                 command.Request.ShoppingCartId,
@@ -41,7 +42,7 @@ public class CreateOrderCommandHandler(IOrderCommandRepository commandRepository
         }
         catch (Exception ex)
         {
-            return Result.Error($"Error creating order: {ex.Message}");
+            return Result.Error($"{OrderValidationMessages.ErrorCreatingOrder}: {ex.Message}");
         }
     }
 }
@@ -62,7 +63,7 @@ public class CreateOrderCommandValidator : AbstractValidator<CreateOrderCommand>
             .MaximumLength(20)
             .WithMessage(SharedValidationMessages.MaxLength)
             .Matches(@"^09\d{9}$", RegexOptions.None)
-            .WithMessage("Mobile number must be in format 09XXXXXXXXX")
+            .WithMessage(OrderValidationMessages.MobileNumberFormat)
             .When(x => !string.IsNullOrEmpty(x.Request.MobileNumber));
     }
 }
@@ -76,7 +77,7 @@ public class UpdateOrderStatusCommandHandler(IOrderCommandRepository commandRepo
         {
             var order = await queryRepository.GetByIdAsync(command.Request.OrderId, cancellationToken);
             if (order == null)
-                return Result.Error("Order not found");
+                return Result.Error(OrderValidationMessages.OrderNotFound);
 
             order.UpdateStatus(command.Request.NewStatus);
             await commandRepository.UpdateAsync(order, cancellationToken);
@@ -88,7 +89,7 @@ public class UpdateOrderStatusCommandHandler(IOrderCommandRepository commandRepo
         }
         catch (Exception ex)
         {
-            return Result.Error($"Error updating order status: {ex.Message}");
+            return Result.Error($"{OrderValidationMessages.ErrorUpdatingOrderStatus}: {ex.Message}");
         }
     }
 }
@@ -103,7 +104,7 @@ public class UpdateOrderStatusCommandValidator : AbstractValidator<UpdateOrderSt
 
         RuleFor(x => x.Request.NewStatus)
             .IsInEnum()
-            .WithMessage("Invalid order status");
+            .WithMessage(OrderValidationMessages.InvalidOrderStatus);
     }
 }
 
@@ -116,7 +117,7 @@ public class UpdateTrackingNumberCommandHandler(IOrderCommandRepository commandR
         {
             var order = await queryRepository.GetByIdAsync(command.Request.OrderId, cancellationToken);
             if (order == null)
-                return Result.Error("Order not found");
+                return Result.Error(OrderValidationMessages.OrderNotFound);
 
             order.UpdateTrackingNumber(command.Request.TrackingNumber);
             await commandRepository.UpdateAsync(order, cancellationToken);
@@ -132,7 +133,7 @@ public class UpdateTrackingNumberCommandHandler(IOrderCommandRepository commandR
         }
         catch (Exception ex)
         {
-            return Result.Error($"Error updating tracking number: {ex.Message}");
+            return Result.Error($"{OrderValidationMessages.ErrorUpdatingTrackingNumber}: {ex.Message}");
         }
     }
 }
@@ -162,7 +163,7 @@ public class AddOrderItemCommandHandler(IOrderCommandRepository commandRepositor
         {
             var order = await queryRepository.GetByIdAsync(command.OrderId, cancellationToken);
             if (order == null)
-                return Result.Error("Order not found");
+                return Result.Error(OrderValidationMessages.OrderNotFound);
 
             var orderItem = OrderItem.Create(
                 command.OrderId,
@@ -187,7 +188,7 @@ public class AddOrderItemCommandHandler(IOrderCommandRepository commandRepositor
         }
         catch (Exception ex)
         {
-            return Result.Error($"Error adding order item: {ex.Message}");
+            return Result.Error($"{OrderValidationMessages.ErrorAddingOrderItem}: {ex.Message}");
         }
     }
 }
@@ -223,11 +224,11 @@ public class RemoveOrderItemCommandHandler(IOrderCommandRepository commandReposi
         {
             var orderItem = await itemRepository.GetByIdAsync(command.OrderItemId, cancellationToken);
             if (orderItem == null)
-                return Result.Error("Order item not found");
+                return Result.Error(OrderValidationMessages.OrderItemNotFound);
 
             var order = await orderQueryRepository.GetByIdAsync(orderItem.OrderId, cancellationToken);
             if (order == null)
-                return Result.Error("Order not found");
+                return Result.Error(OrderValidationMessages.OrderNotFound);
 
             order.RemoveOrderItem(orderItem);
             await itemRepository.DeleteAsync(command.OrderItemId, cancellationToken);
@@ -240,7 +241,7 @@ public class RemoveOrderItemCommandHandler(IOrderCommandRepository commandReposi
         }
         catch (Exception ex)
         {
-            return Result.Error($"Error removing order item: {ex.Message}");
+            return Result.Error($"{OrderValidationMessages.ErrorRemovingOrderItem}: {ex.Message}");
         }
     }
 }
@@ -264,11 +265,11 @@ public class UpdateOrderItemCommandHandler(IOrderCommandRepository commandReposi
         {
             var order = await orderQueryRepository.GetByIdAsync(command.OrderId, cancellationToken);
             if (order == null)
-                return Result.Error("Order not found");
+                return Result.Error(OrderValidationMessages.OrderNotFound);
 
             var orderItem = await itemRepository.GetByIdAsync(command.Request.Id, cancellationToken);
             if (orderItem == null)
-                return Result.Error("Order item not found");
+                return Result.Error(OrderValidationMessages.OrderItemNotFound);
 
             order.UpdateOrderItem(orderItem, command.Request.Quantity);
             await itemRepository.UpdateAsync(orderItem, cancellationToken);
@@ -285,7 +286,7 @@ public class UpdateOrderItemCommandHandler(IOrderCommandRepository commandReposi
         }
         catch (Exception ex)
         {
-            return Result.Error($"Error updating order item: {ex.Message}");
+            return Result.Error($"{OrderValidationMessages.ErrorUpdatingOrderItem}: {ex.Message}");
         }
     }
 }
@@ -317,7 +318,7 @@ public class UpdateOrderTotalAmountCommandHandler(IOrderCommandRepository comman
         {
             var order = await queryRepository.GetByIdAsync(command.OrderId, cancellationToken);
             if (order == null)
-                return Result.Error("Order not found");
+                return Result.Error(OrderValidationMessages.OrderNotFound);
 
             order.UpdateTotalAmount(command.NewTotalAmount);
             await commandRepository.UpdateAsync(order, cancellationToken);
@@ -329,7 +330,7 @@ public class UpdateOrderTotalAmountCommandHandler(IOrderCommandRepository comman
         }
         catch (Exception ex)
         {
-            return Result.Error($"Error updating order total amount: {ex.Message}");
+            return Result.Error($"{OrderValidationMessages.ErrorUpdatingOrderTotalAmount}: {ex.Message}");
         }
     }
 }

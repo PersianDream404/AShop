@@ -3,6 +3,7 @@ using FluentValidation;
 using Framwork.Bus.Query;
 using Mapster;
 using Modules.Order.Application.Contract.DTOs;
+using Modules.Order.Application.Contract.Resources.Orders;
 using Modules.Order.Application.Contract.UseCase.ShoppingCarts.Queries;
 using Modules.Order.Domain.Interfaces;
 
@@ -17,7 +18,7 @@ public class GetShoppingCartByIdQueryHandler(IShoppingCartQueryRepository queryR
         {
             var cart = await queryRepository.GetByIdAsync(query.CartId, cancellationToken);
             if (cart == null)
-                return Result.Error("Shopping cart not found");
+                return Result.Error(OrderValidationMessages.ShoppingCartNotFound);
 
             return Result.Success(cart.Adapt<ShoppingCartDto>());
         }
@@ -37,7 +38,7 @@ public class GetShoppingCartBySessionIdQueryHandler(IShoppingCartQueryRepository
         {
             var cart = await queryRepository.GetBySessionIdAsync(query.SessionId, cancellationToken);
             if (cart == null)
-                return Result.Error("Shopping cart not found");
+                return Result.Error(OrderValidationMessages.ShoppingCartNotFound);
 
             return Result.Success(cart.Adapt<ShoppingCartDto>());
         }
@@ -57,7 +58,7 @@ public class GetShoppingCartByUserIdQueryHandler(IShoppingCartQueryRepository qu
         {
             var cart = await queryRepository.GetByUserIdAsync(query.UserId, cancellationToken);
             if (cart == null)
-                return Result.Error("Shopping cart not found");
+                return Result.Error(OrderValidationMessages.ShoppingCartNotFound);
 
             return Result.Success(cart.Adapt<ShoppingCartDto>());
         }

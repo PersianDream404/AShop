@@ -4,6 +4,7 @@ using Framwork.Bus.Command;
 using Framwork.Validation.Resources;
 using Mapster;
 using Modules.Order.Application.Contract.DTOs;
+using Modules.Order.Application.Contract.Resources.Orders;
 using Modules.Order.Application.Contract.UseCase.ShoppingCarts.Commands;
 using Modules.Order.Domain.Entities;
 using Modules.Order.Domain.Interfaces;
@@ -29,7 +30,7 @@ public class CreateShoppingCartCommandHandler(IShoppingCartCommandRepository com
         }
         catch (Exception ex)
         {
-            return Result.Error($"Error creating shopping cart: {ex.Message}");
+            return Result.Error($"{OrderValidationMessages.ErrorCreatingShoppingCart}: {ex.Message}");
         }
     }
 }
@@ -53,7 +54,7 @@ public class LinkSessionToUserCommandHandler(IShoppingCartCommandRepository comm
         {
             var cart = await queryRepository.GetByIdAsync(command.Request.CartId, cancellationToken);
             if (cart == null)
-                return Result.Error("Shopping cart not found");
+                return Result.Error(OrderValidationMessages.ShoppingCartNotFound);
 
             cart.LinkToUser(command.Request.UserId);
             await commandRepository.UpdateAsync(cart, cancellationToken);
@@ -65,7 +66,7 @@ public class LinkSessionToUserCommandHandler(IShoppingCartCommandRepository comm
         }
         catch (Exception ex)
         {
-            return Result.Error($"Error linking session to user: {ex.Message}");
+            return Result.Error($"{OrderValidationMessages.ErrorLinkingSessionToUser}: {ex.Message}");
         }
     }
 }

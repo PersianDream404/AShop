@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="MobileNumberFormat" xml:space="preserve">
+    <value>شماره تلفن باید به فرمت 09XXXXXXXXX باشد</value>
+  </data>
+  <data name="InvalidOrderStatus" xml:space="preserve">
+    <value>وضعیت سفارش نامعتبر است</value>
+  </data>
+  <data name="ShoppingCartNotFound" xml:space="preserve">
+    <value>سبد خریداری یافت نشد</value>
+  </data>
+  <data name="OrderNotFound" xml:space="preserve">
+    <value>سفارش یافت نشد</value>
+  </data>
+  <data name="OrderItemNotFound" xml:space="preserve">
+    <value>آیتم سفارش یافت نشد</value>
+  </data>
+  <data name="ErrorCreatingOrder" xml:space="preserve">
+    <value>خطا در ایجاد سفارش</value>
+  </data>
+  <data name="ErrorUpdatingOrderStatus" xml:space="preserve">
+    <value>خطا در بروز رسانی وضعیت سفارش</value>
+  </data>
+  <data name="ErrorUpdatingTrackingNumber" xml:space="preserve">
+    <value>خطا در بروز رسانی شماره رهگیری</value>
+  </data>
+  <data name="ErrorAddingOrderItem" xml:space="preserve">
+    <value>خطا در افزودن آیتم سفارش</value>
+  </data>
+  <data name="ErrorRemovingOrderItem" xml:space="preserve">
+    <value>خطا در حذف آیتم سفارش</value>
+  </data>
+  <data name="ErrorUpdatingOrderItem" xml:space="preserve">
+    <value>خطا در بروز رسانی آیتم سفارش</value>
+  </data>
+  <data name="ErrorUpdatingOrderTotalAmount" xml:space="preserve">
+    <value>خطا در بروز رسانی مجموع مبلغ سفارش</value>
+  </data>
+  <data name="ErrorCreatingShoppingCart" xml:space="preserve">
+    <value>خطا در ایجاد سبد خریداری</value>
+  </data>
+  <data name="ErrorLinkingSessionToUser" xml:space="preserve">
+    <value>خطا در پیوند دادن جلسه به کاربر</value>
+  </data>
+</root>
