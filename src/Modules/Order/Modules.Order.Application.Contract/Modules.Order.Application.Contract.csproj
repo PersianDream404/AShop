@@ -1,0 +1,7 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\Modules.Order.Domain\Modules.Order.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
