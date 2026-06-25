@@ -15,11 +15,11 @@ public class GetShoppingCartByUserIdQueryHandler(IShoppingCartQueryRepository qu
     {
         try
         {
-            var cart = await queryRepository.GetByUserIdAsync(query.UserId, cancellationToken);
+            var cart = await queryRepository.GetByUserIdProjectedAsync(query.UserId, cancellationToken);
             if (cart == null)
                 return Result.Error(OrderValidationMessages.ShoppingCartNotFound);
 
-            return Result.Success(cart.Adapt<ShoppingCartDto>());
+            return Result.Success(cart);
         }
         catch (Exception ex)
         {

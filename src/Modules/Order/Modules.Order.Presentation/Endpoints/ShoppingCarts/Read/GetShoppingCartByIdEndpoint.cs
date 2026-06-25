@@ -32,7 +32,7 @@ public static class GetShoppingCartByIdEndpoint
 
                 return Ok(result.Value);
             })
-                .WithTags(ApiInfo.Prefix);
+                .WithTags(ApiInfo.Tag);
         }
     }
 }

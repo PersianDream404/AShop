@@ -18,11 +18,11 @@ public class GetOrderByIdQueryHandler(IOrderQueryRepository queryRepository)
     {
         try
         {
-            var order = await queryRepository.GetByIdAsync(query.OrderId, cancellationToken);
+            var order = await queryRepository.GetByIdProjectedAsync(query.OrderId, cancellationToken);
             if (order == null)
                 return Result.Error(OrderValidationMessages.OrderNotFound);
 
-            return Result.Success(order.Adapt<OrderDto>());
+            return Result.Success(order);
         }
         catch (Exception ex)
         {

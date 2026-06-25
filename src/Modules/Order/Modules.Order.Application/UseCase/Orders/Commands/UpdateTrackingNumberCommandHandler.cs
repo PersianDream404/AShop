@@ -2,6 +2,7 @@ using Ardalis.Result;
 using FluentValidation;
 using Framwork.Bus.Command;
 using Framwork.Validation.Resources;
+using Modules.Order.Application.Contract.Interface.Orders;
 using Modules.Order.Application.Contract.Resources.Orders;
 using Modules.Order.Application.Contract.UseCase.Orders.Commands;
 using Modules.Order.Domain.Interfaces;
@@ -21,7 +22,7 @@ public class UpdateTrackingNumberCommandHandler(IOrderCommandRepository commandR
 
             var updateResult = order.UpdateTrackingNumber(command.Request.TrackingNumber);
             if (!updateResult.IsSuccess)
-                return Result.Error(updateResult.Errors.FirstOrDefault()?.ErrorMessage ?? OrderValidationMessages.ErrorUpdatingTrackingNumber);
+                return Result.Error(updateResult.Errors.FirstOrDefault() ?? OrderValidationMessages.ErrorUpdatingTrackingNumber);
 
             await commandRepository.UpdateAsync(order, cancellationToken);
             return Result.Success(true);

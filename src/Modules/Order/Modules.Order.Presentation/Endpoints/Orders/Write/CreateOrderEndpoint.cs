@@ -5,24 +5,24 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Modules.Order.Application.Contract.DTOs;
-using Modules.Order.Application.Contract.UseCase.ShoppingCarts.Commands;
+using Modules.Order.Application.Contract.UseCase.Orders.Commands;
 using SharedKernel.Interface;
 
-namespace Modules.Order.Presentation.Endpoints.ShoppingCarts.Write;
+namespace Modules.Order.Presentation.Endpoints.Orders.Write;
 
-public static class CreateShoppingCartEndpoint
+public static class CreateOrderEndpoint
 {
     public class EndPoint : BaseEndpoint, IEndpoint
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
             app.MapPost($"{ApiInfo.Prefix}", handler: async (
-                    [FromBody] CreateShoppingCartRequestDto request,
+                    [FromBody] CreateOrderRequestDto request,
                     [FromServices] ICommandBus commandBus
                 ) =>
             {
-                var result = await commandBus.Send<CreateShoppingCartCommand, long>(
-                    new CreateShoppingCartCommand(request));
+                var result = await commandBus.Send<CreateOrderCommand, long>(
+                    new CreateOrderCommand(request));
 
                 if (!result.IsSuccess)
                 {
@@ -32,8 +32,6 @@ public static class CreateShoppingCartEndpoint
 
                 return Ok(result.Value);
             })
-                
-               
                 .WithTags(ApiInfo.Tag);
         }
     }

@@ -1,28 +1,35 @@
 using Framwork.Bus.Command;
+using Framwork.Bus.Query;
 using Framwork.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Modules.Order.Application.Contract.DTOs;
-using Modules.Order.Application.Contract.UseCase.ShoppingCarts.Commands;
+using Modules.Order.Application.Contract.UseCase.Orders.Commands;
+using Modules.Order.Application.Contract.UseCase.Orders.Queries;
 using SharedKernel.Interface;
+using System.Windows.Input;
 
-namespace Modules.Order.Presentation.Endpoints.ShoppingCarts.Write;
+namespace Modules.Order.Presentation.Endpoints.Orders.Read;
 
-public static class CreateShoppingCartEndpoint
+public static class GetOrderByIdEndpoint
 {
     public class EndPoint : BaseEndpoint, IEndpoint
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
-            app.MapPost($"{ApiInfo.Prefix}", handler: async (
-                    [FromBody] CreateShoppingCartRequestDto request,
+            app.MapGet($"{ApiInfo.Prefix}/{{orderId}}", handler: async (
+                    long orderId,
+                    [FromServices] IQueryBus queryBus,
                     [FromServices] ICommandBus commandBus
                 ) =>
             {
-                var result = await commandBus.Send<CreateShoppingCartCommand, long>(
-                    new CreateShoppingCartCommand(request));
+                var resultUpdateOrderTotalAmount = await commandBus.Send<UpdateOrderTotalAmountCommand, bool>(
+                   new UpdateOrderTotalAmountCommand(orderId));
+
+                var result = await queryBus.Send<GetOrderByIdQuery, OrderDto>(
+                    new GetOrderByIdQuery(orderId));
 
                 if (!result.IsSuccess)
                 {
@@ -32,8 +39,6 @@ public static class CreateShoppingCartEndpoint
 
                 return Ok(result.Value);
             })
-                
-               
                 .WithTags(ApiInfo.Tag);
         }
     }

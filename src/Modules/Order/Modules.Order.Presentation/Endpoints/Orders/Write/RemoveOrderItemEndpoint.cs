@@ -4,25 +4,25 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
-using Modules.Order.Application.Contract.DTOs;
-using Modules.Order.Application.Contract.UseCase.ShoppingCarts.Commands;
+using Modules.Order.Application.Contract.Resources.Orders;
+using Modules.Order.Application.Contract.UseCase.Orders.Commands;
 using SharedKernel.Interface;
 
-namespace Modules.Order.Presentation.Endpoints.ShoppingCarts.Write;
+namespace Modules.Order.Presentation.Endpoints.Orders.Write;
 
-public static class CreateShoppingCartEndpoint
+public static class RemoveOrderItemEndpoint
 {
     public class EndPoint : BaseEndpoint, IEndpoint
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
-            app.MapPost($"{ApiInfo.Prefix}", handler: async (
-                    [FromBody] CreateShoppingCartRequestDto request,
+            app.MapDelete($"{ApiInfo.Prefix}/items/{{itemId}}", handler: async (
+                    long itemId,
                     [FromServices] ICommandBus commandBus
                 ) =>
             {
-                var result = await commandBus.Send<CreateShoppingCartCommand, long>(
-                    new CreateShoppingCartCommand(request));
+                var result = await commandBus.Send<RemoveOrderItemCommand, bool>(
+                    new RemoveOrderItemCommand(itemId));
 
                 if (!result.IsSuccess)
                 {
@@ -30,10 +30,9 @@ public static class CreateShoppingCartEndpoint
                     return BadRequest(message);
                 }
 
-                return Ok(result.Value);
+
+                return Ok(OrderValidationMessages.RemoveOrderItem);
             })
-                
-               
                 .WithTags(ApiInfo.Tag);
         }
     }

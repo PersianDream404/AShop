@@ -45,6 +45,31 @@ public class CommandRepository<T> : ICommandRepository<T> where T : class
         _context.Set<T>().Update(entity);
         await _context.SaveChangesAsync(ct);
     }
+
+    public  void Update(T entity)
+    {
+        _context.Set<T>().Update(entity);
+    }
+    public void Delete(T entity)
+    {
+        _context.Set<T>().Remove(entity);
+    }
+    public void Delete(long Id)
+    {
+        var entity =  _context.Set<T>().Find(new object[] { Id });
+        if (entity == null) return;
+
+        if (entity is BaseEntity softEntity)
+        {
+            softEntity.Deleted = true;
+            _context.Set<T>().Update(entity);
+        }
+        else
+        {
+            _context.Set<T>().Remove(entity);
+        }
+
+    }
     public async Task ToggleAsync(T entity, CancellationToken ct = default)
     {
         var entry = _context.Entry(entity);

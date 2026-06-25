@@ -13,6 +13,7 @@ public class ShoppingCartConfiguration : IEntityTypeConfiguration<ShoppingCart>
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.SessionId)
+
             .IsRequired();
 
         builder.Property(x => x.UserId);

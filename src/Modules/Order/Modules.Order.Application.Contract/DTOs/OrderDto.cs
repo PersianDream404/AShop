@@ -23,7 +23,7 @@ public class CreateOrderRequestDto
     public long ShoppingCartId { get; set; }
     public string? ShippingAddress { get; set; }
     public string? MobileNumber { get; set; }
-    public string? TrackingNumber { get; set; }
+    //public string? TrackingNumber { get; set; }
 }
 
 public class UpdateOrderStatusRequestDto

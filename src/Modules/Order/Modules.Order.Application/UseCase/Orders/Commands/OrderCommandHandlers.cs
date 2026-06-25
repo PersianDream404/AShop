@@ -4,6 +4,7 @@ using Framwork.Bus.Command;
 using Framwork.Validation.Resources;
 using Mapster;
 using Modules.Order.Application.Contract.DTOs;
+using Modules.Order.Application.Contract.Interface.Orders;
 using Modules.Order.Application.Contract.Interface.ShoppingCarts;
 using Modules.Order.Application.Contract.Resources.Orders;
 using Modules.Order.Application.Contract.UseCase.Orders.Commands;
@@ -16,10 +17,10 @@ using System.Text.RegularExpressions;
 
 namespace Modules.Order.Application.UseCase.Orders.Commands;
 
-public class CreateOrderCommandHandler(IOrderCommandRepository commandRepository, IShoppingCartQueryRepository cartQueryRepository)
-    : ICommandHandler<CreateOrderCommand, bool>
+public class CreateOrderCommandHandler(IOrderCommandRepository commandRepository, IShoppingCartQueryRepository cartQueryRepository,IOrderQueryRepository orderQueryRepository)
+    : ICommandHandler<CreateOrderCommand, long>
 {
-    public async Task<Result<bool>> Handle(CreateOrderCommand command, CancellationToken cancellationToken)
+    public async Task<Result<long>> Handle(CreateOrderCommand command, CancellationToken cancellationToken)
     {
         try
         {
@@ -27,18 +28,22 @@ public class CreateOrderCommandHandler(IOrderCommandRepository commandRepository
             if (cart == null)
                 return Result.Error(OrderValidationMessages.ShoppingCartNotFound);
 
+            var order = await orderQueryRepository.GetByCartIdAsync(command.Request.ShoppingCartId, cancellationToken);
+            if (order != null)
+                return Result.Success(order.Id);
+
             var orderResult = OrderEntity.Create(
                 command.Request.ShoppingCartId,
                 command.Request.ShippingAddress,
                 command.Request.MobileNumber,
-                command.Request.TrackingNumber
+               null
             );
 
             if (!orderResult.IsSuccess)
                 return Result.Error(orderResult.Errors.FirstOrDefault() ?? OrderValidationMessages.ErrorCreatingOrder);
 
             await commandRepository.AddAsync(orderResult.Value, cancellationToken);
-            return Result.Success(true);
+            return Result.Success(orderResult.Value.Id);
         }
         catch (Exception ex)
         {

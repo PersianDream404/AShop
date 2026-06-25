@@ -81,4 +81,33 @@ public sealed class OrderItem : BaseEntityIdentity
         var basePrice = UnitPrice * Quantity;
         TotalPrice = DiscountValue.HasValue ? basePrice - DiscountValue.Value : basePrice;
     }
+
+    public Result ChangeOrder(long orderId)
+    {
+        if (orderId == 0)
+            return Result.Invalid(new ValidationError
+            {
+                Identifier = nameof(orderId),
+                ErrorMessage = "Order ID cannot be empty"
+            });
+
+        OrderId = orderId;
+        return Result.Success();
+    }
+
+    public Result IncreaseQuantity(int quantity)
+    {
+        if (quantity <= 0)
+            return Result.Invalid(new ValidationError
+            {
+                Identifier = nameof(quantity),
+                ErrorMessage = "Quantity must be greater than zero"
+            });
+
+        Quantity += quantity;
+        CalculateTotalPrice();
+
+        return Result.Success();
+    }
+
 }

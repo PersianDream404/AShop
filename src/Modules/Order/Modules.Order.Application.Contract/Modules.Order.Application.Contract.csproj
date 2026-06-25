@@ -4,4 +4,19 @@
     <ProjectReference Include="..\Modules.Order.Domain\Modules.Order.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Resources\Orders\OrderValidationMessages.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>OrderValidationMessages.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Orders\OrderValidationMessages.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>OrderValidationMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

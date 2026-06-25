@@ -32,10 +32,10 @@ public static class LinkSessionToUserEndpoint
                     return BadRequest(message);
                 }
 
-                return Ok(new { message = "Session linked to user successfully" });
+                return Ok("سبد خرید به کاربر متصل شد");
             })
        
-                .WithTags(CreateShoppingCartApiInfo.Tag);
+                .WithTags(ApiInfo.Tag);
         }
     }
 }

@@ -20,7 +20,8 @@ public class UpdateOrderTotalAmountCommandHandler(IOrderCommandRepository comman
             if (order == null)
                 return Result.Error(OrderValidationMessages.OrderNotFound);
 
-            var amountResult = order.UpdateTotalAmount(command.NewTotalAmount);
+            var newTotalAmount =await queryRepository.GetTotalAmountByItemsAsync(command.OrderId);
+            var amountResult = order.UpdateTotalAmount(newTotalAmount);
             if (!amountResult.IsSuccess)
                 return Result.Error(amountResult.Errors.FirstOrDefault() ?? OrderValidationMessages.ErrorUpdatingOrderTotalAmount);
 
@@ -42,8 +43,8 @@ public class UpdateOrderTotalAmountCommandValidator : AbstractValidator<UpdateOr
             .GreaterThan(0)
             .WithMessage(SharedValidationMessages.InvalidId);
 
-        RuleFor(x => x.NewTotalAmount)
-            .GreaterThanOrEqualTo(0)
-            .WithMessage(SharedValidationMessages.GreaterThanZero);
+        //RuleFor(x => x.NewTotalAmount)
+        //    .GreaterThanOrEqualTo(0)
+        //    .WithMessage(SharedValidationMessages.GreaterThanZero);
     }
 }

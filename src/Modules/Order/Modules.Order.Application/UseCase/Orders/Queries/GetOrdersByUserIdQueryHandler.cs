@@ -5,19 +5,23 @@ using Framwork.Validation.Resources;
 using Mapster;
 using Modules.Order.Application.Contract.DTOs;
 using Modules.Order.Application.Contract.Interface.Orders;
+using Modules.Order.Application.Contract.Resources.Orders;
 using Modules.Order.Application.Contract.UseCase.Orders.Queries;
 
 namespace Modules.Order.Application.UseCase.Orders.Queries;
 
 public class GetOrdersByUserIdQueryHandler(IOrderQueryRepository queryRepository)
-    : IQueryHandler<GetOrdersByUserIdQuery, IEnumerable<OrderDto>>
+    : IQueryHandler<GetOrdersByUserIdQuery, OrderDto>
 {
-    public async Task<Result<IEnumerable<OrderDto>>> Handle(GetOrdersByUserIdQuery query, CancellationToken cancellationToken)
+    public async Task<Result<OrderDto>> Handle(GetOrdersByUserIdQuery query, CancellationToken cancellationToken)
     {
         try
         {
-            var orders = await queryRepository.GetByUserIdAsync(query.UserId, cancellationToken);
-            return Result.Success(orders.Adapt<IEnumerable<OrderDto>>());
+            var order = await queryRepository.GetByUserIdProjectedAsync(query.UserId, cancellationToken);
+            if (order == null)
+                return Result.Error(OrderValidationMessages.OrderNotFound);
+
+            return Result.Success(order);
         }
         catch (Exception ex)
         {

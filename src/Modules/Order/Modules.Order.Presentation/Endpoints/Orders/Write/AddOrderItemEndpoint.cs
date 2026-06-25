@@ -5,24 +5,26 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Modules.Order.Application.Contract.DTOs;
-using Modules.Order.Application.Contract.UseCase.ShoppingCarts.Commands;
+using Modules.Order.Application.Contract.Resources.Orders;
+using Modules.Order.Application.Contract.UseCase.Orders.Commands;
 using SharedKernel.Interface;
 
-namespace Modules.Order.Presentation.Endpoints.ShoppingCarts.Write;
+namespace Modules.Order.Presentation.Endpoints.Orders.Write;
 
-public static class CreateShoppingCartEndpoint
+public static class AddOrderItemEndpoint
 {
     public class EndPoint : BaseEndpoint, IEndpoint
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
-            app.MapPost($"{ApiInfo.Prefix}", handler: async (
-                    [FromBody] CreateShoppingCartRequestDto request,
+            app.MapPost($"{ApiInfo.Prefix}/{{orderId}}/items", handler: async (
+                    long orderId,
+                    [FromBody] CreateOrderItemRequestDto request,
                     [FromServices] ICommandBus commandBus
                 ) =>
             {
-                var result = await commandBus.Send<CreateShoppingCartCommand, long>(
-                    new CreateShoppingCartCommand(request));
+                var result = await commandBus.Send<AddOrderItemCommand, bool>(
+                    new AddOrderItemCommand(orderId, request));
 
                 if (!result.IsSuccess)
                 {
@@ -30,10 +32,8 @@ public static class CreateShoppingCartEndpoint
                     return BadRequest(message);
                 }
 
-                return Ok(result.Value);
+                return Ok(OrderValidationMessages.AddOrderItem);
             })
-                
-               
                 .WithTags(ApiInfo.Tag);
         }
     }

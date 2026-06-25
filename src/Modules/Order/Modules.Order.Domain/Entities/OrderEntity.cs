@@ -144,4 +144,25 @@ public sealed class OrderEntity : BaseEntityIdentity
         TotalAmount = newAmount;
         return Result.Success();
     }
+
+    public Result ChangeCart(long shoppingCartId)
+    {
+        if (shoppingCartId <= 0)
+            return Result.Invalid(new ValidationError
+            {
+                Identifier = nameof(shoppingCartId),
+                ErrorMessage = "Shopping cart ID must be greater than zero"
+            });
+
+        if (Status != OrderStatus.Pending)
+            return Result.Invalid(new ValidationError
+            {
+                Identifier = nameof(Status),
+                ErrorMessage = "Only pending orders can be moved"
+            });
+
+        ShoppingCartId = shoppingCartId;
+        return Result.Success();
+    }
+
 }

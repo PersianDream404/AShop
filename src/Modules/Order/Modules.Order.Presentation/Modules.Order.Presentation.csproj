@@ -6,6 +6,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Modules.Order.Application.Contract\Modules.Order.Application.Contract.csproj" />
+	  <ProjectReference Include="..\Modules.Order.Application\Modules.Order.Application.csproj" />
 	  <ProjectReference Include="..\Modules.Order.Persistence\Modules.Order.Persistence.csproj" />
 	</ItemGroup>
 </Project>

@@ -31,7 +31,7 @@ public static class GetAllShoppingCartsEndpoint
 
                 return Ok(result.Value);
             })
-                .WithTags(ApiInfo.Prefix);
+                .WithTags(ApiInfo.Tag);
         }
     }
 }

@@ -17,7 +17,7 @@ public static class GetShoppingCartBySessionIdEndpoint
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
             app.MapGet($"{ApiInfo.Prefix}/session/{{sessionId}}", handler: async (
-                    long sessionId,
+                    Guid sessionId,
                     [FromServices] IQueryBus queryBus
                 ) =>
             {
@@ -33,7 +33,7 @@ public static class GetShoppingCartBySessionIdEndpoint
                 return Ok(result.Value);
             })
 
-                .WithTags(ApiInfo.Prefix);
+                .WithTags(ApiInfo.Tag);
         }
     }
 }

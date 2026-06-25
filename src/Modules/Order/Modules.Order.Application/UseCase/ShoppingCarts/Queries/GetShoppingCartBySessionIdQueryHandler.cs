@@ -15,11 +15,11 @@ public class GetShoppingCartBySessionIdQueryHandler(IShoppingCartQueryRepository
     {
         try
         {
-            var cart = await queryRepository.GetBySessionIdAsync(query.SessionId, cancellationToken);
+            var cart = await queryRepository.GetBySessionIdProjectedAsync(query.SessionId, cancellationToken);
             if (cart == null)
                 return Result.Error(OrderValidationMessages.ShoppingCartNotFound);
 
-            return Result.Success(cart.Adapt<ShoppingCartDto>());
+            return Result.Success(cart);
         }
         catch (Exception ex)
         {

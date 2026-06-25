@@ -1,4 +1,5 @@
-﻿using Modules.Order.Domain.Entities;
+﻿using Modules.Order.Application.Contract.DTOs;
+using Modules.Order.Domain.Entities;
 using SharedKernel.Interface.Repositories;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,8 @@ namespace Modules.Order.Application.Contract.Interface.ShoppingCarts;
 
 public interface IShoppingCartQueryRepository : IQueryRepository<ShoppingCart>
 {
-    Task<ShoppingCart> GetBySessionIdAsync(long sessionId, CancellationToken cancellationToken = default);
-    Task<ShoppingCart> GetByUserIdAsync(long userId, CancellationToken cancellationToken = default);
+    Task<ShoppingCartDto?> GetBySessionIdProjectedAsync(Guid id, CancellationToken cancellationToken = default);
+    Task<bool> AnyBySessionIdAsync(Guid id, CancellationToken cancellationToken = default);
+    Task<ShoppingCartDto?> GetByUserIdProjectedAsync(long id, CancellationToken cancellationToken = default);
+    Task<ShoppingCart?> GetByNotIdAsync(long UserId, long CartId,CancellationToken cancellationToken = default);
 }

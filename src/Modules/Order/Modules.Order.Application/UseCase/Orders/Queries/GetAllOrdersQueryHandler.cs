@@ -14,8 +14,8 @@ public class GetAllOrdersQueryHandler(IOrderQueryRepository queryRepository)
     {
         try
         {
-            var orders = await queryRepository.GetAllAsync(cancellationToken);
-            return Result.Success(orders.Adapt<IEnumerable<OrderDto>>());
+            var orders = await queryRepository.GetAllProjectedAsync(cancellationToken);
+            return Result.Success(orders);
         }
         catch (Exception ex)
         {
