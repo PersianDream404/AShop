@@ -1,23 +1,21 @@
 using Ardalis.Result;
-using FluentValidation;
 using Framwork.Bus.Query;
 using Mapster;
 using Modules.Order.Application.Contract.DTOs;
 using Modules.Order.Application.Contract.Interface.ShoppingCarts;
 using Modules.Order.Application.Contract.Resources.Orders;
 using Modules.Order.Application.Contract.UseCase.ShoppingCarts.Queries;
-using Modules.Order.Domain.Interfaces;
 
 namespace Modules.Order.Application.UseCase.ShoppingCarts.Queries;
 
-public class GetShoppingCartByIdQueryHandler(IShoppingCartQueryRepository queryRepository)
-    : IQueryHandler<GetShoppingCartByIdQuery, ShoppingCartDto>
+public class GetShoppingCartByUserIdQueryHandler(IShoppingCartQueryRepository queryRepository)
+    : IQueryHandler<GetShoppingCartByUserIdQuery, ShoppingCartDto>
 {
-    public async Task<Result<ShoppingCartDto>> Handle(GetShoppingCartByIdQuery query, CancellationToken cancellationToken)
+    public async Task<Result<ShoppingCartDto>> Handle(GetShoppingCartByUserIdQuery query, CancellationToken cancellationToken)
     {
         try
         {
-            var cart = await queryRepository.GetByIdAsync(query.CartId, cancellationToken);
+            var cart = await queryRepository.GetByUserIdAsync(query.UserId, cancellationToken);
             if (cart == null)
                 return Result.Error(OrderValidationMessages.ShoppingCartNotFound);
 

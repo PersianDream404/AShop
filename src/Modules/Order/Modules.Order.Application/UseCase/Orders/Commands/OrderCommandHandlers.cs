@@ -4,6 +4,7 @@ using Framwork.Bus.Command;
 using Framwork.Validation.Resources;
 using Mapster;
 using Modules.Order.Application.Contract.DTOs;
+using Modules.Order.Application.Contract.Interface.ShoppingCarts;
 using Modules.Order.Application.Contract.Resources.Orders;
 using Modules.Order.Application.Contract.UseCase.Orders.Commands;
 using Modules.Order.Domain.Entities;
@@ -34,7 +35,7 @@ public class CreateOrderCommandHandler(IOrderCommandRepository commandRepository
             );
 
             if (!orderResult.IsSuccess)
-                return Result.Error(orderResult.Errors.FirstOrDefault()?.ErrorMessage ?? OrderValidationMessages.ErrorCreatingOrder);
+                return Result.Error(orderResult.Errors.FirstOrDefault() ?? OrderValidationMessages.ErrorCreatingOrder);
 
             await commandRepository.AddAsync(orderResult.Value, cancellationToken);
             return Result.Success(true);
@@ -67,269 +68,13 @@ public class CreateOrderCommandValidator : AbstractValidator<CreateOrderCommand>
     }
 }
 
-public class UpdateOrderStatusCommandHandler(IOrderCommandRepository commandRepository, IOrderQueryRepository queryRepository)
-    : ICommandHandler<UpdateOrderStatusCommand, bool>
-{
-    public async Task<Result<bool>> Handle(UpdateOrderStatusCommand command, CancellationToken cancellationToken)
-    {
-        try
-        {
-            var order = await queryRepository.GetByIdAsync(command.Request.OrderId, cancellationToken);
-            if (order == null)
-                return Result.Error(OrderValidationMessages.OrderNotFound);
 
-            var statusResult = order.UpdateStatus(command.Request.NewStatus);
-            if (!statusResult.IsSuccess)
-                return Result.Error(statusResult.Errors.FirstOrDefault()?.ErrorMessage ?? OrderValidationMessages.ErrorUpdatingOrderStatus);
 
-            await commandRepository.UpdateAsync(order, cancellationToken);
-            return Result.Success(true);
-        }
-        catch (Exception ex)
-        {
-            return Result.Error($"{OrderValidationMessages.ErrorUpdatingOrderStatus}: {ex.Message}");
-        }
-    }
-}
 
-public class UpdateOrderStatusCommandValidator : AbstractValidator<UpdateOrderStatusCommand>
-{
-    public UpdateOrderStatusCommandValidator()
-    {
-        RuleFor(x => x.Request.OrderId)
-            .GreaterThan(0)
-            .WithMessage(SharedValidationMessages.InvalidId);
 
-        RuleFor(x => x.Request.NewStatus)
-            .IsInEnum()
-            .WithMessage(OrderValidationMessages.InvalidOrderStatus);
-    }
-}
 
-public class UpdateTrackingNumberCommandHandler(IOrderCommandRepository commandRepository, IOrderQueryRepository queryRepository)
-    : ICommandHandler<UpdateTrackingNumberCommand, bool>
-{
-    public async Task<Result<bool>> Handle(UpdateTrackingNumberCommand command, CancellationToken cancellationToken)
-    {
-        try
-        {
-            var order = await queryRepository.GetByIdAsync(command.Request.OrderId, cancellationToken);
-            if (order == null)
-                return Result.Error(OrderValidationMessages.OrderNotFound);
 
-            var updateResult = order.UpdateTrackingNumber(command.Request.TrackingNumber);
-            if (!updateResult.IsSuccess)
-                return Result.Error(updateResult.Errors.FirstOrDefault()?.ErrorMessage ?? OrderValidationMessages.ErrorUpdatingTrackingNumber);
 
-            await commandRepository.UpdateAsync(order, cancellationToken);
-            return Result.Success(true);
-        }
-        catch (Exception ex)
-        {
-            return Result.Error($"{OrderValidationMessages.ErrorUpdatingTrackingNumber}: {ex.Message}");
-        }
-    }
-}
 
-public class UpdateTrackingNumberCommandValidator : AbstractValidator<UpdateTrackingNumberCommand>
-{
-    public UpdateTrackingNumberCommandValidator()
-    {
-        RuleFor(x => x.Request.OrderId)
-            .GreaterThan(0)
-            .WithMessage(SharedValidationMessages.InvalidId);
 
-        RuleFor(x => x.Request.TrackingNumber)
-            .NotEmpty()
-            .WithMessage(SharedValidationMessages.Required)
-            .MaximumLength(100)
-            .WithMessage(SharedValidationMessages.MaxLength);
-    }
-}
-
-public class AddOrderItemCommandHandler(IOrderCommandRepository commandRepository, IOrderQueryRepository queryRepository, IOrderItemRepository itemRepository)
-    : ICommandHandler<AddOrderItemCommand, bool>
-{
-    public async Task<Result<bool>> Handle(AddOrderItemCommand command, CancellationToken cancellationToken)
-    {
-        try
-        {
-            var order = await queryRepository.GetByIdAsync(command.OrderId, cancellationToken);
-            if (order == null)
-                return Result.Error(OrderValidationMessages.OrderNotFound);
-
-            var itemResult = OrderItem.Create(
-                command.OrderId,
-                command.Request.ProductId,
-                command.Request.UnitPrice,
-                command.Request.Quantity,
-                command.Request.DiscountValue
-            );
-
-            if (!itemResult.IsSuccess)
-                return Result.Error(itemResult.Errors.FirstOrDefault()?.ErrorMessage ?? OrderValidationMessages.ErrorAddingOrderItem);
-
-            var addResult = order.AddOrderItem(itemResult.Value);
-            if (!addResult.IsSuccess)
-                return Result.Error(addResult.Errors.FirstOrDefault()?.ErrorMessage ?? OrderValidationMessages.ErrorAddingOrderItem);
-
-            await itemRepository.AddAsync(itemResult.Value, cancellationToken);
-            await commandRepository.UpdateAsync(order, cancellationToken);
-            return Result.Success(true);
-        }
-        catch (Exception ex)
-        {
-            return Result.Error($"{OrderValidationMessages.ErrorAddingOrderItem}: {ex.Message}");
-        }
-    }
-}
-
-public class AddOrderItemCommandValidator : AbstractValidator<AddOrderItemCommand>
-{
-    public AddOrderItemCommandValidator()
-    {
-        RuleFor(x => x.OrderId)
-            .GreaterThan(0)
-            .WithMessage(SharedValidationMessages.InvalidId);
-
-        RuleFor(x => x.Request.ProductId)
-            .GreaterThan(0)
-            .WithMessage(SharedValidationMessages.InvalidId);
-
-        RuleFor(x => x.Request.UnitPrice)
-            .GreaterThan(0)
-            .WithMessage(SharedValidationMessages.GreaterThanZero);
-
-        RuleFor(x => x.Request.Quantity)
-            .GreaterThan(0)
-            .WithMessage(SharedValidationMessages.GreaterThanZero);
-    }
-}
-
-public class RemoveOrderItemCommandHandler(IOrderCommandRepository commandRepository, IOrderQueryRepository orderQueryRepository, IOrderItemRepository itemRepository)
-    : ICommandHandler<RemoveOrderItemCommand, bool>
-{
-    public async Task<Result<bool>> Handle(RemoveOrderItemCommand command, CancellationToken cancellationToken)
-    {
-        try
-        {
-            var orderItem = await itemRepository.GetByIdAsync(command.OrderItemId, cancellationToken);
-            if (orderItem == null)
-                return Result.Error(OrderValidationMessages.OrderItemNotFound);
-
-            var order = await orderQueryRepository.GetByIdAsync(orderItem.OrderId, cancellationToken);
-            if (order == null)
-                return Result.Error(OrderValidationMessages.OrderNotFound);
-
-            var removeResult = order.RemoveOrderItem(orderItem);
-            if (!removeResult.IsSuccess)
-                return Result.Error(removeResult.Errors.FirstOrDefault()?.ErrorMessage ?? OrderValidationMessages.ErrorRemovingOrderItem);
-
-            await itemRepository.DeleteAsync(command.OrderItemId, cancellationToken);
-            await commandRepository.UpdateAsync(order, cancellationToken);
-            return Result.Success(true);
-        }
-        catch (Exception ex)
-        {
-            return Result.Error($"{OrderValidationMessages.ErrorRemovingOrderItem}: {ex.Message}");
-        }
-    }
-}
-
-public class RemoveOrderItemCommandValidator : AbstractValidator<RemoveOrderItemCommand>
-{
-    public RemoveOrderItemCommandValidator()
-    {
-        RuleFor(x => x.OrderItemId)
-            .GreaterThan(0)
-            .WithMessage(SharedValidationMessages.InvalidId);
-    }
-}
-
-public class UpdateOrderItemCommandHandler(IOrderCommandRepository commandRepository, IOrderQueryRepository orderQueryRepository, IOrderItemRepository itemRepository)
-    : ICommandHandler<UpdateOrderItemCommand, bool>
-{
-    public async Task<Result<bool>> Handle(UpdateOrderItemCommand command, CancellationToken cancellationToken)
-    {
-        try
-        {
-            var order = await orderQueryRepository.GetByIdAsync(command.OrderId, cancellationToken);
-            if (order == null)
-                return Result.Error(OrderValidationMessages.OrderNotFound);
-
-            var orderItem = await itemRepository.GetByIdAsync(command.Request.Id, cancellationToken);
-            if (orderItem == null)
-                return Result.Error(OrderValidationMessages.OrderItemNotFound);
-
-            var updateResult = order.UpdateOrderItem(orderItem, command.Request.Quantity);
-            if (!updateResult.IsSuccess)
-                return Result.Error(updateResult.Errors.FirstOrDefault()?.ErrorMessage ?? OrderValidationMessages.ErrorUpdatingOrderItem);
-
-            await itemRepository.UpdateAsync(orderItem, cancellationToken);
-            await commandRepository.UpdateAsync(order, cancellationToken);
-            return Result.Success(true);
-        }
-        catch (Exception ex)
-        {
-            return Result.Error($"{OrderValidationMessages.ErrorUpdatingOrderItem}: {ex.Message}");
-        }
-    }
-}
-
-public class UpdateOrderItemCommandValidator : AbstractValidator<UpdateOrderItemCommand>
-{
-    public UpdateOrderItemCommandValidator()
-    {
-        RuleFor(x => x.OrderId)
-            .GreaterThan(0)
-            .WithMessage(SharedValidationMessages.InvalidId);
-
-        RuleFor(x => x.Request.Id)
-            .GreaterThan(0)
-            .WithMessage(SharedValidationMessages.InvalidId);
-
-        RuleFor(x => x.Request.Quantity)
-            .GreaterThan(0)
-            .WithMessage(SharedValidationMessages.GreaterThanZero);
-    }
-}
-
-public class UpdateOrderTotalAmountCommandHandler(IOrderCommandRepository commandRepository, IOrderQueryRepository queryRepository)
-    : ICommandHandler<UpdateOrderTotalAmountCommand, bool>
-{
-    public async Task<Result<bool>> Handle(UpdateOrderTotalAmountCommand command, CancellationToken cancellationToken)
-    {
-        try
-        {
-            var order = await queryRepository.GetByIdAsync(command.OrderId, cancellationToken);
-            if (order == null)
-                return Result.Error(OrderValidationMessages.OrderNotFound);
-
-            var amountResult = order.UpdateTotalAmount(command.NewTotalAmount);
-            if (!amountResult.IsSuccess)
-                return Result.Error(amountResult.Errors.FirstOrDefault()?.ErrorMessage ?? OrderValidationMessages.ErrorUpdatingOrderTotalAmount);
-
-            await commandRepository.UpdateAsync(order, cancellationToken);
-            return Result.Success(true);
-        }
-        catch (Exception ex)
-        {
-            return Result.Error($"{OrderValidationMessages.ErrorUpdatingOrderTotalAmount}: {ex.Message}");
-        }
-    }
-}
-
-public class UpdateOrderTotalAmountCommandValidator : AbstractValidator<UpdateOrderTotalAmountCommand>
-{
-    public UpdateOrderTotalAmountCommandValidator()
-    {
-        RuleFor(x => x.OrderId)
-            .GreaterThan(0)
-            .WithMessage(SharedValidationMessages.InvalidId);
-
-        RuleFor(x => x.NewTotalAmount)
-            .GreaterThanOrEqualTo(0)
-            .WithMessage(SharedValidationMessages.GreaterThanZero);
-    }
-}
 
