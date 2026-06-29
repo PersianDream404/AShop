@@ -7,3 +7,4 @@ public record GetOrderByIdQuery(long OrderId) : IQuery<OrderDto>;
 public record GetOrdersByUserIdQuery(long UserId) : IQuery<OrderDto>;
 public record GetOrdersBySessionIdQuery(Guid SessionId) : IQuery<OrderDto>;
 public record GetAllOrdersQuery() : IQuery<IEnumerable<OrderDto>>;
+public record GetPaymentSummaryByIdQuery(long OrderId) : IQuery<GetPaymentSummaryOrderDto>;

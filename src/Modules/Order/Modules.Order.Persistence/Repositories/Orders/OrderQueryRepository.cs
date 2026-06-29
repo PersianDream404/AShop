@@ -53,7 +53,14 @@ public class OrderQueryRepository : QueryRepository<OrderEntity>, IOrderQueryRep
             .Select(OrderMapper.ToGetByIdDto())
             .FirstOrDefaultAsync(cancellationToken);
     }
-
+    public async Task<GetPaymentSummaryOrderDto?> GetPaymentSummaryByIdProjectedAsync(long id, CancellationToken cancellationToken = default)
+    {
+        return await _context.Orders
+            .AsNoTracking()
+            .Where(o => o.Id == id && o.Status == OrderStatus.Pending)
+            .Select(OrderMapper.ToGetPaymentSummaryByIdDto())
+            .FirstOrDefaultAsync(cancellationToken);
+    }
     public async Task<OrderDto?> GetByUserIdProjectedAsync(long id, CancellationToken cancellationToken = default)
     {
         return await _context.Orders

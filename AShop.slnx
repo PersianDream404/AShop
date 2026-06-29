@@ -31,6 +31,13 @@
     <Project Path="src/Modules/Order/Modules.Order.Persistence/Modules.Order.Persistence.csproj" />
     <Project Path="src/Modules/Order/Modules.Order.Presentation/Modules.Order.Presentation.csproj" />
   </Folder>
+  <Folder Name="/src/Modules/Payments/">
+    <Project Path="src/Modules/Payment/Modules.Payment.Application.Contract/Modules.Payment.Application.Contract.csproj" Id="0b2fbd1b-fed6-48cd-8d67-a7ec81875323" />
+    <Project Path="src/Modules/Payment/Modules.Payment.Application/Modules.Payment.Application.csproj" Id="b6b1c27c-ec28-443e-a396-71780f78c204" />
+    <Project Path="src/Modules/Payment/Modules.Payment.Domain/Modules.Payment.Domain.csproj" Id="0eb253ea-072d-4dc1-ab84-67f23014dabe" />
+    <Project Path="src/Modules/Payment/Modules.Payment.Persistence/Modules.Payment.Persistence.csproj" Id="3375ffe4-dd62-4b9c-8b53-4c0b44032af7" />
+    <Project Path="src/Modules/Payment/Modules.Payment.Presentation/Modules.Payment.Presentation.csproj" Id="2e939211-e5b3-4607-8199-2b3e61b87942" />
+  </Folder>
   <Folder Name="/src/Modules/Product/">
     <Project Path="src/Modules/Product/Modules.Product.Application.Contract/Modules.Product.Application.Contract.csproj" />
     <Project Path="src/Modules/Product/Modules.Product.Application/Modules.Product.Application.csproj" />

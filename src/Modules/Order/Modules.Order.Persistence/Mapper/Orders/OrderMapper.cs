@@ -34,6 +34,15 @@ public static class OrderMapper
             }).ToList()
         };
     }
+    public static Expression<Func<Domain.Entities.OrderEntity, GetPaymentSummaryOrderDto>> ToGetPaymentSummaryByIdDto()
+    {
+        return x => new GetPaymentSummaryOrderDto
+        {
+            Id = x.Id,
+            ShoppingCartId = x.ShoppingCartId,
+            TotalAmount = x.TotalAmount,
+        };
+    }
 
     public static Expression<Func<Domain.Entities.OrderEntity, OrderDto>> ToGetAllDto()
     {

@@ -1,9 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-
-  <ItemGroup>
-    <Folder Include="Events\" />
-  </ItemGroup>
 	<ItemGroup>
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
 	</ItemGroup>
@@ -11,9 +6,11 @@
 	  <PackageReference Include="Ardalis.Result" />
 	  <PackageReference Include="Asp.Versioning.Http" />
 	  <PackageReference Include="CsharpGalaxy.LibraryExtension" />
+	  <PackageReference Include="MediatR" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\Framwork\Framwork.csproj" />
+	  <ProjectReference Include="..\Shared\Shared.Contract\Shared.Contract.csproj" />
 	</ItemGroup>
 
 </Project>

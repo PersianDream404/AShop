@@ -17,6 +17,23 @@ public class OrderDto
     public DateTime CreatedAt { get; set; }
     public ICollection<OrderItemDto> OrderItems { get; set; } = [];
 }
+public class GetPaymentSummaryOrderDto
+{
+    public long Id { get; set; }
+    public long ShoppingCartId { get; set; }
+    public decimal TotalAmount { get; set; }
+
+}
+public record GetPreparePaymentRequestDto(
+    string SuccessReturnUrl,
+    string FailedReturnUrl
+);
+public record GetPreparePaymentResponseDto(
+    long TransactionDisplayId,
+    decimal GatewayAmount,
+    bool RequiresGateway,
+    string GatewayUrl
+);
 
 public class CreateOrderRequestDto
 {

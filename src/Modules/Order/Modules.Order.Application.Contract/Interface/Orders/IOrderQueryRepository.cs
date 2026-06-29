@@ -15,6 +15,7 @@ public interface IOrderQueryRepository : IQueryRepository<OrderEntity>
     Task<IEnumerable<OrderEntity>> GetBySessionIdAsync(Guid sessionId, CancellationToken cancellationToken = default);
     Task<IEnumerable<OrderDto>> GetAllProjectedAsync(CancellationToken cancellationToken = default);
     Task<OrderDto?> GetByIdProjectedAsync(long id, CancellationToken cancellationToken = default);
+    Task<GetPaymentSummaryOrderDto?> GetPaymentSummaryByIdProjectedAsync(long id, CancellationToken cancellationToken = default);
     Task<OrderDto?> GetBySessionIdProjectedAsync(Guid id, CancellationToken cancellationToken = default);
     Task<OrderDto?> GetByUserIdProjectedAsync(long id, CancellationToken cancellationToken = default);
 
