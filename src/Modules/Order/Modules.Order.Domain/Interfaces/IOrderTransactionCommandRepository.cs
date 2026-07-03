@@ -3,7 +3,7 @@ using SharedKernel.Interface.Repositories;
 
 namespace Modules.Order.Domain.Interfaces;
 
-public interface IOrderItemCommandRepository : ICommandRepository<OrderItem>
+public interface IOrderTransactionCommandRepository : ICommandRepository<OrderTransaction>
 {
 
 }

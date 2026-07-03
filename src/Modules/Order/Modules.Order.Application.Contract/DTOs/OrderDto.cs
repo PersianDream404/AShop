@@ -25,16 +25,15 @@ public class GetPaymentSummaryOrderDto
 
 }
 public record GetPreparePaymentRequestDto(
-    string SuccessReturnUrl,
-    string FailedReturnUrl
-);
-public record GetPreparePaymentResponseDto(
-    long TransactionDisplayId,
-    decimal GatewayAmount,
-    bool RequiresGateway,
-    string GatewayUrl
+    string SuccessReturnUrl,string FailedReturnUrl
 );
 
+public sealed class GetPreparePaymentResponseDto
+{
+    public string GatewayUrl { get; init; } = default!;
+
+    public long OrderTransactionId { get; init; }
+}
 public class CreateOrderRequestDto
 {
     public long ShoppingCartId { get; set; }

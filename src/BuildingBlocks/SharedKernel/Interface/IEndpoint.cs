@@ -38,6 +38,8 @@ public abstract class BaseEndpoint
     protected Ok<ApiResponse> Ok(string message)
       => TypedResults.Ok(new ApiResponse(message));
 
+
+
     protected IResult Ok(object? data)
         => TypedResults.Ok(new ApiResponse(data));
 

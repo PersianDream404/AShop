@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Shared.Contract.Enums.Payments;
+namespace Modules.Payment.Domain.Enums;
 
 public enum PaymentStatus
 {

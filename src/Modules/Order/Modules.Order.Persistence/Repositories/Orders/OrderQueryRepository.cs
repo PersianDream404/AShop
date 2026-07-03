@@ -23,7 +23,7 @@ public class OrderQueryRepository : QueryRepository<OrderEntity>, IOrderQueryRep
     {
         return await Task.FromResult(
             _context.Orders
-                .Where(o => o.ShoppingCart.UserId == userId &&o.Status==OrderStatus.Pending)
+                .Where(o => o.ShoppingCart.UserId == userId &&o.OrderStatus==OrderStatus.PendingPayment)
                 .ToList()
         );
     }
@@ -49,7 +49,7 @@ public class OrderQueryRepository : QueryRepository<OrderEntity>, IOrderQueryRep
     {
         return await _context.Orders
             .AsNoTracking()
-            .Where(o => o.Id == id && o.Status == OrderStatus.Pending)
+            .Where(o => o.Id == id && o.OrderStatus == OrderStatus.PendingPayment)
             .Select(OrderMapper.ToGetByIdDto())
             .FirstOrDefaultAsync(cancellationToken);
     }
@@ -57,7 +57,7 @@ public class OrderQueryRepository : QueryRepository<OrderEntity>, IOrderQueryRep
     {
         return await _context.Orders
             .AsNoTracking()
-            .Where(o => o.Id == id && o.Status == OrderStatus.Pending)
+            .Where(o => o.Id == id && o.OrderStatus == OrderStatus.PendingPayment)
             .Select(OrderMapper.ToGetPaymentSummaryByIdDto())
             .FirstOrDefaultAsync(cancellationToken);
     }
@@ -65,7 +65,7 @@ public class OrderQueryRepository : QueryRepository<OrderEntity>, IOrderQueryRep
     {
         return await _context.Orders
             .AsNoTracking()
-            .Where(o => o.ShoppingCart.UserId == id && o.Status == OrderStatus.Pending)
+            .Where(o => o.ShoppingCart.UserId == id && o.OrderStatus == OrderStatus.PendingPayment)
             .Select(OrderMapper.ToGetByIdDto())
             .FirstOrDefaultAsync(cancellationToken);
     }
@@ -74,7 +74,7 @@ public class OrderQueryRepository : QueryRepository<OrderEntity>, IOrderQueryRep
     {
         return await _context.Orders
             .AsNoTracking()
-            .Where(o => o.ShoppingCart.SessionId == id && o.Status == OrderStatus.Pending)
+            .Where(o => o.ShoppingCart.SessionId == id && o.OrderStatus == OrderStatus.PendingPayment)
             .Select(OrderMapper.ToGetByIdDto())
             .FirstOrDefaultAsync(cancellationToken);
     }
@@ -83,7 +83,7 @@ public class OrderQueryRepository : QueryRepository<OrderEntity>, IOrderQueryRep
     {
         return await
             _context.Orders
-                .Where(o => o.ShoppingCartId == cartId && o.Status == OrderStatus.Pending)
+                .Where(o => o.ShoppingCartId == cartId && o.OrderStatus == OrderStatus.PendingPayment)
                 .FirstOrDefaultAsync(cancellationToken);
         
     }
@@ -122,5 +122,14 @@ public class OrderQueryRepository : QueryRepository<OrderEntity>, IOrderQueryRep
           //  return Math.Max(0, originalPrice - item.DiscountAmount!.Value);
               return originalPrice;
         });
+    }
+
+    public async Task<OrderTransaction?> GetOrderTransactionByIdAsync(long TransactionId, CancellationToken cancellationToken = default)
+    {
+        return await _context.OrderTransactions
+                .AsNoTracking()
+                .Where(o => o.Id == TransactionId )
+                
+                .FirstOrDefaultAsync(cancellationToken);
     }
 }

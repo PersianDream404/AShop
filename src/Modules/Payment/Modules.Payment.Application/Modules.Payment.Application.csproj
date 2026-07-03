@@ -6,4 +6,24 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Modules.Payment.Application.Contract\Modules.Payment.Application.Contract.csproj" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="FluentValidation" />
+		<PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
+		<PackageReference Include="Mapster" />
+		<PackageReference Include="Scrutor" />
+		<PackageReference Include="Mapster.DependencyInjection" />
+		<PackageReference Include="Parbad" />
+
+
+		<PackageReference Include="Parbad.Gateway.ZarinPal" />
+
+		<PackageReference Include="Parbad.Storage.Abstractions" />
+
+		<PackageReference Include="Parbad.Storage.Cache" />
+		<PackageReference Include="Parbad.AspNetCore" />
+	</ItemGroup>
 </Project>

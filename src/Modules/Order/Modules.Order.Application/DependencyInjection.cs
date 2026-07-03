@@ -7,6 +7,9 @@ using Framwork.Extensions;
 using Mapster;
 using MapsterMapper;
 using Microsoft.Extensions.DependencyInjection;
+using Modules.Order.Application.EventHandlers;
+using Modules.Payment.Application.Contract.Service;
+using SharedKernel.Events;
 
 namespace Modules.Order.Application;
 
@@ -43,6 +46,7 @@ public static class DependencyInjection
         services.AddScoped<ICommandBus, CommandBus>();
         services.AddScoped<IQueryBus, QueryBus>();
 
+
         #region Mapping
 
         var config = TypeAdapterConfig.GlobalSettings;
@@ -51,6 +55,13 @@ public static class DependencyInjection
         services.AddScoped<IMapper, ServiceMapper>();
 
         #endregion
+
+        services.AddScoped<IEventBus, MediatREventBus>();
+        services.AddMediatR(cfg =>
+        {
+            cfg.RegisterServicesFromAssembly(typeof(PaymentSucceededEventHandler).Assembly);
+        });
+
 
         return services;
     }

@@ -22,6 +22,11 @@ public interface IOrderQueryRepository : IQueryRepository<OrderEntity>
     Task<decimal> GetTotalAmountByItemsAsync(long orderId);
 
 
+    #region Transations
+    Task<OrderTransaction?> GetOrderTransactionByIdAsync(long TransactionId, CancellationToken cancellationToken = default);
+
+    #endregion
+
 }
 public interface IOrderItemQueryRepository : IQueryRepository<OrderItem>
 {

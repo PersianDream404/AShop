@@ -40,7 +40,7 @@ public class OrderCommandRepository : CommandRepository<OrderEntity>, IOrderComm
         var orders = await _context.Orders
             .Where(x =>
                 (x.ShoppingCartId == targetCartId || x.ShoppingCartId == sourceCartId) &&
-                x.Status == OrderStatus.Pending)
+                x.OrderStatus == OrderStatus.PendingPayment)
             .ToListAsync(cancellationToken);
 
         var targetOrder = orders.FirstOrDefault(x => x.ShoppingCartId == targetCartId);

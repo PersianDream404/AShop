@@ -6,4 +6,14 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Modules.Payment.Application.Contract\Modules.Payment.Application.Contract.csproj" />
+    <ProjectReference Include="..\Modules.Payment.Application\Modules.Payment.Application.csproj" />
+    <ProjectReference Include="..\Modules.Payment.Persistence\Modules.Payment.Persistence.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Endpoints\Payments\Write\" />
+  </ItemGroup>
+
 </Project>

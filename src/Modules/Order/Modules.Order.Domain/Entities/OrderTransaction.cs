@@ -1,5 +1,4 @@
 ﻿using Modules.Order.Domain.Enums;
-using Shared.Contract.Enums.Payments;
 using SharedKernel.Base;
 using System;
 using System.Collections.Generic;

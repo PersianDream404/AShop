@@ -36,12 +36,12 @@ namespace Modules.Order.Persistence.Migrations
                     b.Property<bool>("Deleted")
                         .HasColumnType("bit");
 
-                    b.Property<long>("DisplayId")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("MobileNumber")
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
+
+                    b.Property<int>("OrderStatus")
+                        .HasColumnType("int");
 
                     b.Property<string>("ShippingAddress")
                         .HasMaxLength(500)
@@ -50,8 +50,8 @@ namespace Modules.Order.Persistence.Migrations
                     b.Property<long>("ShoppingCartId")
                         .HasColumnType("bigint");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
 
                     b.Property<decimal>("TaxAmount")
                         .HasColumnType("decimal(18,2)");
@@ -115,6 +115,50 @@ namespace Modules.Order.Persistence.Migrations
                     b.ToTable("OrderItems", (string)null);
                 });
 
+            modelBuilder.Entity("Modules.Order.Domain.Entities.OrderTransaction", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("FailedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("GatewayTransactionCode")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<long>("OrderId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("OrderStatus")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("PaidAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderTransactions", (string)null);
+                });
+
             modelBuilder.Entity("Modules.Order.Domain.Entities.ShoppingCart", b =>
                 {
                     b.Property<long>("Id")
@@ -165,9 +209,22 @@ namespace Modules.Order.Persistence.Migrations
                     b.Navigation("Order");
                 });
 
+            modelBuilder.Entity("Modules.Order.Domain.Entities.OrderTransaction", b =>
+                {
+                    b.HasOne("Modules.Order.Domain.Entities.OrderEntity", "Order")
+                        .WithMany("Transactions")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+                });
+
             modelBuilder.Entity("Modules.Order.Domain.Entities.OrderEntity", b =>
                 {
                     b.Navigation("OrderItems");
+
+                    b.Navigation("Transactions");
                 });
 
             modelBuilder.Entity("Modules.Order.Domain.Entities.ShoppingCart", b =>

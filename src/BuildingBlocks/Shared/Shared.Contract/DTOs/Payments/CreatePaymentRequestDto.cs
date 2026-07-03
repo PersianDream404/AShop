@@ -1,15 +1,13 @@
 ﻿namespace Shared.Contract.DTOs.Payments;
 
-public record CreatePaymentRequestDto(
-    int? UserId,
-    string? NationalCode,
-    long Amount,
-    TransactionReason Reason,
-    string Description,
-    int? CreatorId,
-    string? ReturnUrl,
-    PaymentCallbackRouteDto CallbackRoute
-);
+public sealed class CreatePaymentRequestDto
+{
+    public decimal Amount { get; init; }
+
+    public long TrackingNumber { get; init; }
+
+    public string ReturnUrl { get; init; } = default!;
+}
 public record VerifyPaymentRequestDto(
     int TransactionId
 );

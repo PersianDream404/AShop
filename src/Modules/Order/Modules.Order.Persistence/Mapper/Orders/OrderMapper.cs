@@ -13,13 +13,13 @@ public static class OrderMapper
             Id = x.Id,
             ShoppingCartId = x.ShoppingCartId,
             TotalAmount = x.TotalAmount,
-            Status = x.Status,
+            Status = x.OrderStatus,
             TaxAmount = x.TaxAmount,
             TermsAccepted = x.TermsAccepted,
             ShippingAddress = x.ShippingAddress,
             MobileNumber = x.MobileNumber,
             TrackingNumber = x.TrackingNumber,
-            DisplayId = x.DisplayId,
+            DisplayId = 0,
             CreatedAt = x.CreatedAt,
             OrderItems = x.OrderItems.Select(oi => new OrderItemDto
             {
@@ -51,13 +51,13 @@ public static class OrderMapper
             Id = x.Id,
             ShoppingCartId = x.ShoppingCartId,
             TotalAmount = x.TotalAmount,
-            Status = x.Status,
+            Status = x.OrderStatus,
             TaxAmount = x.TaxAmount,
             TermsAccepted = x.TermsAccepted,
             ShippingAddress = x.ShippingAddress,
             MobileNumber = x.MobileNumber,
             TrackingNumber = x.TrackingNumber,
-            DisplayId = x.DisplayId,
+            DisplayId = 0,
             CreatedAt = x.CreatedAt,
             OrderItems = x.OrderItems.Select(oi => new OrderItemDto
             {

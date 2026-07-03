@@ -7,6 +7,7 @@ using Modules.Order.Domain.Interfaces;
 using Modules.Order.Persistence.Context;
 using Modules.Order.Persistence.Repositories.OrderItems;
 using Modules.Order.Persistence.Repositories.Orders;
+using Modules.Order.Persistence.Repositories.OrderTransactions;
 using Modules.Order.Persistence.Repositories.ShoppingCarts;
 using SharedKernel.Constants;
 
@@ -46,6 +47,11 @@ public static class DependencyInjection
         services.AddScoped<IOrderCommandRepository, OrderCommandRepository>();
         services.AddScoped<IOrderQueryRepository, OrderQueryRepository>();
 
+        
+        services.AddScoped<IOrderTransactionCommandRepository, OrderTransactionCommandRepository>();
+        services.AddScoped<IOrderTransactionQueryRepository, OrderTransactionQueryRepository>();
+        
+        
         services.AddScoped<IShoppingCartCommandRepository, ShoppingCartCommandRepository>();
         services.AddScoped<IShoppingCartQueryRepository, ShoppingCartQueryRepository>();
 

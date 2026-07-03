@@ -42,3 +42,20 @@ public class OrderItemConfiguration : IEntityTypeConfiguration<OrderItem>
             .OnDelete(DeleteBehavior.Cascade);
     }
 }
+public class OrderTransactionConfiguration : IEntityTypeConfiguration<OrderTransaction>
+{
+    public void Configure(EntityTypeBuilder<OrderTransaction> entity)
+    {
+
+        entity.ToTable("OrderTransactions");
+
+        entity.HasKey(x => x.Id);
+
+        entity.Property(x => x.Amount)
+            .HasPrecision(18, 2);
+
+        entity.Property(x => x.GatewayTransactionCode)
+            .HasMaxLength(128);
+
+    }
+}

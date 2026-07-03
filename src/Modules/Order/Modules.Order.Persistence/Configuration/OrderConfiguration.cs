@@ -19,7 +19,7 @@ public class OrderConfiguration : IEntityTypeConfiguration<OrderEntity>
             .HasColumnType("decimal(18,2)")
             .IsRequired();
 
-        builder.Property(x => x.Status)
+        builder.Property(x => x.OrderStatus)
             .IsRequired();
 
         builder.Property(x => x.TaxAmount)
@@ -38,8 +38,8 @@ public class OrderConfiguration : IEntityTypeConfiguration<OrderEntity>
         builder.Property(x => x.TrackingNumber)
             .HasMaxLength(100);
 
-        builder.Property(x => x.DisplayId)
-            .IsRequired();
+        //builder.Property(x => x.DisplayId)
+        //    .IsRequired();
 
         builder.Property(x => x.CreatedAt)
             .IsRequired();
