@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using System.Text;
 
 
-    namespace SharedKernel.Events;
+namespace SharedKernel.Events;
 
-    public interface IEventBus
-    {
-        Task PublishAsync<TEvent>(TEvent @event, CancellationToken ct)
-        where TEvent : IEvent;
-    }
+public interface IEventBus
+{
+    Task PublishAsync<TEvent>(TEvent @event, CancellationToken ct)
+    where TEvent : IEvent;
+}
 
 
 public interface IEvent : INotification
