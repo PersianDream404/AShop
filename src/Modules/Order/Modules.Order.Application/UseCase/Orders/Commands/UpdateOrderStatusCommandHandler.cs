@@ -45,7 +45,7 @@ public class UpdateOrderStatusCommandValidator : AbstractValidator<UpdateOrderSt
     {
         RuleFor(x => x.Request.OrderId)
             .GreaterThan(0)
-            .WithMessage(SharedValidationMessages.InvalidId);
+            .WithMessage(SharedValidationMessages.Invalid);
 
         RuleFor(x => x.Request.NewStatus)
             .IsInEnum()

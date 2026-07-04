@@ -108,10 +108,10 @@ public class LinkSessionToUserCommandValidator : AbstractValidator<LinkSessionTo
     {
         RuleFor(x => x.Request.CartId)
             .GreaterThan(0)
-            .WithMessage(SharedValidationMessages.InvalidId);
+            .WithMessage(SharedValidationMessages.Invalid);
 
         RuleFor(x => x.Request.UserId)
             .GreaterThan(0)
-            .WithMessage(SharedValidationMessages.InvalidId);
+            .WithMessage(SharedValidationMessages.Invalid);
     }
 }

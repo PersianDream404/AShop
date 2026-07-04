@@ -82,14 +82,14 @@ public class CreateProductCommandValidator
 
         RuleForEach(x => x.request.CategoriesIds)
             .GreaterThan(0)
-            .WithMessage(SharedValidationMessages.InvalidId);
+            .WithMessage(SharedValidationMessages.Invalid);
 
         // =====================
         // رنگ‌ها
         // =====================
         RuleForEach(x => x.request.ColorsIds)
             .GreaterThan(0)
-            .WithMessage(SharedValidationMessages.InvalidId);
+            .WithMessage(SharedValidationMessages.Invalid);
 
         // =====================
         // تخفیف‌ها
@@ -134,12 +134,12 @@ public class CreateProductCommandValidator
                 feature.RuleFor(x => x.ProductFeaturesCategoryId)
                     .GreaterThan(0)
                     .When(x => x.ProductFeaturesCategoryId.HasValue)
-                    .WithMessage(SharedValidationMessages.InvalidId);
+                    .WithMessage(SharedValidationMessages.Invalid);
 
                 feature.RuleFor(x => x.ProductFeaturesId)
                     .GreaterThan(0)
                     .When(x => x.ProductFeaturesId.HasValue)
-                    .WithMessage(SharedValidationMessages.InvalidId);
+                    .WithMessage(SharedValidationMessages.Invalid);
             });
 
     }

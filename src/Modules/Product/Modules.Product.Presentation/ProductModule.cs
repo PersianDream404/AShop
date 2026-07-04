@@ -7,7 +7,7 @@ using Modules.Product.Presentation.Endpoints.Products.Write;
 using SharedKernel.Interface;
 using SmeOpsHub.SharedKernel;
 
-namespace Identity.Application;
+namespace Modules.Product.Presentation;
 
 public class ProductModule : IModule
 {

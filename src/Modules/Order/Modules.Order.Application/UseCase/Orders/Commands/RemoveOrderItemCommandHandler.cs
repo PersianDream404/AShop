@@ -50,6 +50,6 @@ public class RemoveOrderItemCommandValidator : AbstractValidator<RemoveOrderItem
     {
         RuleFor(x => x.OrderItemId)
             .GreaterThan(0)
-            .WithMessage(SharedValidationMessages.InvalidId);
+            .WithMessage(SharedValidationMessages.Invalid);
     }
 }

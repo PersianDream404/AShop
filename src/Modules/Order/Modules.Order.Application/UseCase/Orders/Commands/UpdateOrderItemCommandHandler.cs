@@ -47,11 +47,11 @@ public class UpdateOrderItemCommandValidator : AbstractValidator<UpdateOrderItem
     {
         RuleFor(x => x.OrderId)
             .GreaterThan(0)
-            .WithMessage(SharedValidationMessages.InvalidId);
+            .WithMessage(SharedValidationMessages.Invalid);
 
         RuleFor(x => x.Request.Id)
             .GreaterThan(0)
-            .WithMessage(SharedValidationMessages.InvalidId);
+            .WithMessage(SharedValidationMessages.Invalid);
 
         RuleFor(x => x.Request.Quantity)
             .GreaterThan(0)

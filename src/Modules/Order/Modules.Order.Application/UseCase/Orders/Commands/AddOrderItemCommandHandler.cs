@@ -74,11 +74,11 @@ public class AddOrderItemCommandValidator : AbstractValidator<AddOrderItemComman
     {
         RuleFor(x => x.OrderId)
             .GreaterThan(0)
-            .WithMessage(SharedValidationMessages.InvalidId);
+            .WithMessage(SharedValidationMessages.Invalid);
 
         RuleFor(x => x.Request.ProductId)
             .GreaterThan(0)
-            .WithMessage(SharedValidationMessages.InvalidId);
+            .WithMessage(SharedValidationMessages.Invalid);
 
         //RuleFor(x => x.Request.UnitPrice)
         //    .GreaterThan(0)

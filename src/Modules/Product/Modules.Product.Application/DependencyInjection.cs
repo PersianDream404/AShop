@@ -10,6 +10,7 @@ using Mapster;
 using MapsterMapper;
 
 using Microsoft.Extensions.DependencyInjection;
+namespace Modules.Product.Application;
 
 public static class DependencyInjection
 {

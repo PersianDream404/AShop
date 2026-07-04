@@ -41,7 +41,7 @@ public class UpdateOrderTotalAmountCommandValidator : AbstractValidator<UpdateOr
     {
         RuleFor(x => x.OrderId)
             .GreaterThan(0)
-            .WithMessage(SharedValidationMessages.InvalidId);
+            .WithMessage(SharedValidationMessages.Invalid);
 
         //RuleFor(x => x.NewTotalAmount)
         //    .GreaterThanOrEqualTo(0)

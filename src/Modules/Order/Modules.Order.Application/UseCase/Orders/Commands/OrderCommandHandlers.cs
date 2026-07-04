@@ -58,7 +58,7 @@ public class CreateOrderCommandValidator : AbstractValidator<CreateOrderCommand>
     {
         RuleFor(x => x.Request.ShoppingCartId)
             .GreaterThan(0)
-            .WithMessage(SharedValidationMessages.InvalidId);
+            .WithMessage(SharedValidationMessages.Invalid);
 
         RuleFor(x => x.Request.ShippingAddress)
             .MaximumLength(500)

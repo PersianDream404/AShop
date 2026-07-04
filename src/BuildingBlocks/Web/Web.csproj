@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\Modules\Banner\Modules.Banner.Presentation\Modules.Banner.Presentation.csproj" />
 		<ProjectReference Include="..\..\Modules\FileStore\Modules.FileStore.Presentation\Modules.FileStore.Presentation.csproj" />
 		<ProjectReference Include="..\..\Modules\Identity\Identity.Presentation\Identity.Presentation.csproj" />
 		<ProjectReference Include="..\..\Modules\Order\Modules.Order.Presentation\Modules.Order.Presentation.csproj" />

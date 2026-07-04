@@ -126,7 +126,7 @@
   <data name="GreaterThanZero" xml:space="preserve">
     <value>مقدار  {PropertyName}وارد شده باید بیشتر از صفر باشد.</value>
   </data>
-  <data name="InvalidId" xml:space="preserve">
+  <data name="Invalid" xml:space="preserve">
     <value>{PropertyName} نامعتبر است.</value>
   </data>
   <data name="InvalidNumber" xml:space="preserve">
@@ -143,5 +143,8 @@
   </data>
   <data name="MaxItems" xml:space="preserve">
     <value>تعداد آیتم‌های  {PropertyName}ارسال شده بیشتر از حد مجاز است.</value>
+  </data>
+  <data name="GreaterThanOrEqualToZero" xml:space="preserve">
+    <value>{PropertyName} باید بزرگتر یا مساوی 0 باشد.</value>
   </data>
 </root>

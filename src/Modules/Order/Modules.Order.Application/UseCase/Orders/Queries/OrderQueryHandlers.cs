@@ -37,6 +37,6 @@ public class GetOrderByIdQueryValidator : AbstractValidator<GetOrderByIdQuery>
     {
         RuleFor(x => x.OrderId)
             .GreaterThan(0)
-            .WithMessage(SharedValidationMessages.InvalidId);
+            .WithMessage(SharedValidationMessages.Invalid);
     }
 }

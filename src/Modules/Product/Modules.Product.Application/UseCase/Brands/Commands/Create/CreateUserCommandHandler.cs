@@ -68,6 +68,6 @@ public class CreateBrandCommandValidator : AbstractValidator<CreateBrandCommand>
         RuleFor(x => x.request.ParentId)
             .GreaterThan(0)
             .When(x => x.request.ParentId.HasValue)
-            .WithMessage(SharedValidationMessages.InvalidId);
+            .WithMessage(SharedValidationMessages.Invalid);
     }
 }

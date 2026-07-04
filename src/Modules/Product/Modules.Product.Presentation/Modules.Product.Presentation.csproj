@@ -5,6 +5,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\..\Identity\Identity.Application\Identity.Application.csproj" />
 	  <ProjectReference Include="..\Modules.Product.Application.Contract\Modules.Product.Application.Contract.csproj" />
 	  <ProjectReference Include="..\Modules.Product.Persistence\Modules.Product.Persistence.csproj" />
 	</ItemGroup>

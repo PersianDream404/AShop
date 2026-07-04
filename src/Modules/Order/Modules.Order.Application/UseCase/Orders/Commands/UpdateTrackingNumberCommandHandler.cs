@@ -47,7 +47,7 @@ public class UpdateTrackingNumberCommandValidator : AbstractValidator<UpdateTrac
     {
         RuleFor(x => x.Request.OrderId)
             .GreaterThan(0)
-            .WithMessage(SharedValidationMessages.InvalidId);
+            .WithMessage(SharedValidationMessages.Invalid);
 
         RuleFor(x => x.Request.TrackingNumber)
             .NotEmpty()

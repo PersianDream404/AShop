@@ -35,6 +35,6 @@ public class GetOrdersByUserIdQueryValidator : AbstractValidator<GetOrdersByUser
     {
         RuleFor(x => x.UserId)
             .GreaterThan(0)
-            .WithMessage(SharedValidationMessages.InvalidId);
+            .WithMessage(SharedValidationMessages.Invalid);
     }
 }

@@ -75,6 +75,6 @@ public class PreparePaymentCommandValidator : AbstractValidator<PreparePaymentCo
     {
         RuleFor(x => x.OrderId)
             .GreaterThan(0)
-            .WithMessage(SharedValidationMessages.InvalidId);
+            .WithMessage(SharedValidationMessages.Invalid);
     }
 }

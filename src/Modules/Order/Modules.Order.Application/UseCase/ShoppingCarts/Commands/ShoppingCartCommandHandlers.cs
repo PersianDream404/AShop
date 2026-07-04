@@ -48,7 +48,7 @@ public class CreateShoppingCartCommandValidator : AbstractValidator<CreateShoppi
     {
         RuleFor(x => x.Request.SessionId)
             .NotEmpty()
-            .WithMessage(SharedValidationMessages.InvalidId);
+            .WithMessage(SharedValidationMessages.Invalid);
     }
 }
 

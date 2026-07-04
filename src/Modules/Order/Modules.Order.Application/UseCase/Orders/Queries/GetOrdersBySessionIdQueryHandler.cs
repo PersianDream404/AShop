@@ -36,6 +36,6 @@ public class GetOrdersBySessionIdQueryValidator : AbstractValidator<GetOrdersByS
     {
         RuleFor(x => x.SessionId)
             .NotEmpty()
-            .WithMessage(SharedValidationMessages.InvalidId);
+            .WithMessage(SharedValidationMessages.Invalid);
     }
 }

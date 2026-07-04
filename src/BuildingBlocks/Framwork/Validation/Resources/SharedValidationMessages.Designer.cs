@@ -79,6 +79,15 @@ namespace Framwork.Validation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {PropertyName} باید بزرگتر یا مساوی 0 باشد..
+        /// </summary>
+        public static string GreaterThanOrEqualToZero {
+            get {
+                return ResourceManager.GetString("GreaterThanOrEqualToZero", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to مقدار  {PropertyName}وارد شده باید بیشتر از صفر باشد..
         /// </summary>
         public static string GreaterThanZero {
@@ -90,9 +99,9 @@ namespace Framwork.Validation.Resources {
         /// <summary>
         ///   Looks up a localized string similar to {PropertyName} نامعتبر است..
         /// </summary>
-        public static string InvalidId {
+        public static string Invalid {
             get {
-                return ResourceManager.GetString("InvalidId", resourceCulture);
+                return ResourceManager.GetString("Invalid", resourceCulture);
             }
         }
         

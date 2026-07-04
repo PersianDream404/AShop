@@ -37,6 +37,6 @@ public class GetPaymentSummaryByIdQueryValidator : AbstractValidator<GetPaymentS
     {
         RuleFor(x => x.OrderId)
             .GreaterThan(0)
-            .WithMessage(SharedValidationMessages.InvalidId);
+            .WithMessage(SharedValidationMessages.Invalid);
     }
 }
