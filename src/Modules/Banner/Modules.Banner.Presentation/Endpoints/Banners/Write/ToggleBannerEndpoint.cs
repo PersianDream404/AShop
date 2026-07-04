@@ -23,13 +23,13 @@ public static class ToggleBannerEndpoint
 
                   long id,
                  
-                  [FromServices] ICommandBus _commandBus
+                  [FromServices] ICommandBus _commandBus, CancellationToken ct
                 ) =>
             {
 
 
                 var result = await _commandBus.Send<ToggleBannerCommand, bool>
-                                 (new ToggleBannerCommand(id));
+                                 (new ToggleBannerCommand(id), ct);
 
                 if (!result.IsSuccess)
                 {

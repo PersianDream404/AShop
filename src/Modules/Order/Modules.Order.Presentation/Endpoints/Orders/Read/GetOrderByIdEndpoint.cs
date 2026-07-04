@@ -22,11 +22,11 @@ public static class GetOrderByIdEndpoint
             app.MapGet($"{ApiInfo.Prefix}/{{orderId}}", handler: async (
                     long orderId,
                     [FromServices] IQueryBus queryBus,
-                    [FromServices] ICommandBus commandBus
+                    [FromServices] ICommandBus commandBus, CancellationToken ct
                 ) =>
             {
                 var resultUpdateOrderTotalAmount = await commandBus.Send<UpdateOrderTotalAmountCommand, bool>(
-                   new UpdateOrderTotalAmountCommand(orderId));
+                   new UpdateOrderTotalAmountCommand(orderId), ct);
 
                 var result = await queryBus.Send<GetOrderByIdQuery, OrderDto>(
                     new GetOrderByIdQuery(orderId));

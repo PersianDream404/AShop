@@ -18,11 +18,11 @@ public static class CreateOrderEndpoint
         {
             app.MapPost($"{ApiInfo.Prefix}", handler: async (
                     [FromBody] CreateOrderRequestDto request,
-                    [FromServices] ICommandBus commandBus
+                    [FromServices] ICommandBus commandBus, CancellationToken ct
                 ) =>
             {
                 var result = await commandBus.Send<CreateOrderCommand, long>(
-                    new CreateOrderCommand(request));
+                    new CreateOrderCommand(request), ct);
 
                 if (!result.IsSuccess)
                 {

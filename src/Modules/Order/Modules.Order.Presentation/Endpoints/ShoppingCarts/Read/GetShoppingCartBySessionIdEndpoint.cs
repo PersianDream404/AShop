@@ -18,11 +18,11 @@ public static class GetShoppingCartBySessionIdEndpoint
         {
             app.MapGet($"{ApiInfo.Prefix}/session/{{sessionId}}", handler: async (
                     Guid sessionId,
-                    [FromServices] IQueryBus queryBus
+                    [FromServices] IQueryBus queryBus, CancellationToken ct
                 ) =>
             {
                 var result = await queryBus.Send<GetShoppingCartBySessionIdQuery, ShoppingCartDto>(
-                    new GetShoppingCartBySessionIdQuery(sessionId));
+                    new GetShoppingCartBySessionIdQuery(sessionId), ct);
 
                 if (!result.IsSuccess)
                 {

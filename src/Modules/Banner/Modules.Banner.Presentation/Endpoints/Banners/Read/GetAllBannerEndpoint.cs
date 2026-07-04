@@ -23,12 +23,12 @@ public static class GetAllBannerEndpoint
 
 
                     [AsParameters] GetAllBannerRequestDto request,
-                  [FromServices] IQueryBus _queryBus
+                  [FromServices] IQueryBus _queryBus,CancellationToken ct
                 ) =>
             {
 
                 var result = await _queryBus.Send<GetAllBannerQuery, PagedList< GetAllBannerResponseDto >>
-                                 (new GetAllBannerQuery(request));
+                                 (new GetAllBannerQuery(request), ct);
 
                 if (!result.IsSuccess)
                 {

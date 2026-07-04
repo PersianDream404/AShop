@@ -18,11 +18,11 @@ public static class GetShoppingCartByIdEndpoint
         {
             app.MapGet($"{ApiInfo.Prefix}/{{cartId}}", handler: async (
                     long cartId,
-                    [FromServices] IQueryBus queryBus
+                    [FromServices] IQueryBus queryBus, CancellationToken ct
                 ) =>
             {
                 var result = await queryBus.Send<GetShoppingCartByIdQuery, ShoppingCartDto>(
-                    new GetShoppingCartByIdQuery(cartId));
+                    new GetShoppingCartByIdQuery(cartId), ct);
 
                 if (!result.IsSuccess)
                 {

@@ -20,11 +20,11 @@ public static class UpdateOrderItemEndpoint
             app.MapPut($"{ApiInfo.Prefix}/{{orderId}}/items", handler: async (
                     long orderId,
                     [FromBody] UpdateOrderItemRequestDto request,
-                    [FromServices] ICommandBus commandBus
+                    [FromServices] ICommandBus commandBus, CancellationToken ct
                 ) =>
             {
                 var result = await commandBus.Send<UpdateOrderItemCommand, bool>(
-                    new UpdateOrderItemCommand(orderId, request));
+                    new UpdateOrderItemCommand(orderId, request), ct);
 
                 if (!result.IsSuccess)
                 {

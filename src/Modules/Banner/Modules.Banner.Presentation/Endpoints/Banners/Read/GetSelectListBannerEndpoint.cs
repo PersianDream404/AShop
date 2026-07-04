@@ -23,12 +23,12 @@ public static class GetSelectListBannerEndpoint
 
 
                     [AsParameters] GetSelectListBannerRequestDto request,
-                  [FromServices] IQueryBus _queryBus
+                  [FromServices] IQueryBus _queryBus, CancellationToken ct
                 ) =>
             {
 
                 var result = await _queryBus.Send<GetSelectListBannerQuery, PagedList< GetSelectListBannerResponseDto >>
-                                 (new GetSelectListBannerQuery(request));
+                                 (new GetSelectListBannerQuery(request),ct);
 
                 if (!result.IsSuccess)
                 {

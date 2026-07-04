@@ -18,11 +18,11 @@ public static class PayOrderEndpoint
         {
             app.MapPost($"{ApiInfo.Prefix}{{orderId:int}}/pay", handler: async (
                     [FromBody] GetPreparePaymentRequestDto request,long orderId,
-                    [FromServices] ICommandBus commandBus
+                    [FromServices] ICommandBus commandBus, CancellationToken ct
                 ) =>
             {
                 var result = await commandBus.Send<PreparePaymentCommand, GetPreparePaymentResponseDto>(
-                    new PreparePaymentCommand(orderId,request));
+                    new PreparePaymentCommand(orderId,request), ct);
 
                 if (!result.IsSuccess)
                 {

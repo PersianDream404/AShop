@@ -20,11 +20,11 @@ public static class GetOrdersBySessionIdEndpoint
             app.MapGet($"{ApiInfo.Prefix}/session/{{sessionId}}", handler: async (
                     Guid sessionId,
                     [FromServices] IQueryBus queryBus,
-                    [FromServices] ICommandBus commandBus
+                    [FromServices] ICommandBus commandBus, CancellationToken ct
                 ) =>
             {
                 var result = await queryBus.Send<GetOrdersBySessionIdQuery, OrderDto>(
-                    new GetOrdersBySessionIdQuery(sessionId));
+                    new GetOrdersBySessionIdQuery(sessionId), ct);
 
                 if (!result.IsSuccess)
                 {

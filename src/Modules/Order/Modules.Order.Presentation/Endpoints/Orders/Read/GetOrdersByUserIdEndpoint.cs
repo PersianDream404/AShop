@@ -20,12 +20,12 @@ public static class GetOrdersByUserIdEndpoint
             app.MapGet($"{ApiInfo.Prefix}/user/{{userId}}", handler: async (
                     long userId,
                     [FromServices] IQueryBus queryBus,
-                    [FromServices] ICommandBus commandBus
+                    [FromServices] ICommandBus commandBus, CancellationToken ct
                 ) =>
             {
 
                 var result = await queryBus.Send<GetOrdersByUserIdQuery, OrderDto>(
-                    new GetOrdersByUserIdQuery(userId));
+                    new GetOrdersByUserIdQuery(userId), ct);
 
                 if (!result.IsSuccess)
                 {

@@ -20,12 +20,12 @@ public static class GetByIdBannerEndpoint
 
 
                     int id,
-                  [FromServices] IQueryBus _queryBus
+                  [FromServices] IQueryBus _queryBus, CancellationToken ct
                 ) =>
             {
 
                 var result = await _queryBus.Send<GetByIdBannerQuery, GetByIdBannerResponseDto>
-                                 (new GetByIdBannerQuery(id));
+                                 (new GetByIdBannerQuery(id),ct);
 
                 if (!result.IsSuccess)
                 {

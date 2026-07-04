@@ -20,11 +20,11 @@ public static class AddOrderItemEndpoint
             app.MapPost($"{ApiInfo.Prefix}/{{orderId}}/items", handler: async (
                     long orderId,
                     [FromBody] CreateOrderItemRequestDto request,
-                    [FromServices] ICommandBus commandBus
+                    [FromServices] ICommandBus commandBus, CancellationToken ct
                 ) =>
             {
                 var result = await commandBus.Send<AddOrderItemCommand, bool>(
-                    new AddOrderItemCommand(orderId, request));
+                    new AddOrderItemCommand(orderId, request), ct);
 
                 if (!result.IsSuccess)
                 {

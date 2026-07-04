@@ -34,7 +34,7 @@ public static class UpdateFileStoreEndpoint
                   long id,
 
                     [FromForm] UpdateFileStore requestForm,
-                  [FromServices] ICommandBus _commandBus
+                  [FromServices] ICommandBus _commandBus, CancellationToken ct
                 ) =>
             {
 
@@ -52,7 +52,7 @@ public static class UpdateFileStoreEndpoint
                 };
 
                 var result = await _commandBus.Send<UpdateFileStoreCommand, string>
-                                 (new UpdateFileStoreCommand(request));
+                                 (new UpdateFileStoreCommand(request), ct);
 
                 if (!result.IsSuccess)
                 {

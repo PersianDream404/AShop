@@ -24,12 +24,12 @@ public static class GetAllFileStoreEndpoint
 
 
                     [AsParameters] GetAllFileStoreRequestDto request,
-                  [FromServices] IQueryBus _queryBus
+                  [FromServices] IQueryBus _queryBus, CancellationToken ct
                 ) =>
             {
 
                 var result = await _queryBus.Send<GetAllFileStoreQuery, PagedList< GetAllFileStoreResponseDto >>
-                                 (new GetAllFileStoreQuery(request));
+                                 (new GetAllFileStoreQuery(request), ct);
 
                 if (!result.IsSuccess)
                 {

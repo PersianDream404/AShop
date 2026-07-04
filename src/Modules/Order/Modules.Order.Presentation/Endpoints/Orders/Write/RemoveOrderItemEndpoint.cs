@@ -18,11 +18,11 @@ public static class RemoveOrderItemEndpoint
         {
             app.MapDelete($"{ApiInfo.Prefix}/items/{{itemId}}", handler: async (
                     long itemId,
-                    [FromServices] ICommandBus commandBus
+                    [FromServices] ICommandBus commandBus, CancellationToken ct
                 ) =>
             {
                 var result = await commandBus.Send<RemoveOrderItemCommand, bool>(
-                    new RemoveOrderItemCommand(itemId));
+                    new RemoveOrderItemCommand(itemId), ct);
 
                 if (!result.IsSuccess)
                 {

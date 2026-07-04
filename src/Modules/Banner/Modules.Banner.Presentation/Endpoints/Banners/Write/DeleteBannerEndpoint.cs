@@ -23,13 +23,13 @@ public static class DeleteBannerEndpoint
 
                   long id,
                    
-                  [FromServices] ICommandBus _commandBus
+                  [FromServices] ICommandBus _commandBus, CancellationToken ct
                 ) =>
             {
 
 
                 var result = await _commandBus.Send<DeleteBannerCommand, bool>
-                                 (new DeleteBannerCommand(id));
+                                 (new DeleteBannerCommand(id), ct);
 
                 if (!result.IsSuccess)
                 {

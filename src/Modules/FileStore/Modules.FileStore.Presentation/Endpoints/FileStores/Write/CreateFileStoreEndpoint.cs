@@ -31,7 +31,7 @@ public static class CreateFileStoreEndpoint
 
                     [FromForm] CreateFileStore requestForm,
 
-                  [FromServices] ICommandBus _commandBus
+                  [FromServices] ICommandBus _commandBus, CancellationToken ct
                 ) =>
             {
                 CreateFileStoreRequestDto request = new CreateFileStoreRequestDto
@@ -43,7 +43,7 @@ public static class CreateFileStoreEndpoint
                     Category = requestForm.Category
                 };
                 var result = await _commandBus.Send<CreateFileStoreCommand, string>
-                                 (new CreateFileStoreCommand(request));
+                                 (new CreateFileStoreCommand(request), ct);
 
                 if (!result.IsSuccess)
                 {

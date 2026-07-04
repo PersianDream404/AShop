@@ -17,11 +17,11 @@ public static class GetAllShoppingCartsEndpoint
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
             app.MapGet($"{ApiInfo.Prefix}", handler: async (
-                    [FromServices] IQueryBus queryBus
+                    [FromServices] IQueryBus queryBus, CancellationToken ct
                 ) =>
             {
                 var result = await queryBus.Send<GetAllShoppingCartsQuery, IEnumerable<ShoppingCartDto>>(
-                    new GetAllShoppingCartsQuery());
+                    new GetAllShoppingCartsQuery(), ct);
 
                 if (!result.IsSuccess)
                 {

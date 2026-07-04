@@ -18,11 +18,11 @@ public static class CreateShoppingCartEndpoint
         {
             app.MapPost($"{ApiInfo.Prefix}", handler: async (
                     [FromBody] CreateShoppingCartRequestDto request,
-                    [FromServices] ICommandBus commandBus
+                    [FromServices] ICommandBus commandBus, CancellationToken ct
                 ) =>
             {
                 var result = await commandBus.Send<CreateShoppingCartCommand, long>(
-                    new CreateShoppingCartCommand(request));
+                    new CreateShoppingCartCommand(request), ct);
 
                 if (!result.IsSuccess)
                 {

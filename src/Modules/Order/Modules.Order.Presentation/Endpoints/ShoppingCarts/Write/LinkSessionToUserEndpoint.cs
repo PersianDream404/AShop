@@ -19,12 +19,12 @@ public static class LinkSessionToUserEndpoint
             app.MapPut($"{ApiInfo.Prefix}/{{cartId}}/link-user", handler: async (
                     long cartId,
                     [FromBody] LinkSessionToUserRequestDto request,
-                    [FromServices] ICommandBus commandBus
+                    [FromServices] ICommandBus commandBus, CancellationToken ct
                 ) =>
             {
                 request.CartId = cartId;
                 var result = await commandBus.Send<LinkSessionToUserCommand, bool>(
-                    new LinkSessionToUserCommand(request));
+                    new LinkSessionToUserCommand(request), ct);
 
                 if (!result.IsSuccess)
                 {

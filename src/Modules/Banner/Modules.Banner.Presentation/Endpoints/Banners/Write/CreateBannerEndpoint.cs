@@ -24,12 +24,12 @@ public static class CreateBannerEndpoint
 
 
                     [FromBody]CreateBannerRequestDto request,
-                  [FromServices] ICommandBus _commandBus
+                  [FromServices] ICommandBus _commandBus, CancellationToken ct
                 ) =>
             {
 
                 var result = await _commandBus.Send<CreateBannerCommand, bool>
-                                 (new CreateBannerCommand(request));
+                                 (new CreateBannerCommand(request), ct);
 
                 if (!result.IsSuccess)
                 {

@@ -23,13 +23,13 @@ public static class DeleteFileStoreEndpoint
 
                   int id,
                    
-                  [FromServices] ICommandBus _commandBus
+                  [FromServices] ICommandBus _commandBus, CancellationToken ct
                 ) =>
             {
 
 
                 var result = await _commandBus.Send<DeleteFileStoreCommand, bool>
-                                 (new DeleteFileStoreCommand(id));
+                                 (new DeleteFileStoreCommand(id), ct);
 
                 if (!result.IsSuccess)
                 {

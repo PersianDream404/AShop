@@ -24,7 +24,7 @@ public static class UpdateBannerEndpoint
 
                   long id,
                     [FromBody]UpdateBannerRequestDto request,
-                  [FromServices] ICommandBus _commandBus
+                  [FromServices] ICommandBus _commandBus, CancellationToken ct
                 ) =>
             {
 
@@ -32,7 +32,7 @@ public static class UpdateBannerEndpoint
                     return BadRequest(AppMessages.BadRequest);
 
                 var result = await _commandBus.Send<UpdateBannerCommand, bool>
-                                 (new UpdateBannerCommand(request));
+                                 (new UpdateBannerCommand(request),ct);
 
                 if (!result.IsSuccess)
                 {

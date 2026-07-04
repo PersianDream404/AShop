@@ -23,12 +23,12 @@ public static class GetByIdFileStoreEndpoint
 
 
                     int id,
-                  [FromServices] IQueryBus _queryBus
+                  [FromServices] IQueryBus _queryBus, CancellationToken ct
                 ) =>
             {
 
                 var result = await _queryBus.Send<GetByIdFileStoreQuery, GetByIdFileStoreResponseDto>
-                                 (new GetByIdFileStoreQuery(id));
+                                 (new GetByIdFileStoreQuery(id), ct);
 
                 if (!result.IsSuccess)
                 {

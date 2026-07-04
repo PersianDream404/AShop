@@ -17,11 +17,11 @@ public static class GetAllOrdersEndpoint
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
             app.MapGet($"{ApiInfo.Prefix}", handler: async (
-                    [FromServices] IQueryBus queryBus
+                    [FromServices] IQueryBus queryBus, CancellationToken ct
                 ) =>
             {
                 var result = await queryBus.Send<GetAllOrdersQuery, IEnumerable<OrderDto>>(
-                    new GetAllOrdersQuery());
+                    new GetAllOrdersQuery(), ct);
 
                 if (!result.IsSuccess)
                 {
