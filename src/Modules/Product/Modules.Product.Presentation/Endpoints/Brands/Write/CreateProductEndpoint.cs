@@ -13,7 +13,6 @@ using SharedKernel.Interface;
 namespace Modules.Product.Presentation.Endpoints.Brands.Write;
 
 
-
 public static class CreateBrandEndpoint
 {
     public class EndPoint : BaseEndpoint, IEndpoint
@@ -24,12 +23,12 @@ public static class CreateBrandEndpoint
 
 
                     [FromBody]CreateBrandRequestDto request,
-                  [FromServices] ICommandBus _commandBus
+                  [FromServices] ICommandBus _commandBus, CancellationToken ct
                 ) =>
             {
 
                 var result = await _commandBus.Send<CreateBrandCommand, bool>
-                                 (new CreateBrandCommand(request));
+                                 (new CreateBrandCommand(request), ct);
 
                 if (!result.IsSuccess)
                 {

@@ -12,7 +12,6 @@ using SharedKernel.Interface;
 namespace Modules.Product.Presentation.Endpoints.Brands.Write;
 
 
-
 public static class DeleteBrandEndpoint
 {
     public class EndPoint : BaseEndpoint, IEndpoint
@@ -23,13 +22,13 @@ public static class DeleteBrandEndpoint
 
                   long id,
                    
-                  [FromServices] ICommandBus _commandBus
+                  [FromServices] ICommandBus _commandBus, CancellationToken ct
                 ) =>
             {
 
 
                 var result = await _commandBus.Send<DeleteBrandCommand, bool>
-                                 (new DeleteBrandCommand(id));
+                                 (new DeleteBrandCommand(id), ct);
 
                 if (!result.IsSuccess)
                 {

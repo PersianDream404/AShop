@@ -13,7 +13,6 @@ using SharedKernel.Interface;
 namespace Modules.Product.Presentation.Endpoints.Brands.Write;
 
 
-
 public static class ToggleBrandEndpoint
 {
     public class EndPoint : BaseEndpoint, IEndpoint
@@ -24,13 +23,13 @@ public static class ToggleBrandEndpoint
 
                   long id,
                  
-                  [FromServices] ICommandBus _commandBus
+                  [FromServices] ICommandBus _commandBus, CancellationToken ct
                 ) =>
             {
 
 
                 var result = await _commandBus.Send<ToggleBrandCommand, bool>
-                                 (new ToggleBrandCommand(id));
+                                 (new ToggleBrandCommand(id), ct);
 
                 if (!result.IsSuccess)
                 {

@@ -1,4 +1,4 @@
-﻿using Framwork.Bus.Command;
+using Framwork.Bus.Command;
 using Framwork.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -25,12 +25,11 @@ public static class CreateFeaturesCategoryEndpoint
 
 
                     [FromBody]CreateFeaturesCategoryRequestDto request,
-                  [FromServices] ICommandBus _commandBus
-                ) =>
+                  [FromServices] ICommandBus _commandBus, CancellationToken ct ) =>
             {
 
                 var result = await _commandBus.Send<CreateFeaturesCategoryCommand, bool>
-                                 (new CreateFeaturesCategoryCommand(request));
+                                 (new CreateFeaturesCategoryCommand(request), ct);
 
                 if (!result.IsSuccess)
                 {
@@ -46,3 +45,4 @@ public static class CreateFeaturesCategoryEndpoint
         }
     }
 }
+

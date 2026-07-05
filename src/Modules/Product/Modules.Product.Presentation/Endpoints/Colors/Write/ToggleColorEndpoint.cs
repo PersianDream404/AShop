@@ -1,4 +1,4 @@
-﻿using Framwork.Bus.Command;
+using Framwork.Bus.Command;
 using Framwork.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -24,13 +24,12 @@ public static class ToggleColorEndpoint
 
                   long id,
                  
-                  [FromServices] ICommandBus _commandBus
-                ) =>
+                  [FromServices] ICommandBus _commandBus, CancellationToken ct ) =>
             {
 
 
                 var result = await _commandBus.Send<ToggleColorCommand, bool>
-                                 (new ToggleColorCommand(id));
+                                 (new ToggleColorCommand(id), ct);
 
                 if (!result.IsSuccess)
                 {
@@ -46,3 +45,4 @@ public static class ToggleColorEndpoint
         }
     }
 }
+

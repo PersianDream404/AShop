@@ -1,4 +1,4 @@
-﻿using Framwork.Bus.Command;
+using Framwork.Bus.Command;
 using Framwork.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -24,15 +24,14 @@ public static class UpdateProductEndpoint
 
                   long id,
                     [FromBody]UpdateProductRequestDto request,
-                  [FromServices] ICommandBus _commandBus
-                ) =>
+                  [FromServices] ICommandBus _commandBus, CancellationToken ct ) =>
             {
 
                 if (id != request.Id)
                     return BadRequest(AppMessages.BadRequest);
 
                 var result = await _commandBus.Send<UpdateProductCommand, bool>
-                                 (new UpdateProductCommand(request));
+                                 (new UpdateProductCommand(request), ct);
 
                 if (!result.IsSuccess)
                 {
@@ -48,3 +47,4 @@ public static class UpdateProductEndpoint
         }
     }
 }
+

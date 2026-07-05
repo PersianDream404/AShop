@@ -13,7 +13,6 @@ using SharedKernel.Interface;
 namespace Modules.Product.Presentation.Endpoints.Categorys.Write;
 
 
-
 public static class UpdateCategoryEndpoint
 {
     public class EndPoint : BaseEndpoint, IEndpoint
@@ -24,7 +23,7 @@ public static class UpdateCategoryEndpoint
 
                   long id,
                     [FromBody]UpdateCategoryRequestDto request,
-                  [FromServices] ICommandBus _commandBus
+                  [FromServices] ICommandBus _commandBus, CancellationToken ct
                 ) =>
             {
 
@@ -32,7 +31,7 @@ public static class UpdateCategoryEndpoint
                     return BadRequest(AppMessages.BadRequest);
 
                 var result = await _commandBus.Send<UpdateCategoryCommand, bool>
-                                 (new UpdateCategoryCommand(request));
+                                 (new UpdateCategoryCommand(request), ct);
 
                 if (!result.IsSuccess)
                 {

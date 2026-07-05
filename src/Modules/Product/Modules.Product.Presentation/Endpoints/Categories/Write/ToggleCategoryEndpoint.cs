@@ -13,7 +13,6 @@ using SharedKernel.Interface;
 namespace Modules.Product.Presentation.Endpoints.Categorys.Write;
 
 
-
 public static class ToggleCategoryEndpoint
 {
     public class EndPoint : BaseEndpoint, IEndpoint
@@ -24,13 +23,13 @@ public static class ToggleCategoryEndpoint
 
                   long id,
                  
-                  [FromServices] ICommandBus _commandBus
+                  [FromServices] ICommandBus _commandBus, CancellationToken ct
                 ) =>
             {
 
 
                 var result = await _commandBus.Send<ToggleCategoryCommand, bool>
-                                 (new ToggleCategoryCommand(id));
+                                 (new ToggleCategoryCommand(id), ct);
 
                 if (!result.IsSuccess)
                 {

@@ -12,7 +12,6 @@ using SharedKernel.Interface;
 namespace Modules.Product.Presentation.Endpoints.Categorys.Write;
 
 
-
 public static class DeleteCategoryEndpoint
 {
     public class EndPoint : BaseEndpoint, IEndpoint
@@ -23,13 +22,13 @@ public static class DeleteCategoryEndpoint
 
                   long id,
                    
-                  [FromServices] ICommandBus _commandBus
+                  [FromServices] ICommandBus _commandBus, CancellationToken ct
                 ) =>
             {
 
 
                 var result = await _commandBus.Send<DeleteCategoryCommand, bool>
-                                 (new DeleteCategoryCommand(id));
+                                 (new DeleteCategoryCommand(id), ct);
 
                 if (!result.IsSuccess)
                 {

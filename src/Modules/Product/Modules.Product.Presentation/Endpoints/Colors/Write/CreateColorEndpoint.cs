@@ -1,4 +1,4 @@
-﻿using Framwork.Bus.Command;
+using Framwork.Bus.Command;
 using Framwork.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -24,12 +24,11 @@ public static class CreateColorEndpoint
 
 
                     [FromBody]CreateColorRequestDto request,
-                  [FromServices] ICommandBus _commandBus
-                ) =>
+                  [FromServices] ICommandBus _commandBus, CancellationToken ct ) =>
             {
 
                 var result = await _commandBus.Send<CreateColorCommand, bool>
-                                 (new CreateColorCommand(request));
+                                 (new CreateColorCommand(request), ct);
 
                 if (!result.IsSuccess)
                 {
@@ -45,3 +44,4 @@ public static class CreateColorEndpoint
         }
     }
 }
+

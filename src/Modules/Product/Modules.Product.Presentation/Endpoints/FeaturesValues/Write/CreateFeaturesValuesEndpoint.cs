@@ -1,4 +1,4 @@
-﻿using Framwork.Bus.Command;
+using Framwork.Bus.Command;
 using Framwork.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -24,12 +24,11 @@ public static class CreateFeaturesValuesEndpoint
 
 
                     [FromBody]CreateFeaturesValuesRequestDto request,
-                  [FromServices] ICommandBus _commandBus
-                ) =>
+                  [FromServices] ICommandBus _commandBus, CancellationToken ct ) =>
             {
 
                 var result = await _commandBus.Send<CreateFeaturesValuesCommand, bool>
-                                 (new CreateFeaturesValuesCommand(request));
+                                 (new CreateFeaturesValuesCommand(request), ct);
 
                 if (!result.IsSuccess)
                 {
@@ -45,3 +44,4 @@ public static class CreateFeaturesValuesEndpoint
         }
     }
 }
+

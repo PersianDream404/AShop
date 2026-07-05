@@ -24,7 +24,7 @@ public static class UpdateBrandEndpoint
 
                   long id,
                     [FromBody]UpdateBrandRequestDto request,
-                  [FromServices] ICommandBus _commandBus
+                  [FromServices] ICommandBus _commandBus,CancellationToken ct
                 ) =>
             {
 
@@ -32,7 +32,7 @@ public static class UpdateBrandEndpoint
                     return BadRequest(AppMessages.BadRequest);
 
                 var result = await _commandBus.Send<UpdateBrandCommand, bool>
-                                 (new UpdateBrandCommand(request));
+                                 (new UpdateBrandCommand(request),ct);
 
                 if (!result.IsSuccess)
                 {

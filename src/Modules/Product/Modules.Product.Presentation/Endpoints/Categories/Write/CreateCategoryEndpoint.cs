@@ -13,7 +13,6 @@ using SharedKernel.Interface;
 namespace Modules.Product.Presentation.Endpoints.Categorys.Write;
 
 
-
 public static class CreateCategoryEndpoint
 {
     public class EndPoint : BaseEndpoint, IEndpoint
@@ -24,12 +23,12 @@ public static class CreateCategoryEndpoint
 
 
                     [FromBody]CreateCategoryRequestDto request,
-                  [FromServices] ICommandBus _commandBus
+                  [FromServices] ICommandBus _commandBus, CancellationToken ct
                 ) =>
             {
 
                 var result = await _commandBus.Send<CreateCategoryCommand, bool>
-                                 (new CreateCategoryCommand(request));
+                                 (new CreateCategoryCommand(request), ct);
 
                 if (!result.IsSuccess)
                 {

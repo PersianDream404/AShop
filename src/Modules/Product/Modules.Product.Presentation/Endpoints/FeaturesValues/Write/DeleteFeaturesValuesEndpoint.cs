@@ -1,4 +1,4 @@
-﻿using Framwork.Bus.Command;
+using Framwork.Bus.Command;
 using Framwork.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -23,13 +23,12 @@ public static class DeleteFeaturesValuesEndpoint
 
                   long id,
                    
-                  [FromServices] ICommandBus _commandBus
-                ) =>
+                  [FromServices] ICommandBus _commandBus, CancellationToken ct ) =>
             {
 
 
                 var result = await _commandBus.Send<DeleteFeaturesValuesCommand, bool>
-                                 (new DeleteFeaturesValuesCommand(id));
+                                 (new DeleteFeaturesValuesCommand(id), ct);
 
                 if (!result.IsSuccess)
                 {
@@ -45,3 +44,4 @@ public static class DeleteFeaturesValuesEndpoint
         }
     }
 }
+
