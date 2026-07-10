@@ -28,7 +28,7 @@ namespace Modules.Product.Persistence;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddIdentityInfrastructure(
+    public static IServiceCollection AddProductInfrastructure(
         this IServiceCollection services,
         IConfiguration configuration)
     {

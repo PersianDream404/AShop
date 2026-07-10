@@ -14,7 +14,7 @@ namespace Modules.Product.Application;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddIdentityApplication(
+    public static IServiceCollection AddProductApplication(
         this IServiceCollection services)
     {
         var assembly = typeof(DependencyInjection).Assembly;
