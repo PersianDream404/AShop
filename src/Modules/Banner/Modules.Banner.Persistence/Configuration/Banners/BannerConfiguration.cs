@@ -3,6 +3,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Modules.Banner.Domain.Entities;
+using Modules.Banner.Domain.Enums;
 
 public sealed class BannerConfiguration : IEntityTypeConfiguration<BannerEntity>
 {
@@ -11,6 +12,9 @@ public sealed class BannerConfiguration : IEntityTypeConfiguration<BannerEntity>
         builder.ToTable("Banners");
 
         builder.HasKey(x => x.Id);
+
+        builder.Property(x => x.Type)
+            .HasDefaultValue(BannerType.None);
 
         builder.Property(x => x.Title)
             .IsRequired()

@@ -1,4 +1,5 @@
 ﻿using Framwork.PagedList;
+using Modules.Banner.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -17,6 +18,7 @@ public class GetByIdBannerResponseDto
     public int Order { get; set; }
     public DateTime? StartDate { get; set; }
     public DateTime? EndDate { get; set; }
+    public BannerType Type { get; set; }
     public bool Status { get; set; }
 
 }

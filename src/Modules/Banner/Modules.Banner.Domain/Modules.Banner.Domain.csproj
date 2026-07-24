@@ -3,12 +3,6 @@
 
 
   <ItemGroup>
-    <Folder Include="Enums\" />
-  </ItemGroup>
-
-
-
-  <ItemGroup>
     <ProjectReference Include="..\..\..\BuildingBlocks\SharedKernel\SharedKernel.csproj" />
   </ItemGroup>
 

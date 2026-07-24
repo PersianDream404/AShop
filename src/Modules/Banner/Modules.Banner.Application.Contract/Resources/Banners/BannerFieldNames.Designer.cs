@@ -124,6 +124,15 @@ namespace Modules.Banner.Application.Contract.Resources.Banners {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to نوع.
+        /// </summary>
+        public static string Type {
+            get {
+                return ResourceManager.GetString("Type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to لینک.
         /// </summary>
         public static string Url {

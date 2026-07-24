@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Modules.Banner.Application.Contract.Resources.Banners;
+using Modules.Banner.Domain.Enums;
+using System;
 using System.ComponentModel.DataAnnotations;
-using Modules.Banner.Application.Contract.Resources.Banners;
 using static Modules.Banner.Application.Contract.Resources.Banners.BannerFieldNames;
 
 namespace Modules.Banner.Application.Contract.DTOs.Banners.Create;
@@ -27,4 +28,8 @@ public class CreateBannerRequestDto
 
     [Display(Name = nameof(BannerFieldNames.EndDate), ResourceType = typeof(BannerFieldNames))]
     public DateTime? EndDate { get; set; }
+
+
+    [Display(Name = nameof(BannerFieldNames.Type), ResourceType = typeof(BannerFieldNames))]
+    public BannerType Type { get; set; }
 }

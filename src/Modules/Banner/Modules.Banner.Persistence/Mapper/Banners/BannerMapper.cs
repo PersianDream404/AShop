@@ -19,7 +19,8 @@ public static class BannerMapper
             StartDate = x.StartDate,
             Url = x.Url,
             Title = x.Title,
-            Status = x.Status
+            Status = x.Status,
+            Type=x.Type,
         };
     }
 

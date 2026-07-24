@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Modules.Banner.Persistence.Context;
 
@@ -11,9 +12,11 @@ using Modules.Banner.Persistence.Context;
 namespace Modules.Banner.Persistence.Migrations
 {
     [DbContext(typeof(BannerWriteDbContext))]
-    partial class BannerWriteDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260724121745_add-Type-Banner")]
+    partial class addTypeBanner
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

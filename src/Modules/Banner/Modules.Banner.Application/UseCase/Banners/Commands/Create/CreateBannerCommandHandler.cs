@@ -73,6 +73,10 @@ public class CreateBannerCommandValidator : AbstractValidator<CreateBannerComman
             .GreaterThanOrEqualTo(0)
             .WithMessage(SharedValidationMessages.GreaterThanOrEqualToZero);
 
+        RuleFor(x => x.request.Type)
+            .IsInEnum()
+            .WithMessage(SharedValidationMessages.Invalid);
+
         RuleFor(x => x.request.EndDate)
             .GreaterThanOrEqualTo(x => x.request.StartDate!.Value)
             .WithMessage("تاریخ پایان باید بزرگتر یا مساوی تاریخ شروع باشد.")
