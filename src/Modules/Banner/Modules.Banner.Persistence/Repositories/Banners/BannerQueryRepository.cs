@@ -24,7 +24,9 @@ public class BannerQueryRepository
     {
         var query = _dbContext.Banners
             .AsNoTracking()
-            .WhereIf(!string.IsNullOrWhiteSpace(request.Q), x => x.Title.Contains(request.Q!));
+            .WhereIf(!string.IsNullOrWhiteSpace(request.Q), x => x.Title.Contains(request.Q!))
+            .WhereIf(request.Type.HasValue, x => x.Type==request.Type)
+            ;
 
         var result = await query.ToPagedListAsync(
             BannerMapper.ToGetAllDto(),

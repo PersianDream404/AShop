@@ -1,4 +1,5 @@
 ﻿using Framwork.PagedList;
+using Modules.Banner.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,6 +9,7 @@ namespace Modules.Banner.Application.Contract.DTOs.Banners.GetAll;
 public class GetAllBannerRequestDto : PagedParamData
 {
     public string? Q { get; set; }
+    public BannerType? Type { get; set; }
 }
 public class GetAllBannerResponseDto
 {
@@ -20,5 +22,6 @@ public class GetAllBannerResponseDto
     public int Order { get; set; }
     public DateTime? StartDate { get; set; }
     public DateTime? EndDate { get; set; }
+    public BannerType Type { get; set; }
     public bool Status { get; set; }
 }
