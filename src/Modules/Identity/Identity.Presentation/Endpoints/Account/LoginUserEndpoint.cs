@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Logging;
 using ParsizCRM.API.Features.Account;
 using SharedKernel.Interface;
 
@@ -23,10 +24,11 @@ public static class LoginUserEndpoint
 
                   [FromBody] LoginRequestDto request,
                   [FromServices] IQueryBus queryBus,
+                  [FromServices] ILogger<EndPoint> logger,
                   [FromServices] IJwtService jwtService
                 ) =>
             {
-
+                logger.LogInformation("start Login");
                 var result = await queryBus.Send<LoginUserQuery, RegisterUserResponseDto>(
                 new LoginUserQuery(request));
 

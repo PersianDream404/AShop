@@ -7,9 +7,11 @@
 		<ProjectReference Include="..\..\Modules\Order\Modules.Order.Presentation\Modules.Order.Presentation.csproj" />
 		<ProjectReference Include="..\..\Modules\Payment\Modules.Payment.Presentation\Modules.Payment.Presentation.csproj" />
 		<ProjectReference Include="..\..\Modules\Product\Modules.Product.Presentation\Modules.Product.Presentation.csproj" />
+		<ProjectReference Include="..\Aspire\Project.ServiceDefaults\Project.ServiceDefaults.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" />
 		<!--<PackageReference Include="Microsoft.AspNetCore.OpenApi" />-->

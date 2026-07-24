@@ -55,6 +55,10 @@
   <Folder Name="/src/Presentation/">
     <Project Path="src/BuildingBlocks/Web/Web.csproj" Id="e0450831-009b-46e2-b98a-f044cbab3848" />
   </Folder>
+  <Folder Name="/src/Presentation/Aspire/">
+    <Project Path="src/BuildingBlocks/Aspire/Project.AppHost/Project.AppHost.csproj" Id="35e4ce89-e931-4820-a802-5e0e55ac06d8" />
+    <Project Path="src/BuildingBlocks/Aspire/Project.ServiceDefaults/Project.ServiceDefaults.csproj" Id="c11cff37-3430-4cf2-923a-606c3af7b5cd" />
+  </Folder>
   <Folder Name="/src/Shared/">
     <Project Path="src/BuildingBlocks/Shared/Shared.Contract/Shared.Contract.csproj" Id="7cdcf294-e8d7-4e48-a698-7a89532a5c3a" />
   </Folder>
