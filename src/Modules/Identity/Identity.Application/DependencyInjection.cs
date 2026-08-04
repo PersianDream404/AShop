@@ -5,10 +5,12 @@ using Framwork.Decorator.Command;
 using Framwork.Decorator.Query;
 using Identity.Application.Common.Mapping;
 using Identity.Application.Services;
+using Identity.Application.Users.Queries.GetAll;
 using Mapster;
 using MapsterMapper;
 
 using Microsoft.Extensions.DependencyInjection;
+using SharedKernel.Events;
 using SharedKernel.Interface;
 
 public static class DependencyInjection
@@ -60,7 +62,11 @@ public static class DependencyInjection
         //services.AddSingleton(TypeAdapterConfig.GlobalSettings);
         //services.AddScoped<IMapper, ServiceMapper>();
         #endregion
-
+        //services.AddScoped<IEventBus, MediatREventBus>();
+        //services.AddMediatR(cfg =>
+        //{
+        //    cfg.RegisterServicesFromAssembly(typeof(LoginUserQueryHandler).Assembly);
+        //});
 
         return services;
     }

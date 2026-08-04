@@ -9,7 +9,9 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
 
 using SharedKernel.Constants;
-using Swashbuckle.AspNetCore.SwaggerGen; 
+using SharedKernel.Events;
+using SharedKernel.Events.Logs;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Text;
 using Web.Helpers;
 using Web.Infrastructure.Modules;
@@ -25,10 +27,15 @@ public static class ServiceConfigs
 
         services.AddEndpointsConfiguration(configuration);
         services.AddSwaggerConfiguration();
-      //  services.AddAuthenticationConfiguration(configuration);
-     
+        //  services.AddAuthenticationConfiguration(configuration);
         services.AddCorsConfiguration();
         services.AddApiVersioningConfiguration();
+
+        services.AddScoped<IEventBus, MediatREventBus>();
+        services.AddMediatR(cfg =>
+        {
+            cfg.RegisterServicesFromAssembly(typeof(LogEventHandler).Assembly);
+        });
     }
 
 
@@ -68,12 +75,12 @@ public static class ServiceConfigs
             opt.CustomSchemaIds(type =>
                 type.FullName?.Replace("+", "."));
             opt.AddSecurityDefinition("bearer", new OpenApiSecurityScheme
-        {
-            Type = SecuritySchemeType.Http,
-            Scheme = "bearer",
-            BearerFormat = "JWT",
-            Description = "JWT Authorization header using the Bearer scheme."
-        });
+            {
+                Type = SecuritySchemeType.Http,
+                Scheme = "bearer",
+                BearerFormat = "JWT",
+                Description = "JWT Authorization header using the Bearer scheme."
+            });
 
             opt.AddSecurityRequirement(document => new OpenApiSecurityRequirement
             {
@@ -85,13 +92,13 @@ public static class ServiceConfigs
     }
     private static void AddApiVersioningConfiguration(this IServiceCollection services)
     {
-   
+
         services.AddApiVersioning(options =>
         {
             options.DefaultApiVersion = new ApiVersion(1, 0);
             options.AssumeDefaultVersionWhenUnspecified = true;
             options.ReportApiVersions = true;
-        
+
 
             // خواندن نسخه از هدر یا QueryString
             options.ApiVersionReader = ApiVersionReader.Combine(

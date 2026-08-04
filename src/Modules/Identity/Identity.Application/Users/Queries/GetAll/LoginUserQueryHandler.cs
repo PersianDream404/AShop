@@ -7,14 +7,18 @@ using Identity.Application.Contract.Users.Queries;
 using Identity.Domain.Entities;
 using Identity.Domain.Interface;
 using Microsoft.AspNetCore.Identity;
+using SharedKernel.Events;
+using SharedKernel.Events.Logs;
 using System;
 using System.Collections.Generic;
+using System.Runtime.Intrinsics.Arm;
 using System.Text;
 
 namespace Identity.Application.Users.Queries.GetAll;
 
 public class LoginUserQueryHandler(
     IUserQueryRepository userQueryRepository,
+        IEventBus eventBus,
     UserManager<ApplicationUser> _userManager)
 : IQueryHandler<LoginUserQuery, RegisterUserResponseDto>
 {
@@ -22,6 +26,10 @@ public class LoginUserQueryHandler(
         LoginUserQuery query,
         CancellationToken cancellationToken)
     {
+
+        // اصلاح کد ناقص بلاک Catch جهت انتشار صحیح رویداد شکست پرداخت
+        await eventBus.PublishAsync(
+            new LogEventRequest("لاگ تستی"), cancellationToken);
 
 
         var phoneNumber = query.request.UserName.NormalizePhoneNumber();
