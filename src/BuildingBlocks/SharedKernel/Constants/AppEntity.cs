@@ -53,6 +53,7 @@ public class AppEntityProductFeatures
 public class AppEntityCategory
 {
     public const string Title = "نام ";
+    public const string Url = "لینک ";
 
 
 

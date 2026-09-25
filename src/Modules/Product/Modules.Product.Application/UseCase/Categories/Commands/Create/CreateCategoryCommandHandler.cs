@@ -28,11 +28,14 @@ public class CreateCategoryCommandHandler(ICategoryCommandRepository CategoryCom
         {
             if (!await categoryQueryRepository.IsUniqueAsync(x => x.Title == command.request.Title, true, cancellationToken))
                 return Result.Error(MessageHelper.Format(AppMessages.Found, AppEntityCategory.Title));
+
+            if (!await categoryQueryRepository.IsUniqueAsync(x => x.UrlName == command.request.UrlName, true, cancellationToken))
+                return Result.Error(MessageHelper.Format(AppMessages.Found, AppEntityCategory.Url));
             var category = command.request.Adapt<Category>();
             await CategoryCommandRepository.AddAsync(category, cancellationToken);
 
         }
-        catch (Exception)
+        catch (Exception ex)
         {
             return Result.Error(MessageHelper.Format(AppMessages.ErrorIn, AppEntity.Category));
         }

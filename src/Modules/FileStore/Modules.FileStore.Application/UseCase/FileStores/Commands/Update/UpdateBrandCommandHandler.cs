@@ -2,6 +2,7 @@
 using FluentValidation;
 using Framwork.Bus.Command;
 using Mapster;
+using Modules.FileStore.Application.Contract.DTOs.FileStores.Create;
 using Modules.FileStore.Application.Contract.DTOs.FileUploader;
 using Modules.FileStore.Application.Contract.Interface.FileStores;
 using Modules.FileStore.Application.Contract.Interface.Services;
@@ -21,9 +22,9 @@ public class UpdateFileStoreCommandHandler(
     IUnitOfWork unitOfWork
 
     )
-    : ICommandHandler<UpdateFileStoreCommand, string>
+    : ICommandHandler<UpdateFileStoreCommand, CreateFileStoreResponseDto>
 {
-    public async Task<Result<string>> Handle(
+    public async Task<Result<CreateFileStoreResponseDto>> Handle(
         UpdateFileStoreCommand command,
         CancellationToken cancellationToken)
     {
@@ -56,7 +57,11 @@ public class UpdateFileStoreCommandHandler(
             await fileStoreCommandRepository.UpdateAsync(fileStore,cancellationToken);
             await unitOfWork.CommitAsync(cancellationToken);
 
-            return fileResult.FilePath;
+            return new CreateFileStoreResponseDto
+            {
+                Id = fileStore.Id,
+                Path = fileStore.FilePath ?? "",
+            };
         }
         catch (Exception)
         {

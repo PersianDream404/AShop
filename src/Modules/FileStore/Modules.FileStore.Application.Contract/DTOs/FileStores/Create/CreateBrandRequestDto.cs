@@ -11,3 +11,10 @@ public class CreateFileStoreRequestDto: UploadFileDto
   
 
 }
+public class CreateFileStoreResponseDto
+{
+
+    public long Id { get; set; }
+    public string Path { get; set; } = null!;
+
+}

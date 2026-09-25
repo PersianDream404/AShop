@@ -42,7 +42,7 @@ public static class CreateFileStoreEndpoint
                     Content = requestForm.File.OpenReadStream(),
                     Category = requestForm.Category
                 };
-                var result = await _commandBus.Send<CreateFileStoreCommand, string>
+                var result = await _commandBus.Send<CreateFileStoreCommand, CreateFileStoreResponseDto>
                                  (new CreateFileStoreCommand(request), ct);
 
                 if (!result.IsSuccess)

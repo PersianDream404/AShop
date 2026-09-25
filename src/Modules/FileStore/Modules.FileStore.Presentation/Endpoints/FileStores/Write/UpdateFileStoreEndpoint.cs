@@ -51,7 +51,7 @@ public static class UpdateFileStoreEndpoint
                     Category = requestForm.Category
                 };
 
-                var result = await _commandBus.Send<UpdateFileStoreCommand, string>
+                var result = await _commandBus.Send<UpdateFileStoreCommand, CreateFileStoreResponseDto>
                                  (new UpdateFileStoreCommand(request), ct);
 
                 if (!result.IsSuccess)
