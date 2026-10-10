@@ -58,8 +58,8 @@ public class CreateBannerCommandValidator : AbstractValidator<CreateBannerComman
         RuleFor(x => x.request.ImageUrl)
             .MaximumLength(500)
             .WithMessage(SharedValidationMessages.MaxLength)
-            .Must(StringHelper.BeValidUrl)
-            .WithMessage(SharedValidationMessages.Invalid)
+            //.Must(StringHelper.BeValidUrl)
+            //.WithMessage(SharedValidationMessages.Invalid)
             .When(x => !string.IsNullOrWhiteSpace(x.request.ImageUrl));
 
         RuleFor(x => x.request.Url)
