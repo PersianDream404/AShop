@@ -2,6 +2,14 @@
 
 namespace Ashop.UnitTest
 {
+
+    public class test
+    {
+        public void test1()
+        {
+            Console.WriteLine("test");
+        }
+    }
     public class UnitTest1(ITestOutputHelper testOutputHelper) :IAsyncLifetime
     {
         public async Task DisposeAsync()
