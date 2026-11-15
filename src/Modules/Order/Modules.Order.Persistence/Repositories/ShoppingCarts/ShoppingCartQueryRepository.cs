@@ -45,10 +45,10 @@ public class ShoppingCartQueryRepository : QueryRepository<ShoppingCart>, IShopp
             .FirstOrDefaultAsync(cancellationToken);
     }
 
-    public async Task<ShoppingCart?> GetByNotIdAsync(long UserId, long CartId,CancellationToken cancellationToken = default)
+    public async Task<ShoppingCart?> GetByNotIdAsync(long userId, long cartId, CancellationToken cancellationToken = default)
     {
         return await _context.ShoppingCarts
-            .Where(x => (x.UserId == UserId || x.UserId == null) && x.Id != CartId)
+            .Where(x => x.UserId == userId && x.Id != cartId)
             .AsNoTracking()
             .FirstOrDefaultAsync(cancellationToken);
     }

@@ -12,5 +12,5 @@ public interface IShoppingCartQueryRepository : IQueryRepository<ShoppingCart>
     Task<ShoppingCartDto?> GetBySessionIdProjectedAsync(Guid id, CancellationToken cancellationToken = default);
     Task<bool> AnyBySessionIdAsync(Guid id, CancellationToken cancellationToken = default);
     Task<ShoppingCartDto?> GetByUserIdProjectedAsync(long id, CancellationToken cancellationToken = default);
-    Task<ShoppingCart?> GetByNotIdAsync(long UserId, long CartId,CancellationToken cancellationToken = default);
+    Task<ShoppingCart?> GetByNotIdAsync(long userId, long cartId, CancellationToken cancellationToken = default);
 }

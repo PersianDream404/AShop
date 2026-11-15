@@ -14,7 +14,7 @@ namespace Modules.Order.Application.UseCase.ShoppingCarts.Commands;
 
 public class LinkSessionToUserCommandHandler(IUnitOfWork unitOfWork,
     IShoppingCartCommandRepository shoppingCartCommandRepository, IShoppingCartQueryRepository shoppingCartQueryRepository,
-    IOrderQueryRepository orderQueryRepository, IOrderCommandRepository orderCommandRepository
+    IOrderCommandRepository orderCommandRepository
     )
     : ICommandHandler<LinkSessionToUserCommand, bool>
 {
