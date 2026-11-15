@@ -46,7 +46,6 @@ public class OrderTransactionConfiguration : IEntityTypeConfiguration<OrderTrans
 {
     public void Configure(EntityTypeBuilder<OrderTransaction> entity)
     {
-
         entity.ToTable("OrderTransactions");
 
         entity.HasKey(x => x.Id);
@@ -57,5 +56,9 @@ public class OrderTransactionConfiguration : IEntityTypeConfiguration<OrderTrans
         entity.Property(x => x.GatewayTransactionCode)
             .HasMaxLength(128);
 
+        entity.HasOne(x => x.Order)
+            .WithMany(x => x.Transactions)
+            .HasForeignKey(x => x.OrderId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

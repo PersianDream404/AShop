@@ -1,7 +1,6 @@
 ﻿namespace Modules.Order.Application.EventHandlers;
 
 using global::Modules.Order.Application.Contract.Interface.Orders;
-using global::Modules.Payment.Application.Contract.Events;
 using MediatR;
 using Modules.Order.Domain.Interfaces;
 using Modules.Payment.Application.Contract.Events;
@@ -17,7 +16,7 @@ public sealed class PaymentSucceededEventHandler(
         CancellationToken ct)
     {
         var transaction = await orderRepository.GetOrderTransactionByIdAsync(
-            (int)notification.TrackingNumber,
+            notification.TrackingNumber,
             ct);
 
         if (transaction is null)
@@ -32,7 +31,7 @@ public sealed class PaymentSucceededEventHandler(
 
         order.MarkPaid();
         await orderTransactionCommandRepository.UpdateAsync(transaction, ct);
-        
+
         await orderCommandRepository.UpdateAsync(order, ct);
         await unitOfWork.SaveChangesAsync(ct);
     }
@@ -49,7 +48,7 @@ public sealed class PaymentFailedEventHandler(
         CancellationToken ct)
     {
         var transaction = await orderRepository.GetOrderTransactionByIdAsync(
-            (int)notification.TrackingNumber,
+            notification.TrackingNumber,
             ct);
 
         if (transaction is null)
@@ -59,7 +58,10 @@ public sealed class PaymentFailedEventHandler(
 
         var order = await orderRepository.GetByIdAsync(transaction.OrderId, ct);
 
-        order?.MarkPaymentFailed();
+        if (order is null)
+            return;
+
+        order.MarkPaymentFailed();
         await orderTransactionCommandRepository.UpdateAsync(transaction, ct);
         await orderCommandRepository.UpdateAsync(order, ct);
         await unitOfWork.SaveChangesAsync(ct);

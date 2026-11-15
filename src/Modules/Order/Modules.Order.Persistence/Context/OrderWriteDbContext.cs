@@ -20,6 +20,7 @@ public class OrderWriteDbContext : BaseDbContext
     
     public DbSet<ShoppingCart> ShoppingCarts { get; set; }
     public DbSet<OrderEntity> Orders { get; set; }
+    public DbSet<OrderTransaction> OrderTransactions { get; set; }
     public DbSet<OrderItem> OrderItems { get; set; }
 
     #endregion

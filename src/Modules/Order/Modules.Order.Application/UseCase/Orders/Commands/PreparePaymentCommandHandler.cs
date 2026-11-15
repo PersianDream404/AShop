@@ -23,6 +23,7 @@ namespace Modules.Order.Application.UseCase.Orders.Commands;
 
 public class PreparePaymentCommandHandler(
     IOrderCommandRepository commandRepository,
+    IOrderTransactionCommandRepository orderTransactionCommandRepository,
     IPaymentService paymentService,
     IShoppingCartQueryRepository cartQueryRepository,
     IOrderQueryRepository orderQueryRepository,
@@ -40,7 +41,8 @@ public class PreparePaymentCommandHandler(
                 return Result.NotFound("Order not found.");
 
             var transaction = order.CreatePaymentTransaction();
-            await commandRepository.AttachAsync(order, cancellationToken);
+            await orderTransactionCommandRepository.AddAsync(transaction, cancellationToken);
+            await commandRepository.UpdateAsync(order, cancellationToken);
             await unitOfWork.SaveChangesAsync(cancellationToken);
 
             var paymentResult = await paymentService.CreateAsync(

@@ -11,7 +11,6 @@ public sealed class OrderEntity : BaseEntityIdentity
     {
     }
 
-    private readonly List<OrderTransaction> _transactions = new();
     public long ShoppingCartId { get; private set; }
     public decimal TotalAmount { get; private set; }
     public OrderStatus OrderStatus { get; private set; } = OrderStatus.PendingPayment;
@@ -25,7 +24,7 @@ public sealed class OrderEntity : BaseEntityIdentity
     // Navigation properties
     public ShoppingCart ShoppingCart { get; private set; }
     public ICollection<OrderItem> OrderItems { get; set; } = [];
-    public IReadOnlyCollection<OrderTransaction> Transactions => _transactions;
+    public ICollection<OrderTransaction> Transactions { get; private set; } = [];
 
     private OrderEntity(
         long id,
@@ -60,7 +59,7 @@ public sealed class OrderEntity : BaseEntityIdentity
 
         var transaction = new OrderTransaction(Id, TotalAmount);
 
-        _transactions.Add(transaction);
+        Transactions.Add(transaction);
 
         return transaction;
     }
