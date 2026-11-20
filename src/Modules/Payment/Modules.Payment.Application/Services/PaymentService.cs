@@ -62,7 +62,7 @@ public sealed class PaymentService(
             payment.MarkFailed();
             await unitOfWork.SaveChangesAsync(ct);
 
-            return Result.Error("Failed to create payment request.");
+            return Result.Error(gatewayResult.Message);
         }
 
         return Result.Success(new CreatePaymentResultDto

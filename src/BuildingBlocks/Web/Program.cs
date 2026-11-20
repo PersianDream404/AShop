@@ -1,5 +1,6 @@
 using Infrastructure;
 using Infrastructure.Context;
+using Scalar.AspNetCore;
 using SharedKernel.Constants;
 using System.Globalization;
 using Web.Extensions;
@@ -31,6 +32,12 @@ app.UseSwaggerUI(options =>
 {
     options.SwaggerEndpoint("/swagger/v1/swagger.json", "Abolfazl and hamed");
     options.RoutePrefix = string.Empty;
+});
+app.MapScalarApiReference("/scalar", options =>
+{
+    options
+        .WithTitle("Abolfazl and hamed")
+        .WithOpenApiRoutePattern("/swagger/v1/swagger.json");
 });
 app.UseHttpsRedirection();
 app.UseCors("CorsPolicy");
