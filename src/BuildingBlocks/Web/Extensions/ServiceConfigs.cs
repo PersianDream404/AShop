@@ -57,6 +57,7 @@ public static class ServiceConfigs
 
     private static void AddSwaggerConfiguration(this IServiceCollection services)
     {
+        services.AddOpenApi();
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen(opt =>
         {
