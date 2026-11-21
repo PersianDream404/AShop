@@ -6,14 +6,15 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
-using ParsizCRM.API.Features.Account;
+using SharedKernel.Constants;
+using SharedKernel.Helper;
 using SharedKernel.Interface;
 
 namespace Identity.Presentation.Endpoints.Addresses;
 
 public static class CreateAddressEndpoint
 {
-    public sealed class EndPoint : IEndpoint
+    public sealed class EndPoint : BaseEndpoint, IEndpoint
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
@@ -24,14 +25,15 @@ public static class CreateAddressEndpoint
                 CancellationToken cancellationToken) =>
             {
                 if (!AddressEndpointHelpers.TryGetUserId(httpContext, out var userId))
-                    return Results.Unauthorized();
+                    return Unauthorized();
 
                 var result = await commandBus.Send<CreateAddressCommand, AddressDto>(
                     new CreateAddressCommand(userId, request), cancellationToken);
 
-                return result.IsSuccess
-                    ? Results.Ok(result.Value)
-                    : Results.BadRequest(result.GetErrorMessage());
+                if (!result.IsSuccess)
+                    return BadRequest(result.GetErrorMessage());
+
+                return Ok(result.Value, MessageHelper.Format(AppMessages.Create, AppEntity.Address));
             })
             .RequireAuthorization()
             .WithTags(ApiInfo.Tag);

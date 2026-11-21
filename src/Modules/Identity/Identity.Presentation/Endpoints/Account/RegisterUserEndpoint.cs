@@ -2,6 +2,7 @@
 using Framwork.Extensions;
 using Identity.Application.Contract.DTOs.Users;
 using Identity.Application.Contract.Users.Queries;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
