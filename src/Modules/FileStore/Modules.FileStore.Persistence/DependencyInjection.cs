@@ -7,7 +7,9 @@ using Modules.FileStore.Application.Contract.Interface.FileStores;
 using Modules.FileStore.Persistence.Context;
 using Modules.FileStore.Persistence.Repositories.FileStores;
 using Modules.Product.Domain.Interface.FileStores;
+using Infrastructure.Migrations;
 using SharedKernel.Constants;
+using SharedKernel.Interface;
 
 namespace Modules.FileStore.Persistence;
 
@@ -44,6 +46,7 @@ public static class DependencyInjection
 
         services.AddDbContext<FileStoreReadDbContext>(opt =>
             opt.UseSqlServer(configuration.GetConnectionString(AppSetting.ConnectionString)));
+        services.AddScoped<IModuleMigration, DbContextMigration<FileStoreWriteDbContext>>();
 
 
         services.AddScoped<IFileStoreCommandRepository, FileStoreCommandRepository>();

@@ -3,6 +3,7 @@ using Identity.Domain.Entities;
 using Identity.Domain.Interface;
 using Identity.Application.Contract.Interface.Addresses;
 using Identity.Persistence.Context;
+using Infrastructure.Migrations;
 using Identity.Persistence.Repositories.Users;
 using Infrastructure.Context;
 using Infrastructure.Repositories;
@@ -48,6 +49,7 @@ public static class DependencyInjection
 
         services.AddDbContext<IdentityWriteDbContext>(opt =>
             opt.UseSqlServer(configuration.GetConnectionString(AppSetting.ConnectionString)));
+        services.AddScoped<IModuleMigration, DbContextMigration<IdentityWriteDbContext>>();
 
         //services.AddDbContext<IdentityReadDbContext>(opt =>
         //    opt.UseSqlServer(configuration.GetConnectionString(AppSetting.ConnectionString)));

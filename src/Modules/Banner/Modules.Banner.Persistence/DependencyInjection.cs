@@ -5,7 +5,9 @@ using Modules.Banner.Domain.Interface;
 using Modules.Banner.Persistence.Context;
 using Modules.Banner.Persistence.Repositories.Banners;
 using Modules.Product.Application.Contract.Interface.Banners;
+using Infrastructure.Migrations;
 using SharedKernel.Constants;
+using SharedKernel.Interface;
 
 namespace Modules.Banner.Persistence;
 
@@ -42,6 +44,7 @@ public static class DependencyInjection
 
         services.AddDbContext<BannerReadDbContext>(opt =>
             opt.UseSqlServer(configuration.GetConnectionString(AppSetting.ConnectionString)));
+        services.AddScoped<IModuleMigration, DbContextMigration<BannerWriteDbContext>>();
 
 
         services.AddScoped<IBannerCommandRepository, BannerCommandRepository>();

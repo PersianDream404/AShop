@@ -6,7 +6,9 @@ using Modules.Payment.Application.Contract.Interface;
 using Modules.Payment.Application.Contract.Service;
 using Modules.Payment.Persistence.Context;
 using Modules.Payment.Persistence.Repositories.Payments;
+using Infrastructure.Migrations;
 using SharedKernel.Constants;
+using SharedKernel.Interface;
 
 namespace Modules.Payment.Persistence;
 
@@ -36,6 +38,7 @@ public static class DependencyInjection
 
         services.AddDbContext<PaymentReadDbContext>(options =>
             options.UseSqlServer(connectionString));
+        services.AddScoped<IModuleMigration, DbContextMigration<PaymentWriteDbContext>>();
 
         #endregion
 

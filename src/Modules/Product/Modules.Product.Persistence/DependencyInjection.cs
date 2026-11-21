@@ -22,7 +22,9 @@ using Modules.Product.Persistence.Repositories.FeaturesCategorys;
 using Modules.Product.Persistence.Repositories.FeaturesValuess;
 using Modules.Product.Persistence.Repositories.ProductFeaturess;
 using Modules.Product.Persistence.Repositories.Users;
+using Infrastructure.Migrations;
 using SharedKernel.Constants;
+using SharedKernel.Interface;
 
 namespace Modules.Product.Persistence;
 
@@ -59,6 +61,7 @@ public static class DependencyInjection
 
         services.AddDbContext<ProductReadDbContext>(opt =>
             opt.UseSqlServer(configuration.GetConnectionString(AppSetting.ConnectionString)));
+        services.AddScoped<IModuleMigration, DbContextMigration<ProductWriteDbContext>>();
 
 
         services.AddScoped<IProductCommandRepository, ProductCommandRepository>();

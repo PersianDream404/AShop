@@ -9,7 +9,9 @@ using Modules.Order.Persistence.Repositories.OrderItems;
 using Modules.Order.Persistence.Repositories.Orders;
 using Modules.Order.Persistence.Repositories.OrderTransactions;
 using Modules.Order.Persistence.Repositories.ShoppingCarts;
+using Infrastructure.Migrations;
 using SharedKernel.Constants;
+using SharedKernel.Interface;
 
 namespace Modules.Order.Persistence;
 
@@ -39,6 +41,7 @@ public static class DependencyInjection
 
         services.AddDbContext<OrderReadDbContext>(options =>
             options.UseSqlServer(connectionString));
+        services.AddScoped<IModuleMigration, DbContextMigration<OrderWriteDbContext>>();
 
         #endregion
 

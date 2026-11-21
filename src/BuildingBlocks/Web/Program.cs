@@ -24,6 +24,7 @@ CultureInfo.DefaultThreadCurrentCulture = culture;
 CultureInfo.DefaultThreadCurrentUICulture = culture;
 
 var app = builder.Build();
+await app.ApplyModuleMigrationsAsync();
 app.MapMyEndpoints();
 // Configure the HTTP request pipeline.
 app.UseStaticFiles();
