@@ -54,6 +54,8 @@ public static class DependencyInjection
 
         services.AddScoped<IUserCommandRepository, UserCommandRepository>();
         services.AddScoped<IUserQueryRepository, UserQueryRepository>();
+        services.AddScoped<IAddressCommandRepository, AddressCommandRepository>();
+        services.AddScoped<IAddressQueryRepository, AddressQueryRepository>();
 
         // Add Identity
         services.AddIdentity<ApplicationUser, IdentityRole<long>>(options =>

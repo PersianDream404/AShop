@@ -22,6 +22,7 @@ public class IdentityReadDbContext : IdentityDbContext<ApplicationUser, Identity
 
 
     public DbSet<ApplicationUser> Users { get; set; }
+    public DbSet<Address> Addresses { get; set; }
     
 
 

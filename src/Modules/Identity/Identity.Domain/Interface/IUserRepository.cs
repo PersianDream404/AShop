@@ -16,3 +16,17 @@ public interface IUserQueryRepository
 public interface IUserCommandRepository
 {
 }
+
+public interface IAddressCommandRepository
+{
+    Task<Address> AddAsync(Address address, CancellationToken cancellationToken = default);
+    Task UpdateAsync(Address address, CancellationToken cancellationToken = default);
+    Task SaveChangesAsync(CancellationToken cancellationToken = default);
+}
+
+public interface IAddressQueryRepository
+{
+    Task<IReadOnlyCollection<Address>> GetByUserIdAsync(long userId, CancellationToken cancellationToken = default);
+    Task<Address?> GetByIdAsync(long addressId, long userId, CancellationToken cancellationToken = default);
+    Task<Address?> GetDefaultAsync(long userId, CancellationToken cancellationToken = default);
+}

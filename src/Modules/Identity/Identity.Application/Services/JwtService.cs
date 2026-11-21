@@ -34,6 +34,7 @@ public class JwtService(IOptions<JwtSetting> options) : IJwtService,IScopedDepen
         var claims = new List<Claim>
         {
             new(CustomClaims.User, Id.ToString()),
+            new(ClaimTypes.NameIdentifier, Id.ToString()),
 
         };
         foreach (var role in roles)

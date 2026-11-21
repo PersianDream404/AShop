@@ -20,6 +20,7 @@ public class IdentityWriteDbContext : IdentityDbContext<ApplicationUser, Identit
     }
     #region DbSet
     public DbSet<ApplicationUser> Users { get; set; }
+    public DbSet<Address> Addresses { get; set; }
 
 
 
