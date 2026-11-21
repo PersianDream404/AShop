@@ -10,6 +10,11 @@ public class OrderDto
     public OrderStatus Status { get; set; }
     public decimal TaxAmount { get; set; }
     public bool TermsAccepted { get; set; }
+    public long? ShippingAddressId { get; set; }
+    public string? ShippingRecipientName { get; set; }
+    public string? ShippingProvince { get; set; }
+    public string? ShippingCity { get; set; }
+    public string? ShippingPostalCode { get; set; }
     public string? ShippingAddress { get; set; }
     public string? MobileNumber { get; set; }
     public string? TrackingNumber { get; set; }

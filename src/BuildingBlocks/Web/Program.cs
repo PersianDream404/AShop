@@ -25,7 +25,6 @@ CultureInfo.DefaultThreadCurrentUICulture = culture;
 
 var app = builder.Build();
 await app.ApplyModuleMigrationsAsync();
-app.MapMyEndpoints();
 // Configure the HTTP request pipeline.
 app.UseStaticFiles();
 app.UseSwagger();
@@ -155,8 +154,9 @@ app.MapScalarApiReference("/api/docs", options =>
 });
 app.UseHttpsRedirection();
 app.UseCors("CorsPolicy");
-
-
+app.UseAuthentication();
+app.UseAuthorization();
+app.MapMyEndpoints();
 
 app.Run();
 

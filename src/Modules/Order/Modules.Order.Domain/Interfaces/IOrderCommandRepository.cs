@@ -6,6 +6,7 @@ namespace Modules.Order.Domain.Interfaces;
 
 public interface IOrderCommandRepository: ICommandRepository<OrderEntity>
 {
+    Task<OrderEntity?> GetByIdForUserAsync(long orderId, long userId, CancellationToken cancellationToken = default);
     Task UpdateOrderAsync(long oldCartId, long newCartId, CancellationToken cancellationToken = default);
     Task<Result<bool>> MergePendingOrderAsync(
        long targetCartId,

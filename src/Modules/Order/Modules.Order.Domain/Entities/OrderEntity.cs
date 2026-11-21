@@ -16,6 +16,11 @@ public sealed class OrderEntity : BaseEntityIdentity
     public OrderStatus OrderStatus { get; private set; } = OrderStatus.PendingPayment;
     public decimal TaxAmount { get; private set; }
     public bool TermsAccepted { get; private set; }
+    public long? ShippingAddressId { get; private set; }
+    public string? ShippingRecipientName { get; private set; }
+    public string? ShippingProvince { get; private set; }
+    public string? ShippingCity { get; private set; }
+    public string? ShippingPostalCode { get; private set; }
     public string? ShippingAddress { get; private set; }
     public string? MobileNumber { get; private set; }
     public string? TrackingNumber { get; private set; }
@@ -103,6 +108,52 @@ public sealed class OrderEntity : BaseEntityIdentity
                 { Identifier = nameof(trackingNumber), ErrorMessage = "Tracking number cannot be empty" });
 
         TrackingNumber = trackingNumber;
+        return Result.Success();
+    }
+
+    public Result UpdateShippingAddress(
+        long addressId,
+        string recipientName,
+        string province,
+        string city,
+        string postalCode,
+        string addressLine,
+        string mobileNumber)
+    {
+        if (OrderStatus != OrderStatus.PendingPayment)
+            return Result.Invalid(new ValidationError
+            {
+                Identifier = nameof(OrderStatus),
+                ErrorMessage = "Only pending orders can update the shipping address"
+            });
+
+        if (addressId <= 0)
+            return Result.Invalid(new ValidationError
+            {
+                Identifier = nameof(addressId),
+                ErrorMessage = "Address ID must be greater than zero"
+            });
+
+        if (string.IsNullOrWhiteSpace(recipientName) ||
+            string.IsNullOrWhiteSpace(province) ||
+            string.IsNullOrWhiteSpace(city) ||
+            string.IsNullOrWhiteSpace(postalCode) ||
+            string.IsNullOrWhiteSpace(addressLine) ||
+            string.IsNullOrWhiteSpace(mobileNumber))
+            return Result.Invalid(new ValidationError
+            {
+                Identifier = nameof(addressLine),
+                ErrorMessage = "Shipping address details cannot be empty"
+            });
+
+        ShippingAddressId = addressId;
+        ShippingRecipientName = recipientName;
+        ShippingProvince = province;
+        ShippingCity = city;
+        ShippingPostalCode = postalCode;
+        ShippingAddress = addressLine;
+        MobileNumber = mobileNumber;
+
         return Result.Success();
     }
 

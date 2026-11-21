@@ -29,6 +29,20 @@ public class OrderConfiguration : IEntityTypeConfiguration<OrderEntity>
         builder.Property(x => x.TermsAccepted)
             .IsRequired();
 
+        builder.Property(x => x.ShippingAddressId);
+
+        builder.Property(x => x.ShippingRecipientName)
+            .HasMaxLength(100);
+
+        builder.Property(x => x.ShippingProvince)
+            .HasMaxLength(100);
+
+        builder.Property(x => x.ShippingCity)
+            .HasMaxLength(100);
+
+        builder.Property(x => x.ShippingPostalCode)
+            .HasMaxLength(20);
+
         builder.Property(x => x.ShippingAddress)
             .HasMaxLength(500);
 

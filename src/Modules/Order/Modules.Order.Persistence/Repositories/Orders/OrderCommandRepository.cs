@@ -16,6 +16,21 @@ public class OrderCommandRepository : CommandRepository<OrderEntity>, IOrderComm
     {
         _context = context;
     }
+
+    public async Task<OrderEntity?> GetByIdForUserAsync(
+        long orderId,
+        long userId,
+        CancellationToken cancellationToken = default)
+    {
+        return await _context.Orders
+            .Include(x => x.ShoppingCart)
+            .FirstOrDefaultAsync(
+                x => x.Id == orderId &&
+                     x.ShoppingCart.UserId == userId &&
+                     x.OrderStatus == OrderStatus.PendingPayment,
+                cancellationToken);
+    }
+
     public async Task UpdateOrderAsync(long oldCartId, long newCartId,CancellationToken cancellationToken=default)
     {
         var orders = await _context.Orders
