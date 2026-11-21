@@ -2,17 +2,14 @@
 using CsharpGalaxy.LibraryExtension.Extensions.DateTimes;
 using Mapster;
 using MapsterMapper;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
 
 using SharedKernel.Constants;
 using SharedKernel.Events;
 using SharedKernel.Events.Logs;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using System.Text;
 using Web.Helpers;
 using Web.Infrastructure.Modules;
 
@@ -27,7 +24,7 @@ public static class ServiceConfigs
 
         services.AddEndpointsConfiguration(configuration);
         services.AddSwaggerConfiguration();
-        services.AddAuthenticationConfiguration(configuration);
+        services.AddAuthorization();
         services.AddCorsConfiguration();
         services.AddApiVersioningConfiguration();
 
@@ -109,23 +106,6 @@ public static class ServiceConfigs
         });
 
     }
-    private static void AddAuthenticationConfiguration(this IServiceCollection services, IConfiguration configuration)
-    {
-        services.AddAuthorization();
-        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
-        {
-            options.TokenValidationParameters = new TokenValidationParameters
-            {
-                ValidateIssuer = false,
-                ValidateAudience = false,
-                ValidateLifetime = true,
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(
-                    Encoding.UTF8.GetBytes(configuration.GetSection("Setting:SecretKey").Value!))
-            };
-        });
-    }
-
     private static void AddCorsConfiguration(this IServiceCollection services)
     {
         services.AddCors(opt =>
