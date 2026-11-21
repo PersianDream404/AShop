@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Modules.Product.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class AddProduct : Migration
+    public partial class Initdata : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -48,7 +48,6 @@ namespace Modules.Product.Persistence.Migrations
                     Image = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     UrlName = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     Icon = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
                     Deleted = table.Column<bool>(type: "bit", nullable: false),
                     Status = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -71,7 +70,6 @@ namespace Modules.Product.Persistence.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ColorName = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     ColorCode = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    Price = table.Column<int>(type: "int", nullable: false),
                     Deleted = table.Column<bool>(type: "bit", nullable: false),
                     Status = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -119,7 +117,7 @@ namespace Modules.Product.Persistence.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FeatureCategoryTitle = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
                     Deleted = table.Column<bool>(type: "bit", nullable: false),
                     Status = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -139,16 +137,43 @@ namespace Modules.Product.Persistence.Migrations
                     Price = table.Column<int>(type: "int", nullable: false),
                     ShortDescription = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: true),
                     Image = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     ViewCount = table.Column<int>(type: "int", nullable: true, defaultValue: 0),
-                    SellCount = table.Column<int>(type: "int", nullable: true, defaultValue: 0),
                     Deleted = table.Column<bool>(type: "bit", nullable: false),
                     Status = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Products", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "FeaturesValues",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductFeaturesCategoryId = table.Column<long>(type: "bigint", nullable: true),
+                    ProductFeaturesId = table.Column<long>(type: "bigint", nullable: true),
+                    FeatureValue = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
+                    Deleted = table.Column<bool>(type: "bit", nullable: false),
+                    Status = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FeaturesValues", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_FeaturesValues_ProductFeaturesCategories_ProductFeaturesCategoryId",
+                        column: x => x.ProductFeaturesCategoryId,
+                        principalTable: "ProductFeaturesCategories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_FeaturesValues_ProductFeatures_ProductFeaturesId",
+                        column: x => x.ProductFeaturesId,
+                        principalTable: "ProductFeatures",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -355,6 +380,16 @@ namespace Modules.Product.Persistence.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_FeaturesValues_ProductFeaturesCategoryId",
+                table: "FeaturesValues",
+                column: "ProductFeaturesCategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FeaturesValues_ProductFeaturesId",
+                table: "FeaturesValues",
+                column: "ProductFeaturesId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ProductBrands_ParentId",
                 table: "ProductBrands",
                 column: "ParentId");
@@ -407,9 +442,9 @@ namespace Modules.Product.Persistence.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductFeaturesCategories_FeatureCategoryTitle",
+                name: "IX_ProductFeaturesCategories_Title",
                 table: "ProductFeaturesCategories",
-                column: "FeatureCategoryTitle");
+                column: "Title");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProductGalleries_ProductId_DisplayPriority",
@@ -468,6 +503,9 @@ namespace Modules.Product.Persistence.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "FeaturesValues");
+
             migrationBuilder.DropTable(
                 name: "ProductComments");
 
