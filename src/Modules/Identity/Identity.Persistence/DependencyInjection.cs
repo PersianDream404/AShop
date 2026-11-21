@@ -15,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using SharedKernel.Constants;
 using SharedKernel.Interface;
+using Identity.Persistence.Seeding;
 using System.Text;
 
 namespace Infrastructure;
@@ -73,6 +74,8 @@ public static class DependencyInjection
         })
         .AddEntityFrameworkStores<IdentityWriteDbContext>()
         .AddDefaultTokenProviders();
+
+        services.AddHostedService<IdentityDataSeeder>();
 
         // JWT Config
         //var jwtSettings = configuration.GetSection("Jwt");
