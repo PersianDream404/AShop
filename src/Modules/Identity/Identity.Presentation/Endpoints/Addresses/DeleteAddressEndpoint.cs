@@ -1,6 +1,6 @@
 using Framwork.Bus.Command;
 using Framwork.Extensions;
-using Identity.Application.Contract.UseCase.Addresses;
+using Identity.Application.Contract.UseCase.Addresses.Commands;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

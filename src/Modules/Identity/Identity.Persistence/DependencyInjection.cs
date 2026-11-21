@@ -1,6 +1,7 @@
 ﻿using Identity.Application.Contract.DTOs.Authentications;
 using Identity.Domain.Entities;
 using Identity.Domain.Interface;
+using Identity.Application.Contract.Interface.Addresses;
 using Identity.Persistence.Context;
 using Identity.Persistence.Repositories.Users;
 using Infrastructure.Context;

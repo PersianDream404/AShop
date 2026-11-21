@@ -1,7 +1,7 @@
 using Framwork.Bus.Query;
 using Framwork.Extensions;
 using Identity.Application.Contract.DTOs.Addresses;
-using Identity.Application.Contract.UseCase.Addresses;
+using Identity.Application.Contract.UseCase.Addresses.Queries;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
