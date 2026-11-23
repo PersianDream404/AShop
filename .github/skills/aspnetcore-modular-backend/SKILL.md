@@ -71,6 +71,10 @@ Adjust names and folders to match the neighboring feature in the same module.
 - Require authorization for user-specific endpoints. Derive the user ID from the authenticated claims; never trust a user ID supplied in the request body or route.
 - Check handler result status before returning success. Map missing resources to `NotFound` when the endpoint's established behavior supports it.
 
+## Frontend API documentation
+
+- When adding, changing, or removing an API endpoint, update `README-Frontend.md` to match. Document the HTTP method and route, authentication requirements, and any request or response details needed by frontend consumers.
+
 ## Repository conventions
 
 - Keep repository interfaces in the layer that owns the contract. Domain-specific command repository contracts belong in Domain.Interface when required by the domain; they should inherit the domain generic `ICommandRepository<TEntity>` without creating a Domain-to-Application dependency.
