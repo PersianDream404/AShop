@@ -38,6 +38,8 @@ public class RegisterUserCommandHandler(IUserCommandRepository userCommandReposi
         {
             PhoneNumber = normalizedPhoneNumber,
             UserName = normalizedPhoneNumber,
+            FirstName = command.request.FirstName?.Trim(),
+            LastName = command.request.LastName?.Trim(),
             SecurityStamp = Guid.NewGuid().ToString()
         };
 

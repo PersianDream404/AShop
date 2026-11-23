@@ -2,6 +2,7 @@
 using Identity.Domain.Entities;
 using Identity.Domain.Interface;
 using Identity.Application.Contract.Interface.Addresses;
+using Identity.Application.Contract.Interface.Users;
 using Identity.Persistence.Context;
 using Infrastructure.Migrations;
 using Identity.Persistence.Repositories.Users;
@@ -58,6 +59,7 @@ public static class DependencyInjection
 
         services.AddScoped<IUserCommandRepository, UserCommandRepository>();
         services.AddScoped<IUserQueryRepository, UserQueryRepository>();
+        services.AddScoped<IUserProfileQueryRepository, UserQueryRepository>();
         services.AddScoped<IAddressCommandRepository, AddressCommandRepository>();
         services.AddScoped<IAddressQueryRepository, AddressQueryRepository>();
 
