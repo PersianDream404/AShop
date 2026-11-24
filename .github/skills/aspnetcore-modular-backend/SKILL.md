@@ -71,6 +71,15 @@ Adjust names and folders to match the neighboring feature in the same module.
 - Require authorization for user-specific endpoints. Derive the user ID from the authenticated claims; never trust a user ID supplied in the request body or route.
 - Check handler result status before returning success. Map missing resources to `NotFound` when the endpoint's established behavior supports it.
 
+## Error handling and Persian messages
+
+- Handle business/domain failures explicitly: return a meaningful Persian message and the appropriate `Ardalis.Result` status/API status for cases such as duplicate data, missing resources, invalid state transitions, or denied operations. Do not report a business failure as success.
+- Return Persian messages for request-validation, authorization, and other expected client errors. Keep them user-friendly and consistent with the shared `ApiResponse` contract and existing `AppMessages` conventions.
+- Handle persistence failures without exposing database or infrastructure details. Translate known database constraints (for example, a unique-key conflict) into an actionable Persian message; for unexpected database failures, log the exception and return a generic Persian error message.
+- Never send raw exception text, SQL, schema/table/column names, connection details, or stack traces to API consumers. Detailed technical diagnostics belong in server-side logs.
+- Do not silently swallow exceptions or convert failures into empty/default success responses. Catch exceptions only when they can be handled meaningfully; otherwise let the established centralized error handling process them. Preserve cancellation behavior.
+- Reuse existing exception/result-to-API mapping and logging patterns. Add or change centralized handling only when the feature requires it, and keep every error response message shown to clients in Persian.
+
 ## Frontend API documentation
 
 - When adding, changing, or removing an API endpoint, update `README-Frontend.md` to match. Document the HTTP method and route, authentication requirements, and any request or response details needed by frontend consumers.
