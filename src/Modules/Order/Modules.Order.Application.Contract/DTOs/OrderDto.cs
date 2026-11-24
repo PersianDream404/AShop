@@ -22,6 +22,22 @@ public class OrderDto
     public DateTime CreatedAt { get; set; }
     public ICollection<OrderItemDto> OrderItems { get; set; } = [];
 }
+
+public sealed class OrderListItemDto
+{
+    public long Id { get; set; }
+    public decimal TotalAmount { get; set; }
+    public OrderStatus Status { get; set; }
+    public DateTime CreatedAt { get; set; }
+    public int ItemCount { get; set; }
+}
+
+public sealed class GetUserOrdersRequestDto
+{
+    public int PageNumber { get; set; } = 1;
+    public int PageSize { get; set; } = 10;
+}
+
 public class GetPaymentSummaryOrderDto
 {
     public long Id { get; set; }

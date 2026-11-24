@@ -1,4 +1,6 @@
 using Infrastructure.Repositories;
+using Infrastructure.Extensions;
+using Framwork.PagedList;
 using Microsoft.EntityFrameworkCore;
 using Modules.Order.Application.Contract.DTOs;
 using Modules.Order.Application.Contract.Interface.Orders;
@@ -53,6 +55,35 @@ public class OrderQueryRepository : QueryRepository<OrderEntity>, IOrderQueryRep
             .Select(OrderMapper.ToGetByIdDto())
             .FirstOrDefaultAsync(cancellationToken);
     }
+
+    public async Task<OrderDto?> GetByUserAndOrderIdProjectedAsync(long userId, long orderId, CancellationToken cancellationToken = default)
+    {
+        return await _context.Orders
+            .AsNoTracking()
+            .Where(o => o.Id == orderId && o.ShoppingCart.UserId == userId)
+            .Select(OrderMapper.ToGetByIdDto())
+            .FirstOrDefaultAsync(cancellationToken);
+    }
+
+    public async Task<PagedList<OrderListItemDto>> GetByUserIdPagedAsync(
+        long userId,
+        int pageNumber,
+        int pageSize,
+        CancellationToken cancellationToken = default)
+    {
+        var query = _context.Orders
+            .AsNoTracking()
+            .Where(o => o.ShoppingCart.UserId == userId)
+            .OrderByDescending(o => o.CreatedAt)
+            .ThenByDescending(o => o.Id);
+
+        return await query.ToPagedListAsync(
+            OrderMapper.ToGetUserListItemDto(),
+            pageNumber,
+            pageSize,
+            cancellationToken);
+    }
+
     public async Task<GetPaymentSummaryOrderDto?> GetPaymentSummaryByIdProjectedAsync(long id, CancellationToken cancellationToken = default)
     {
         return await _context.Orders

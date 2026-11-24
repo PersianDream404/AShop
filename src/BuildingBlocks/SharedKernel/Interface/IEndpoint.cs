@@ -58,6 +58,11 @@ public abstract class BaseEndpoint
     protected IResult NotFound(string message)
         => TypedResults.NotFound(new ApiResponse(message, HttpStatusCode.NotFound));
 
+    protected IResult InternalServerError(string message)
+        => TypedResults.Json(
+            new ApiResponse(message, HttpStatusCode.InternalServerError),
+            statusCode: (int)HttpStatusCode.InternalServerError);
+
     protected IResult Unauthorized(string message = "Unauthorized")
         => TypedResults.Unauthorized();
 

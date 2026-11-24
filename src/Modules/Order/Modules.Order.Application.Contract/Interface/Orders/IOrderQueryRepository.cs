@@ -4,6 +4,7 @@ using SharedKernel.Interface.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Framwork.PagedList;
 
 namespace Modules.Order.Application.Contract.Interface.Orders;
 
@@ -15,6 +16,8 @@ public interface IOrderQueryRepository : IQueryRepository<OrderEntity>
     Task<IEnumerable<OrderEntity>> GetBySessionIdAsync(Guid sessionId, CancellationToken cancellationToken = default);
     Task<IEnumerable<OrderDto>> GetAllProjectedAsync(CancellationToken cancellationToken = default);
     Task<OrderDto?> GetByIdProjectedAsync(long id, CancellationToken cancellationToken = default);
+    Task<OrderDto?> GetByUserAndOrderIdProjectedAsync(long userId, long orderId, CancellationToken cancellationToken = default);
+    Task<PagedList<OrderListItemDto>> GetByUserIdPagedAsync(long userId, int pageNumber, int pageSize, CancellationToken cancellationToken = default);
     Task<GetPaymentSummaryOrderDto?> GetPaymentSummaryByIdProjectedAsync(long id, CancellationToken cancellationToken = default);
     Task<OrderDto?> GetBySessionIdProjectedAsync(Guid id, CancellationToken cancellationToken = default);
     Task<OrderDto?> GetByUserIdProjectedAsync(long id, CancellationToken cancellationToken = default);

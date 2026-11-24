@@ -6,6 +6,18 @@ namespace Modules.Order.Persistence.Mapper.Orders;
 
 public static class OrderMapper
 {
+    public static Expression<Func<Domain.Entities.OrderEntity, OrderListItemDto>> ToGetUserListItemDto()
+    {
+        return x => new OrderListItemDto
+        {
+            Id = x.Id,
+            TotalAmount = x.TotalAmount,
+            Status = x.OrderStatus,
+            CreatedAt = x.CreatedAt,
+            ItemCount = x.OrderItems.Count
+        };
+    }
+
     public static Expression<Func<Domain.Entities.OrderEntity, OrderDto>> ToGetByIdDto()
     {
         return x => new OrderDto

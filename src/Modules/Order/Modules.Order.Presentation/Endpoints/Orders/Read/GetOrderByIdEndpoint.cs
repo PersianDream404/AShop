@@ -1,4 +1,3 @@
-using Framwork.Bus.Command;
 using Framwork.Bus.Query;
 using Framwork.Extensions;
 using Microsoft.AspNetCore.Builder;
@@ -6,10 +5,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Modules.Order.Application.Contract.DTOs;
-using Modules.Order.Application.Contract.UseCase.Orders.Commands;
 using Modules.Order.Application.Contract.UseCase.Orders.Queries;
 using SharedKernel.Interface;
-using System.Windows.Input;
+using Ardalis.Result;
 
 namespace Modules.Order.Presentation.Endpoints.Orders.Read;
 
@@ -19,17 +17,24 @@ public static class GetOrderByIdEndpoint
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
-            app.MapGet($"{ApiInfo.Prefix}/{{orderId}}", handler: async (
+            app.MapGet($"{ApiInfo.Prefix}/{{orderId:long}}", handler: async (
+                    HttpContext httpContext,
                     long orderId,
                     [FromServices] IQueryBus queryBus,
-                    [FromServices] ICommandBus commandBus, CancellationToken ct
+                    CancellationToken ct
                 ) =>
             {
-                var resultUpdateOrderTotalAmount = await commandBus.Send<UpdateOrderTotalAmountCommand, bool>(
-                   new UpdateOrderTotalAmountCommand(orderId), ct);
+                if (!OrderEndpointHelpers.TryGetUserId(httpContext, out var userId))
+                    return Unauthorized();
 
                 var result = await queryBus.Send<GetOrderByIdQuery, OrderDto>(
-                    new GetOrderByIdQuery(orderId));
+                    new GetOrderByIdQuery(orderId, userId), ct);
+
+                if (result.Status == ResultStatus.NotFound)
+                    return NotFound(result.GetErrorMessage());
+
+                if (result.Status == ResultStatus.Error)
+                    return InternalServerError(result.GetErrorMessage());
 
                 if (!result.IsSuccess)
                 {
@@ -39,6 +44,7 @@ public static class GetOrderByIdEndpoint
 
                 return Ok(result.Value);
             })
+                .RequireAuthorization()
                 .WithTags(ApiInfo.Tag);
         }
     }
