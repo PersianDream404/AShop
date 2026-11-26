@@ -52,7 +52,12 @@ public class AddOrderItemCommandHandler(IOrderCommandRepository commandRepositor
             }
             else
             {
-                orderItem.UpdateQuantity(orderItem.Quantity + command.Request.Quantity);
+                var updateResult = order.UpdateOrderItem(
+                    orderItem,
+                    (decimal)orderItem.Quantity + command.Request.Quantity);
+                if (!updateResult.IsSuccess)
+                    return Result.Invalid(updateResult.ValidationErrors);
+
                 await itemRepository.UpdateAsync(orderItem, cancellationToken);
             }
 

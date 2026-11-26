@@ -24,10 +24,8 @@ public class LinkSessionToUserCommandHandler(IUnitOfWork unitOfWork,
 
         try
         {
-            var request = command.Request;
-
             var newCart = await shoppingCartQueryRepository
-                .GetByIdAsync(request.CartId, cancellationToken);
+                .GetByIdAsync(command.CartId, cancellationToken);
 
             if (newCart is null)
             {
@@ -38,10 +36,18 @@ public class LinkSessionToUserCommandHandler(IUnitOfWork unitOfWork,
                     "Shopping cart not found");
             }
 
+            if (newCart.UserId.HasValue && newCart.UserId.Value != command.UserId)
+            {
+                await unitOfWork.RollbackAsync(cancellationToken);
+                return Result.Conflict(
+                    "ShoppingCart.AlreadyLinked",
+                    "این سبد خرید قبلاً به حساب دیگری متصل شده است.");
+            }
+
             var oldCart = await shoppingCartQueryRepository
                 .GetByNotIdAsync(
-                    request.UserId,
-                    request.CartId,
+                    command.UserId,
+                    command.CartId,
                     cancellationToken);
 
             if (oldCart is not null)
@@ -57,7 +63,7 @@ public class LinkSessionToUserCommandHandler(IUnitOfWork unitOfWork,
                     return Result.Conflict("Order.MergeFailed");
                 }
 
-                var linkResult = oldCart.LinkToUser(request.UserId);
+                var linkResult = oldCart.LinkToUser(command.UserId);
 
                 if (!linkResult.IsSuccess)
                 {
@@ -73,7 +79,7 @@ public class LinkSessionToUserCommandHandler(IUnitOfWork unitOfWork,
             }
             else
             {
-                var linkResult = newCart.LinkToUser(request.UserId);
+                var linkResult = newCart.LinkToUser(command.UserId);
 
                 if (!linkResult.IsSuccess)
                 {
@@ -106,11 +112,11 @@ public class LinkSessionToUserCommandValidator : AbstractValidator<LinkSessionTo
 {
     public LinkSessionToUserCommandValidator()
     {
-        RuleFor(x => x.Request.CartId)
+        RuleFor(x => x.CartId)
             .GreaterThan(0)
             .WithMessage(SharedValidationMessages.Invalid);
 
-        RuleFor(x => x.Request.UserId)
+        RuleFor(x => x.UserId)
             .GreaterThan(0)
             .WithMessage(SharedValidationMessages.Invalid);
     }

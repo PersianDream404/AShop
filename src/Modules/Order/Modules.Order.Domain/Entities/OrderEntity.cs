@@ -265,4 +265,17 @@ public sealed class OrderEntity : BaseEntityIdentity
         ShoppingCartId = shoppingCartId;
         return Result.Success();
     }
+
+    public Result TransferCart(long shoppingCartId)
+    {
+        if (shoppingCartId <= 0)
+            return Result.Invalid(new ValidationError
+            {
+                Identifier = nameof(shoppingCartId),
+                ErrorMessage = "Shopping cart ID must be greater than zero"
+            });
+
+        ShoppingCartId = shoppingCartId;
+        return Result.Success();
+    }
 }

@@ -13,9 +13,3 @@ public class CreateShoppingCartRequestDto
     public Guid SessionId { get; set; }
     public long? UserId { get; set; }
 }
-
-public class LinkSessionToUserRequestDto
-{
-    public long CartId { get; set; }
-    public long UserId { get; set; }
-}

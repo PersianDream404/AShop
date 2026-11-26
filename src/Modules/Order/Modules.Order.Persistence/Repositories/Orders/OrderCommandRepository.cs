@@ -53,55 +53,92 @@ public class OrderCommandRepository : CommandRepository<OrderEntity>, IOrderComm
             return Result.Success(true);
 
         var orders = await _context.Orders
+            .Where(x => x.ShoppingCartId == targetCartId || x.ShoppingCartId == sourceCartId)
+            .OrderBy(x => x.CreatedAt)
+            .ThenBy(x => x.Id)
+            .ToListAsync(cancellationToken);
+
+        var targetOrder = orders.FirstOrDefault(x =>
+            x.ShoppingCartId == targetCartId &&
+            x.OrderStatus == OrderStatus.PendingPayment);
+        var pendingSourceOrders = orders
             .Where(x =>
-                (x.ShoppingCartId == targetCartId || x.ShoppingCartId == sourceCartId) &&
+                x.ShoppingCartId == sourceCartId &&
                 x.OrderStatus == OrderStatus.PendingPayment)
-            .ToListAsync(cancellationToken);
-
-        var targetOrder = orders.FirstOrDefault(x => x.ShoppingCartId == targetCartId);
-        var sourceOrder = orders.FirstOrDefault(x => x.ShoppingCartId == sourceCartId);
-
-        if (sourceOrder is null)
-            return Result.Success(true);
-
-        if (targetOrder is null)
-        {
-            sourceOrder.ChangeCart(targetCartId);
-            _context.Orders.Update(sourceOrder);
-            return Result.Success(true);
-        }
-
-        var items = await _context.OrderItems
-            .Where(x => x.OrderId == targetOrder.Id || x.OrderId == sourceOrder.Id)
-            .ToListAsync(cancellationToken);
-
-        var targetItemsByProductId = items
-            .Where(x => x.OrderId == targetOrder.Id)
-            .GroupBy(x => x.ProductId)
-            .ToDictionary(x => x.Key, x => x.First());
-
-        var sourceItems = items
-            .Where(x => x.OrderId == sourceOrder.Id)
             .ToList();
 
-        foreach (var sourceItem in sourceItems)
+        targetOrder ??= pendingSourceOrders.FirstOrDefault();
+
+        if (targetOrder is not null)
         {
-            if (targetItemsByProductId.TryGetValue(sourceItem.ProductId, out var targetItem))
+            var pendingOrdersToMerge = orders
+                .Where(x =>
+                    x.OrderStatus == OrderStatus.PendingPayment &&
+                    x.Id != targetOrder.Id)
+                .ToList();
+
+            if (pendingOrdersToMerge.Count > 0)
             {
-                var updateResult = targetItem.IncreaseQuantity(sourceItem.Quantity);
+                var sourceOrderIds = pendingOrdersToMerge.Select(x => x.Id).ToHashSet();
+                var items = await _context.OrderItems
+                    .Where(x => sourceOrderIds.Contains(x.OrderId) || x.OrderId == targetOrder.Id)
+                    .ToListAsync(cancellationToken);
 
-                if (!updateResult.IsSuccess)
-                    return Result.Invalid(updateResult.ValidationErrors);
+                var targetItems = items
+                    .Where(x => x.OrderId == targetOrder.Id)
+                    .ToList();
 
-                _context.OrderItems.Remove(sourceItem);
-                continue;
+                foreach (var sourceItem in items.Where(x => sourceOrderIds.Contains(x.OrderId)))
+                {
+                    var matchingTargetItem = sourceItem.DiscountValue is null
+                        ? targetItems.FirstOrDefault(x =>
+                            x.ProductId == sourceItem.ProductId &&
+                            x.UnitPrice == sourceItem.UnitPrice &&
+                            x.DiscountValue is null)
+                        : null;
+
+                    if (matchingTargetItem is not null)
+                    {
+                        var increaseResult = matchingTargetItem.IncreaseQuantity(sourceItem.Quantity);
+                        if (!increaseResult.IsSuccess)
+                            return Result.Invalid(increaseResult.ValidationErrors);
+
+                        _context.OrderItems.Remove(sourceItem);
+                    }
+                    else
+                    {
+                        var changeResult = sourceItem.ChangeOrder(targetOrder.Id);
+                        if (!changeResult.IsSuccess)
+                            return Result.Invalid(changeResult.ValidationErrors);
+
+                        targetItems.Add(sourceItem);
+                    }
+                }
+
+                foreach (var sourceOrder in pendingOrdersToMerge)
+                {
+                    var totalResult = targetOrder.UpdateTotalAmount(
+                        targetOrder.TotalAmount + sourceOrder.TotalAmount);
+                    if (!totalResult.IsSuccess)
+                        return Result.Invalid(totalResult.ValidationErrors);
+
+                    _context.Orders.Remove(sourceOrder);
+                }
             }
 
-            sourceItem.ChangeOrder(targetOrder.Id);
-            _context.OrderItems.Update(sourceItem);
+            var changeCartResult = targetOrder.ChangeCart(targetCartId);
+            if (!changeCartResult.IsSuccess)
+                return Result.Invalid(changeCartResult.ValidationErrors);
         }
 
-        _context.Orders.Remove(sourceOrder);
+        foreach (var order in orders.Where(x =>
+                     x.ShoppingCartId == sourceCartId &&
+                     x.OrderStatus != OrderStatus.PendingPayment))
+        {
+            var changeCartResult = order.TransferCart(targetCartId);
+            if (!changeCartResult.IsSuccess)
+                return Result.Invalid(changeCartResult.ValidationErrors);
+        }
 
         return Result.Success(true);
     }
